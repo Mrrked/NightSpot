@@ -60,6 +60,11 @@
             <artifactId>ikonli-core</artifactId>
             <version>12.3.0</version>
         </dependency>
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>8.0.28</version>
+        </dependency>
     </dependencies>
 
     <build>
@@ -82,7 +87,7 @@
                         <!-- Default configuration for running with: mvn clean javafx:run -->
                         <id>default-cli</id>
                         <configuration>
-                            <mainClass>app.myapp/app.myapp.AppWindow</mainClass>
+                            <mainClass>app.myapp/app.myapp.model.AppWindow</mainClass>
                         </configuration>
                     </execution>
                 </executions>

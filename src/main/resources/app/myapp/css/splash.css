@@ -1,0 +1,9 @@
+@import "theme.css";
+
+.pane{
+    -fx-background-color: -dark;
+}
+
+.title{
+    -fx-fill: -sign;
+}
