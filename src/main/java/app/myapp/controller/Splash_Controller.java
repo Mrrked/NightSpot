@@ -18,28 +18,28 @@ public class Splash_Controller {
 
     @FXML
     void initialize() {
-        FadeTransition transition = new FadeTransition(Duration.millis(1000),txt_Title);
+        Stage loginStage = new Stage();
+        FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("fxml/userLoginView.fxml"));
+        Scene scene = null;
+        try {
+            scene = new Scene(fxmlLoader.load());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        loginStage.getIcons().add(new Image(String.valueOf(Main.class.getResource("objects\\logo_ph.png"))));
+        loginStage.setScene(scene);
+        loginStage.setTitle("NightSpot");
+        loginStage.setResizable(true);
+        loginStage.resizableProperty().setValue(Boolean.FALSE);
+
+        FadeTransition transition = new FadeTransition(Duration.seconds(2),txt_Title);
         transition.setFromValue(1.0);
         transition.setToValue(1.0);
         transition.play();
 
         transition.setOnFinished(event -> {
-            Stage primaryStage = (Stage) txt_Title.getScene().getWindow();
-            primaryStage.hide();
-
-            Stage loginStage = new Stage();
-            FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("fxml/userlogin-view.fxml"));
-            Scene scene = null;
-            try {
-                scene = new Scene(fxmlLoader.load());
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            loginStage.getIcons().add(new Image(String.valueOf(Main.class.getResource("objects\\logo_ph.png"))));
-            loginStage.setScene(scene);
-            loginStage.setTitle("NightSpot");
-            loginStage.setResizable(true);
-            loginStage.resizableProperty().setValue(Boolean.FALSE);
+            Stage splashStage = (Stage) txt_Title.getScene().getWindow();
+            splashStage.close();
             loginStage.show();
         });
     }

@@ -1,6 +1,6 @@
 package app.myapp;
 
-import app.myapp.model.AppWindow;
+import app.myapp.model.ForumApp;
 
 /**
  *  SUBJECT: Application Development and Emerging Technologies
@@ -21,6 +21,6 @@ import app.myapp.model.AppWindow;
 
 public class Main {
     public static void main(String[] args) {
-        AppWindow.main(args);
+        ForumApp.main(args);
     }
 }

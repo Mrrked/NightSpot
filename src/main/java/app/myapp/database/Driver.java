@@ -1,15 +1,29 @@
 package app.myapp.database;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
+import java.sql.*;
 
 public class Driver {
     private Connection connection;
+    private Statement stmt;
+    private ResultSet rs;
 
+    //Execute method with return data
+    public ResultSet executeSQLRS(String sql) throws SQLException {
+        stmt = connection.createStatement();
+        rs = stmt.executeQuery(sql);
+        return rs;
+    }
+
+    //Execute method without return data
+    public void executeSQL(String sql) throws SQLException {
+        stmt = connection.createStatement();
+        stmt.execute(sql);
+    }
+
+    //Toggle: Database Connection
     public void startConnection() {
         try {
-            String jdbcURL = "jdbc:mysql://localhost:3306/forum_engine_db";
+            String jdbcURL = "jdbc:mysql://localhost:3306/forum_db";
             String username = "root";
             String password = "qswdefrgthyjukil";
             connection = DriverManager.getConnection(jdbcURL, username, password);
@@ -21,5 +35,6 @@ public class Driver {
     }
     public void endConnection() throws SQLException {
         connection.close();
+        System.out.println("Database Connection: OFF");
     }
 }

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.text.Font?>
+
+<fx:root id="message" fx:id="message" alignment="CENTER" contentDisplay="CENTER" maxWidth="300.0" prefWidth="300.0" styleClass="notification" stylesheets="@../../../css/userlogin.css" text="Username already exists" textAlignment="CENTER" type="Label" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
+   <font>
+      <Font size="17.0" />
+   </font>
+   <padding>
+      <Insets bottom="7.0" top="7.0" />
+   </padding>
+</fx:root>

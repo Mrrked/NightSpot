@@ -44,3 +44,17 @@
     -fx-fill: -sign;
     -fx-cursor: HAND;
 }
+.link:hover{
+    -fx-underline: true;
+}
+
+.notification {
+    -fx-background-color: -darker;
+    -fx-border-width: 1px;
+    -fx-border-color: -sign;
+    -fx-border-radius: 2px;
+}
+
+#message {
+    -fx-text-fill: -sign;
+}
