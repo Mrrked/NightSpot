@@ -4,6 +4,10 @@
     -fx-background-color: -dark;
 }
 
-.title{
+#title1 {
+    -fx-fill: -light;
+}
+
+#title2 {
     -fx-fill: -sign;
 }

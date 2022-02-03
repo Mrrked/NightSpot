@@ -155,7 +155,7 @@ public class UserLogin_Controller {
         mainStage.getIcons().add(new Image(String.valueOf(Main.class.getResource("objects\\logo_ph.png"))));
         mainStage.setScene(scene);
         mainStage.setTitle("NightSpot");
-        mainStage.setResizable(true);
+        mainStage.setResizable(false);
         mainStage.resizableProperty().setValue(Boolean.FALSE);
 
         loginStage.close();

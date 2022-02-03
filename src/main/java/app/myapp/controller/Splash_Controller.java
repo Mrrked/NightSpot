@@ -29,7 +29,7 @@ public class Splash_Controller {
         loginStage.getIcons().add(new Image(String.valueOf(Main.class.getResource("objects\\logo_ph.png"))));
         loginStage.setScene(scene);
         loginStage.setTitle("NightSpot");
-        loginStage.setResizable(true);
+        loginStage.setResizable(false);
         loginStage.resizableProperty().setValue(Boolean.FALSE);
 
         FadeTransition transition = new FadeTransition(Duration.seconds(2),txt_Title);
