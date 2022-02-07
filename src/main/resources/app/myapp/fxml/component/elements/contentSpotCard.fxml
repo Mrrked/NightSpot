@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import org.kordamp.ikonli.javafx.FontIcon?>
+
+<HBox id="spotCardBox" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="80.0" prefWidth="900.0" style="-fx-background-color: -dark;" stylesheets="@../../../css/main.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <VBox alignment="CENTER" prefHeight="76.0" prefWidth="76.0" spacing="3.0" styleClass="spotCardJoinButton">
+         <children>
+            <FontIcon iconColor="#e0d3de" iconLiteral="mdi2r-record-circle" iconSize="40" />
+            <Label alignment="CENTER" prefHeight="21.0" prefWidth="107.0" text="Join">
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </Label>
+         </children>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor></VBox>
+      <VBox alignment="CENTER" prefHeight="76.0" prefWidth="280.0" spacing="5.0">
+         <children>
+            <Label id="spotCardLink" alignment="CENTER" prefHeight="62.0" prefWidth="275.0" text="Genshin Impact Global Community" textAlignment="CENTER" wrapText="true">
+               <font>
+                  <Font name="System Bold" size="16.0" />
+               </font>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+               <VBox.margin>
+                  <Insets />
+               </VBox.margin>
+            </Label>
+         </children>
+         <HBox.margin>
+            <Insets right="10.0" />
+         </HBox.margin>
+      </VBox>
+      <Separator orientation="VERTICAL" prefHeight="200.0" />
+      <VBox alignment="CENTER" prefHeight="76.0" prefWidth="131.0" spacing="10.0">
+         <children>
+            <Label id="spotCardJoinBtn" alignment="CENTER" prefHeight="21.0" text="100 Members">
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </Label>
+            <Label id="spotCardJoinBtn" alignment="CENTER" prefHeight="21.0" text="50 Posts">
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </Label>
+         </children>
+         <HBox.margin>
+            <Insets />
+         </HBox.margin>
+      </VBox>
+      <Separator orientation="VERTICAL" prefHeight="200.0" prefWidth="5.0" />
+      <VBox prefHeight="76.0" prefWidth="381.0">
+         <children>
+            <Label id="spotCardJoinBtn" alignment="CENTER" prefHeight="21.0" text="Description">
+               <font>
+                  <Font size="10.0" />
+               </font>
+            </Label>
+            <Label id="spotCardJoinBtn" alignment="TOP_LEFT" prefHeight="76.0" prefWidth="337.0" text="This an English only group" wrapText="true">
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </Label>
+         </children>
+         <padding>
+            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+         </padding>
+         <HBox.margin>
+            <Insets left="10.0" />
+         </HBox.margin>
+      </VBox>
+   </children>
+</HBox>

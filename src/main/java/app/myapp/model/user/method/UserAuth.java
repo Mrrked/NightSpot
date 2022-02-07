@@ -16,14 +16,15 @@ public class UserAuth extends Method{
     public boolean isExist() throws SQLException {
         Driver db_con = new Driver();
         db_con.startConnection();
-        String result;
+        String pass, user;
 
-        String sql = "SELECT `password` FROM `user_tbl` WHERE username = '" + getUsername() + "'";
+        String sql = "SELECT `username`, `password` FROM `user_tbl` WHERE username = '" + getUsername() + "'";
         ResultSet rs = db_con.executeSQLRS(sql);
 
         while(rs.next()){
-            result = rs.getString("password");
-            if(result.equals(getEncryptedPassword())){
+            user = rs.getString("username");
+            pass = rs.getString("password");
+            if(pass.equals(getEncryptedPassword()) &&  user.equals(getUsername())){
                 db_con.endConnection();
                 return true;
             }

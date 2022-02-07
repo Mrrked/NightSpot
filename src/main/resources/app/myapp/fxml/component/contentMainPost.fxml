@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import io.github.palexdev.materialfx.controls.MFXScrollPane?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.web.WebView?>
+<?import org.kordamp.ikonli.javafx.FontIcon?>
+
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="580.0" prefWidth="945.0" style="-fx-background-color: -dark;" stylesheets="@../../css/main.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <HBox prefHeight="34.0" prefWidth="945.0">
+         <children>
+            <HBox alignment="CENTER_LEFT" prefHeight="49.0" prefWidth="187.0">
+               <children>
+                  <FontIcon iconColor="#e0d3de" iconLiteral="mdi2a-arrow-up-bold" iconSize="40" wrappingWidth="40.0" />
+                  <FontIcon iconColor="#e0d3de" iconLiteral="mdi2a-arrow-down-bold" iconSize="40" wrappingWidth="40.0" />
+                  <Label alignment="CENTER" prefHeight="25.0" prefWidth="127.0" text="100, 000">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                  </Label>
+               </children>
+               <padding>
+                  <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+               </padding>
+            </HBox>
+            <Separator orientation="VERTICAL" prefHeight="200.0" />
+            <HBox alignment="CENTER_LEFT" prefHeight="36.0" prefWidth="522.0">
+               <children>
+                  <Label prefHeight="77.0" prefWidth="492.0" text="What is 1 + 1? " wrapText="true">
+                     <font>
+                        <Font name="System Bold" size="16.0" />
+                     </font>
+                  </Label>
+               </children>
+               <padding>
+                  <Insets bottom="10.0" left="20.0" right="10.0" top="10.0" />
+               </padding>
+            </HBox>
+            <Separator orientation="VERTICAL" prefHeight="200.0" />
+            <VBox alignment="CENTER_LEFT" prefHeight="105.0" prefWidth="232.0">
+               <children>
+                  <Label id="spotCardJoinBtn" prefHeight="0.0" prefWidth="202.0" text="MrYious" wrapText="true">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Label>
+                  <HBox alignment="CENTER_LEFT" prefHeight="2.0" prefWidth="202.0">
+                     <children>
+                        <Label id="spotCardJoinBtn" prefHeight="21.0" prefWidth="110.0" text="January 24, 2022" />
+                        <Label id="spotCardJoinBtn" prefHeight="21.0" prefWidth="110.0" text="11:30 am" />
+                     </children>
+                  </HBox>
+               </children>
+               <padding>
+                  <Insets bottom="10.0" left="20.0" right="10.0" top="5.0" />
+               </padding>
+            </VBox>
+         </children>
+      </HBox>
+      <Separator prefWidth="200.0">
+         <VBox.margin>
+            <Insets bottom="5.0" />
+         </VBox.margin>
+      </Separator>
+      <MFXScrollPane id="scrollPane" hbarPolicy="NEVER" prefHeight="495.0" prefWidth="945.0">
+         <content>
+            <VBox alignment="TOP_CENTER" prefWidth="929.0" style="-fx-background-color: -dark;">
+               <children>
+                  <WebView focusTraversable="false" prefHeight="113.0" prefWidth="929.0" visible="false" />
+                  <Separator prefWidth="200.0" />
+                  <HBox prefHeight="38.0" prefWidth="929.0">
+                     <children>
+                        <Label alignment="CENTER" prefHeight="38.0" prefWidth="736.0" text="0 comments" wrapText="true">
+                           <font>
+                              <Font name="System Bold" size="16.0" />
+                           </font>
+                        </Label>
+                        <Label alignment="CENTER" prefHeight="38.0" prefWidth="200.0" text="Add Comment" wrapText="true">
+                           <font>
+                              <Font name="System Bold" size="16.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </HBox>
+                  <Separator prefWidth="200.0" />
+                  <HBox fx:id="commentPane" alignment="CENTER" prefWidth="929.0" />
+               </children>
+               <padding>
+                  <Insets top="10.0" />
+               </padding>
+            </VBox>
+         </content>
+      </MFXScrollPane>
+   </children>
+</VBox>

@@ -1,15 +1,16 @@
 @import "theme.css";
 
-
-.pane {
-    -fx-background-color: -dark;
-}
-
 .box {
     -fx-background-color: -dark;
     -fx-border-width: 2px;
     -fx-border-color: -semidark;
-    -fx-border-radius: 5px;
+    -fx-border-radius: 2px;
+}
+
+.separator *.line{
+    -fx-border-style: solid;
+    -fx-border-color: -semidark;
+    -fx-border-width: 1px;
 }
 
 /*NavPane*/
@@ -27,11 +28,12 @@
     -fx-text-fill: -light;
     -fx-border-width: 1px;
     -fx-border-color: -semidark;
-    -fx-border-radius: 5px;
+    -fx-border-radius: 2px;
 }
 
-.icon {
+.iconbtn {
     -fx-fill: -sign;
+    -fx-cursor: HAND;
 }
 
 #navTitle1 {
@@ -43,9 +45,137 @@
 }
 
 #userDropdown {
-    -fx-background-color: -darker;
+    -fx-background-color: -dark;
     -fx-cursor: HAND;
-    -fx-border-width: 1px;
     -fx-border-color: -semidark;
     -fx-border-radius: 2px;
+}
+
+/*ContentPane*/
+
+#scrollPane {
+    -fx-background-color: -dark;
+}
+
+#cReplyBox{
+    -fx-background-color: -dark;
+    -fx-border-width: 2px;
+    -fx-border-color: -semidark;
+    -fx-border-radius: 2px;
+}
+
+
+/*Spot Card for Lists*/
+
+.bgcolor{
+    -fx-background-color: -dark;
+}
+
+#spotCardBox{
+    -fx-background-color: -dark;
+    -fx-border-width: 2px;
+    -fx-border-color: -semidark;
+    -fx-border-radius: 4px;
+}
+
+#spotCardLink:hover{
+    -fx-text-fill: -sign;
+}
+.spotCardJoinButton {
+    -fx-text-fill: -light;
+    -fx-background-color: -dark;
+    -fx-cursor: HAND;
+    -fx-border-width: 0;
+}
+
+.spotCardJoinButton:hover{
+    -fx-background-color: -darker;
+}
+
+/*Spot Pane*/
+
+#spotRules {
+    -fx-background-color: -dark;
+}
+
+#spotInfoIcon {
+    -fx-fill: -light;
+}
+
+.spotInfoButton {
+    -fx-text-fill: -light;
+    -fx-background-color: -dark;
+    -fx-cursor: HAND;
+    -fx-border-width: 1px;
+    -fx-border-color: -light;
+    -fx-border-radius: 2px;
+}
+
+.spotInfoButton:hover{
+    -fx-border-color: -sign;
+    -fx-text-fill: -sign;
+}
+
+.spotLabel{
+    -fx-text-fill: -light;
+}
+
+.tile {
+    -fx-text-fill: -light;
+    -fx-background-color: -dark;
+    -fx-border-width: 1px;
+    -fx-border-color: -light;
+    -fx-border-radius: 2px;
+}
+
+/*My Spots Label*/
+#mySpotsText{
+    -fx-fill: -light;
+}
+#mySpotsText:hover{
+    -fx-fill: -sign;
+    -fx-background-color: -light;
+}
+
+
+/*Content Pane | Pagination*/
+
+.pagination {
+    -fx-page-information-visible: false;
+}
+
+/* Remove spacing */
+.pagination > .pagination-control > .control-box {
+    -fx-spacing: 3px;
+    -fx-font-weight: bold;
+    -fx-font-size: 11px;
+}
+
+/* You can control the actual button sizes here */
+.pagination > .pagination-control > .control-box > .number-button,
+.pagination > .pagination-control > .control-box > .bullet-button,
+.pagination > .pagination-control > .control-box > .left-arrow-button,
+.pagination > .pagination-control > .control-box > .right-arrow-button {
+    -fx-background-insets: 0, 1;
+    -fx-background-color: -light,-light;
+    -fx-min-width: 25;
+    -fx-min-height: 25;
+}
+
+/* Colors on hover */
+.pagination > .pagination-control > .control-box > .number-button:hover,
+.pagination > .pagination-control > .control-box > .bullet-button:hover,
+.pagination > .pagination-control > .control-box > .left-arrow-button:hover,
+.pagination > .pagination-control > .control-box > .right-arrow-button:hover {
+
+    -fx-background-insets: 0;
+    -fx-background-color: -sign;
+}
+
+/* Selected toggle color */
+.pagination > .pagination-control > .control-box > .number-button:selected,
+.pagination > .pagination-control > .control-box > .bullet-button:selected{
+    -fx-background-insets: 0;
+    -fx-background-color: -sign;
+    -fx-text-fill: -light;
 }

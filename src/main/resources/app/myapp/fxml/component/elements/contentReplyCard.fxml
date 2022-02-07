@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.layout.HBox?>
+
+<HBox id="cReplyBox" alignment="CENTER_LEFT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="29.0" prefWidth="760.0" style="-fx-background-color: -dark;" stylesheets="@../../../css/main.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Label alignment="CENTER" prefHeight="37.0" prefWidth="112.0" text="MrYious" wrapText="true" />
+      <Separator orientation="VERTICAL" />
+      <Label prefHeight="25.0" prefWidth="518.0" text="Is this correct?" wrapText="true">
+         <padding>
+            <Insets left="20.0" />
+         </padding>
+      </Label>
+      <Separator orientation="VERTICAL" />
+      <Label alignment="CENTER" prefHeight="17.0" prefWidth="64.0" text="01/24/21" />
+      <Label alignment="CENTER" prefHeight="17.0" prefWidth="45.0" text="7:00 PM" />
+   </children>
+</HBox>

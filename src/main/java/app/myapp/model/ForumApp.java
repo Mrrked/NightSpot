@@ -24,7 +24,9 @@ public class ForumApp extends Application {
         Scene scene = new Scene(fxmlLoader.load());
 
         splashStage.setScene(scene);
+        splashStage.getIcons().add(new Image(String.valueOf(Main.class.getResource("objects\\logo_ph.png"))));
         splashStage.initStyle(StageStyle.TRANSPARENT);
+        splashStage.setTitle("NightSpot");
         splashStage.centerOnScreen();
         splashStage.show();
     }
