@@ -12,69 +12,68 @@
 
 <fx:root alignment="TOP_CENTER" prefHeight="600.0" prefWidth="300.0" spacing="10.0" style="-fx-background-color: -dark;" stylesheets="@../../../css/main.css" type="VBox" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <Button fx:id="spotCPostBtn" focusTraversable="false" mnemonicParsing="false" prefHeight="43.0" prefWidth="307.0" styleClass="spotInfoButton" text="Create a Post">
+      <Button fx:id="spotCPostBtn" focusTraversable="false" mnemonicParsing="false" prefHeight="29.0" prefWidth="260.0" styleClass="spotInfoButton" text="CREATE A POST">
          <font>
-            <Font size="15.0" />
+            <Font name="System Bold" size="15.0" />
          </font>
          <padding>
             <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
          </padding>
       </Button>
-      <Separator focusTraversable="false" prefWidth="200.0" style=" -fx-border-color: blue;">
+      <Separator focusTraversable="false" prefWidth="200.0">
          <VBox.margin>
             <Insets bottom="10.0" top="10.0" />
          </VBox.margin>
       </Separator>
-      <Label fx:id="spotName" alignment="CENTER" contentDisplay="CENTER" prefHeight="53.0" prefWidth="297.0" style="-fx-text-fill: -sign;" text="Genshin Impact Global Server" textAlignment="CENTER" wrapText="true">
+      <Label fx:id="spotName" alignment="CENTER" contentDisplay="CENTER" prefHeight="53.0" prefWidth="297.0" style="-fx-text-fill: -sign;" text="26snXvnl5O0kcK2i89TviH0K9Qo153q4dipBsfI5fXOlx5sDdV43u6y" textAlignment="CENTER" wrapText="true">
          <font>
             <Font name="System Bold" size="16.0" />
          </font>
       </Label>
-      <Label fx:id="spotDescription" alignment="TOP_CENTER" prefHeight="60.0" prefWidth="260.0" style="-fx-text-fill: -light;" text="This is an &quot;ENGLISH SPEAKING&quot; fan based group for the game Genshin Impact." textAlignment="CENTER" wrapText="true">
-         <padding>
-            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-         </padding>
+      <Label fx:id="spotDescription" alignment="CENTER" prefHeight="78.0" prefWidth="260.0" style="-fx-text-fill: -light;" text="RAQVUexLtMvpvOdJ3k6O4ExZf4ShdFW7PxhuAkoFPa4unTyF6bLZbZzRlUTnGfjIrNpaejbkk40iUF00S4YDfp9PEVDjtr8M6GUg" textAlignment="CENTER" wrapText="true">
          <font>
             <Font size="13.0" />
          </font>
       </Label>
       <Separator prefWidth="200.0">
          <VBox.margin>
-            <Insets bottom="10.0" top="10.0" />
+            <Insets bottom="5.0" top="5.0" />
          </VBox.margin>
       </Separator>
-      <HBox alignment="CENTER" prefHeight="43.0" prefWidth="174.0" spacing="15.0">
+      <HBox alignment="CENTER" prefHeight="43.0" prefWidth="174.0" spacing="5.0">
          <children>
-            <Button fx:id="spotJoinBtn" contentDisplay="TOP" mnemonicParsing="false" prefHeight="30.0" prefWidth="99.0" styleClass="spotInfoButton" text="JOIN">
-               <font>
-                  <Font size="15.0" />
-               </font>
-               <padding>
-                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-               </padding>
-               <graphic>
-                  <FontIcon id="spotInfoIcon" iconLiteral="mdi2r-record-circle" iconSize="40" />
-               </graphic>
-            </Button>
             <VBox alignment="CENTER" prefHeight="87.0" prefWidth="137.0" spacing="15.0">
                <children>
-                  <Label fx:id="spotCountMembers" alignment="CENTER" prefHeight="21.0" prefWidth="133.0" style="-fx-text-fill: -light;" text="100 members" wrapText="true">
+                  <Label fx:id="spotCountMembers" alignment="CENTER" prefHeight="21.0" prefWidth="133.0" style="-fx-text-fill: -light;" text="X members" wrapText="true">
                      <font>
                         <Font size="15.0" />
                      </font>
                   </Label>
-                  <Label fx:id="spotCountPosts" alignment="CENTER" prefHeight="21.0" prefWidth="133.0" style="-fx-text-fill: -light;" text="50 posts" wrapText="true">
+                  <Label fx:id="spotCountPosts" alignment="CENTER" prefHeight="21.0" prefWidth="133.0" style="-fx-text-fill: -light;" text="X posts" wrapText="true">
                      <font>
                         <Font size="15.0" />
                      </font>
                   </Label>
                </children>
             </VBox>
+            <VBox alignment="CENTER" prefHeight="87.0" prefWidth="137.0" spacing="10.0">
+               <children>
+                  <FontIcon id="spotInfoIcon" fx:id="spotInfoIcon" iconLiteral="mdi2r-record-circle" iconSize="40" />
+                  <Button fx:id="spotJoinBtn" contentDisplay="TOP" mnemonicParsing="false" prefHeight="33.0" prefWidth="85.0" styleClass="spotInfoButton" text="JOIN">
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                     <padding>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </padding>
+                  </Button>
+               </children>
+            </VBox>
          </children>
       </HBox>
       <Separator prefWidth="200.0">
          <VBox.margin>
-            <Insets bottom="10.0" top="10.0" />
+            <Insets bottom="5.0" top="5.0" />
          </VBox.margin>
       </Separator>
       <Label alignment="CENTER" prefHeight="21.0" prefWidth="133.0" style="-fx-text-fill: -light;" text="Rules" wrapText="true">
@@ -82,17 +81,9 @@
             <Font size="15.0" />
          </font>
       </Label>
-      <MFXScrollPane id="spotRules" hbarPolicy="NEVER" prefHeight="148.0" prefWidth="260.0" vbarPolicy="ALWAYS">
+      <MFXScrollPane id="spotRules" hbarPolicy="NEVER" prefHeight="148.0" prefWidth="260.0">
          <content>
-            <VBox fx:id="rulesPane" prefHeight="148.0" prefWidth="245.0" spacing="5.0">
-               <children>
-                  <Label alignment="TOP_LEFT" prefWidth="253.0" text="1. English Language Only" wrapText="true">
-                     <font>
-                        <Font size="14.0" />
-                     </font>
-                  </Label>
-               </children>
-            </VBox>
+            <VBox fx:id="spotRulesPane" prefWidth="245.0" spacing="5.0" />
          </content>
       </MFXScrollPane>
    </children>

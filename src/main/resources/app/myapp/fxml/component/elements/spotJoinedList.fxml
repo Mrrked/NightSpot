@@ -8,7 +8,7 @@
 
 <fx:root alignment="TOP_CENTER" prefHeight="600.0" prefWidth="300.0" spacing="20.0" style="-fx-background-color: -dark;" stylesheets="@../../../css/main.css" type="VBox" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="42.0" prefWidth="260.0" style="-fx-text-fill: -light;" styleClass="tile" text="Joined Server" textAlignment="CENTER" wrapText="true">
+      <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="42.0" prefWidth="260.0" style="-fx-text-fill: -light;" styleClass="tile" text="Joined Spots" textAlignment="CENTER" wrapText="true">
          <font>
             <Font size="16.0" />
          </font>

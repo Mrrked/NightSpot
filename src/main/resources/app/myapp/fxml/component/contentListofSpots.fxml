@@ -7,13 +7,13 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="580.0" prefWidth="945.0" style="-fx-background-color: -dark;" stylesheets="@../../css/main.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
+<fx:root maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="580.0" prefWidth="945.0" style="-fx-background-color: -dark;" stylesheets="@../../css/main.css" type="VBox" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <HBox alignment="CENTER_LEFT" prefHeight="62.0" prefWidth="945.0">
          <children>
-            <Label text="Check out the most popular spots!">
+            <Label id="cListSpotTitle" fx:id="cListSpotTitle" text="Check out the most popular spots!">
                <font>
-                  <Font size="20.0" />
+                  <Font size="25.0" />
                </font>
             </Label>
          </children>
@@ -24,9 +24,9 @@
             <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
          </padding>
       </HBox>
-      <Pagination focusTraversable="false" maxPageIndicatorCount="5" pageCount="20" prefHeight="519.0" prefWidth="945.0">
+      <Pagination fx:id="cPageSpots" focusTraversable="false" maxPageIndicatorCount="1" pageCount="1" prefHeight="519.0" prefWidth="945.0">
          <VBox.margin>
             <Insets />
          </VBox.margin></Pagination>
    </children>
-</VBox>
+</fx:root>

@@ -9,27 +9,27 @@
 <?import javafx.scene.text.Font?>
 <?import org.kordamp.ikonli.javafx.FontIcon?>
 
-<HBox id="spotCardBox" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="80.0" prefWidth="900.0" style="-fx-background-color: -dark;" stylesheets="@../../../css/main.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
+<fx:root id="spotCardBox" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="80.0" prefWidth="900.0" style="-fx-background-color: -dark;" stylesheets="@../../../css/main.css" type="HBox" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <VBox alignment="CENTER" prefHeight="76.0" prefWidth="76.0" spacing="3.0">
          <children>
             <HBox alignment="CENTER">
                <children>
-                  <FontIcon iconColor="#e0d3de" iconLiteral="mdi2a-arrow-up-bold" iconSize="35" wrappingWidth="35.0" />
-                  <FontIcon iconColor="#e0d3de" iconLiteral="mdi2a-arrow-down-bold" iconSize="35" wrappingWidth="35.0" />
+                  <FontIcon fx:id="cPostCardUpBtn" iconColor="#e0d3de" iconLiteral="mdi2a-arrow-up-bold" iconSize="35" styleClass="cMainPostVoteBtn" wrappingWidth="35.0" />
+                  <FontIcon iconColor="#e0d3de" iconLiteral="mdi2a-arrow-down-bold" iconSize="35" styleClass="cMainPostVoteBtn" wrappingWidth="35.0" />
                </children>
                <VBox.margin>
                   <Insets />
                </VBox.margin>
             </HBox>
-            <Label alignment="CENTER" prefHeight="21.0" prefWidth="107.0" text="100">
+            <Label fx:id="cPostCardVotes" alignment="CENTER" prefHeight="21.0" prefWidth="107.0" styleClass="cardColor" text="100">
                <font>
                   <Font size="15.0" />
                </font>
             </Label>
          </children>
          <cursor>
-            <Cursor fx:constant="HAND" />
+            <Cursor fx:constant="DEFAULT" />
          </cursor></VBox>
       <Separator orientation="VERTICAL" prefHeight="200.0">
          <HBox.margin>
@@ -38,12 +38,12 @@
       </Separator>
       <VBox alignment="CENTER_LEFT" prefHeight="76.0" prefWidth="644.0" spacing="10.0">
          <children>
-            <Label id="spotCardJoinBtn" prefHeight="29.0" prefWidth="611.0" text="What is 1 + 1?">
+            <Label fx:id="cPostCardTitle" prefHeight="29.0" prefWidth="611.0" styleClass="cardColor" text="KqJ57ue3xEC7C1S91POtTK2xanCEnCUuBCpqHLIbe8udTMFgyM">
                <font>
                   <Font size="18.0" />
                </font>
             </Label>
-            <Label id="spotCardJoinBtn" alignment="CENTER" prefHeight="21.0" text="50 comments" />
+            <Label fx:id="cPostCardComments" alignment="CENTER" prefHeight="21.0" styleClass="cardColor" text="50 comments" />
          </children>
          <HBox.margin>
             <Insets />
@@ -55,17 +55,17 @@
       <Separator orientation="VERTICAL" prefHeight="200.0" prefWidth="5.0" />
       <VBox prefHeight="76.0" prefWidth="134.0">
          <children>
-            <Label id="spotCardJoinBtn" alignment="CENTER" prefHeight="21.0" text="By">
+            <Label alignment="CENTER" prefHeight="21.0" styleClass="cardColor" text="By">
                <font>
                   <Font size="10.0" />
                </font>
             </Label>
-            <Label id="spotCardJoinBtn" alignment="TOP_LEFT" prefHeight="21.0" prefWidth="122.0" text="MrYious" wrapText="true">
+            <Label fx:id="cPostCardAuthor" alignment="TOP_LEFT" prefHeight="21.0" prefWidth="122.0" styleClass="cardColor" text="MrYious" wrapText="true">
                <font>
                   <Font size="15.0" />
                </font>
             </Label>
-            <Label id="spotCardJoinBtn" alignment="CENTER" prefHeight="21.0" text="Junary 24, 2022">
+            <Label fx:id="cPostCardDate" alignment="CENTER" prefHeight="21.0" styleClass="cardColor" text="Junary 24, 2022">
                <font>
                   <Font size="10.0" />
                </font>
@@ -79,4 +79,4 @@
          </HBox.margin>
       </VBox>
    </children>
-</HBox>
+</fx:root>

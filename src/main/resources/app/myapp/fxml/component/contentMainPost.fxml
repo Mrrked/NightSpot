@@ -10,28 +10,28 @@
 <?import javafx.scene.web.WebView?>
 <?import org.kordamp.ikonli.javafx.FontIcon?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="580.0" prefWidth="945.0" style="-fx-background-color: -dark;" stylesheets="@../../css/main.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
+<fx:root maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="580.0" prefWidth="945.0" style="-fx-background-color: -dark;" stylesheets="@../../css/main.css" type="VBox" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <HBox prefHeight="34.0" prefWidth="945.0">
          <children>
             <HBox alignment="CENTER_LEFT" prefHeight="49.0" prefWidth="187.0">
                <children>
-                  <FontIcon iconColor="#e0d3de" iconLiteral="mdi2a-arrow-up-bold" iconSize="40" wrappingWidth="40.0" />
-                  <FontIcon iconColor="#e0d3de" iconLiteral="mdi2a-arrow-down-bold" iconSize="40" wrappingWidth="40.0" />
-                  <Label alignment="CENTER" prefHeight="25.0" prefWidth="127.0" text="100, 000">
+                  <FontIcon fx:id="cMainPostUpBtn" iconColor="#e0d3de" iconLiteral="mdi2a-arrow-up-bold" iconSize="40" styleClass="cMainPostVoteBtn" wrappingWidth="40.0" />
+                  <FontIcon fx:id="cMainPostDownBtn" iconColor="#e0d3de" iconLiteral="mdi2a-arrow-down-bold" iconSize="40" styleClass="cMainPostVoteBtn" wrappingWidth="40.0" />
+                  <Label fx:id="cMainPostVotes" alignment="CENTER" prefHeight="25.0" prefWidth="127.0" styleClass="cMainPostTextColor" text="100, 000">
                      <font>
                         <Font size="16.0" />
                      </font>
                   </Label>
                </children>
                <padding>
-                  <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                  <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
                </padding>
             </HBox>
             <Separator orientation="VERTICAL" prefHeight="200.0" />
             <HBox alignment="CENTER_LEFT" prefHeight="36.0" prefWidth="522.0">
                <children>
-                  <Label prefHeight="77.0" prefWidth="492.0" text="What is 1 + 1? " wrapText="true">
+                  <Label fx:id="cMainPostTitle" prefHeight="77.0" prefWidth="492.0" styleClass="cMainPostTextColor" text="KqJ57ue3xEC7C1S91POtTK2xanCEnCUuBCpqHLIbe8udTMFgyM" wrapText="true">
                      <font>
                         <Font name="System Bold" size="16.0" />
                      </font>
@@ -44,15 +44,15 @@
             <Separator orientation="VERTICAL" prefHeight="200.0" />
             <VBox alignment="CENTER_LEFT" prefHeight="105.0" prefWidth="232.0">
                <children>
-                  <Label id="spotCardJoinBtn" prefHeight="0.0" prefWidth="202.0" text="MrYious" wrapText="true">
+                  <Label id="spotCardJoinBtn" fx:id="cMainPostAuthor" prefHeight="0.0" prefWidth="202.0" styleClass="cMainPostTextColor" text="Author" wrapText="true">
                      <font>
                         <Font size="18.0" />
                      </font>
                   </Label>
                   <HBox alignment="CENTER_LEFT" prefHeight="2.0" prefWidth="202.0">
                      <children>
-                        <Label id="spotCardJoinBtn" prefHeight="21.0" prefWidth="110.0" text="January 24, 2022" />
-                        <Label id="spotCardJoinBtn" prefHeight="21.0" prefWidth="110.0" text="11:30 am" />
+                        <Label id="spotCardJoinBtn" fx:id="cMainPostDate" prefHeight="21.0" prefWidth="110.0" styleClass="cMainPostTextColor" text="January 24, 2022" />
+                        <Label id="spotCardJoinBtn" fx:id="cMainPostTime" prefHeight="21.0" prefWidth="110.0" styleClass="cMainPostTextColor" text="11:30 am" />
                      </children>
                   </HBox>
                </children>
@@ -67,20 +67,20 @@
             <Insets bottom="5.0" />
          </VBox.margin>
       </Separator>
-      <MFXScrollPane id="scrollPane" hbarPolicy="NEVER" prefHeight="495.0" prefWidth="945.0">
+      <MFXScrollPane id="cMainScrollPane" hbarPolicy="NEVER" prefHeight="503.0" prefWidth="945.0">
          <content>
             <VBox alignment="TOP_CENTER" prefWidth="929.0" style="-fx-background-color: -dark;">
                <children>
-                  <WebView focusTraversable="false" prefHeight="113.0" prefWidth="929.0" visible="false" />
+                  <WebView fx:id="cMainPostWebView" prefHeight="131.0" prefWidth="929.0" />
                   <Separator prefWidth="200.0" />
                   <HBox prefHeight="38.0" prefWidth="929.0">
                      <children>
-                        <Label alignment="CENTER" prefHeight="38.0" prefWidth="736.0" text="0 comments" wrapText="true">
+                        <Label fx:id="cMainPostComments" alignment="CENTER" prefHeight="38.0" prefWidth="736.0" styleClass="cMainPostTextColor" text="0 comments" wrapText="true">
                            <font>
                               <Font name="System Bold" size="16.0" />
                            </font>
                         </Label>
-                        <Label alignment="CENTER" prefHeight="38.0" prefWidth="200.0" text="Add Comment" wrapText="true">
+                        <Label fx:id="cMainPostAddCommentBtn" alignment="CENTER" prefHeight="38.0" prefWidth="210.0" styleClass="cMainPostTextColor" text="Add Comment" wrapText="true">
                            <font>
                               <Font name="System Bold" size="16.0" />
                            </font>
@@ -97,4 +97,4 @@
          </content>
       </MFXScrollPane>
    </children>
-</VBox>
+</fx:root>

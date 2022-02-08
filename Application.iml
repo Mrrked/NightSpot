@@ -17,6 +17,7 @@
     <orderEntry type="library" name="kordamp.ikonli.materialdesign2.pack" level="application" />
     <orderEntry type="library" name="io.github.palexdev.materialfx" level="application" />
     <orderEntry type="library" name="mysql.connector.java" level="application" />
+    <orderEntry type="library" name="openjfx.javafx.web" level="application" />
     <orderEntry type="library" name="Maven: org.openjfx:javafx-controls:17-ea+11" level="project" />
     <orderEntry type="library" name="Maven: org.openjfx:javafx-controls:win:17-ea+11" level="project" />
     <orderEntry type="library" name="Maven: org.openjfx:javafx-graphics:17-ea+11" level="project" />
@@ -36,10 +37,8 @@
     <orderEntry type="library" scope="RUNTIME" name="Maven: org.openjfx:javafx-swing:win:17.0.1" level="project" />
     <orderEntry type="library" scope="RUNTIME" name="Maven: org.openjfx:javafx-controls:linux:17.0.1" level="project" />
     <orderEntry type="library" scope="RUNTIME" name="Maven: org.openjfx:javafx-web:linux:17.0.1" level="project" />
-    <orderEntry type="library" scope="RUNTIME" name="Maven: org.openjfx:javafx-web:win:17.0.1" level="project" />
-    <orderEntry type="library" scope="RUNTIME" name="Maven: org.openjfx:javafx-media:17.0.1" level="project" />
     <orderEntry type="library" scope="RUNTIME" name="Maven: org.openjfx:javafx-media:linux:17.0.1" level="project" />
-    <orderEntry type="library" scope="RUNTIME" name="Maven: org.openjfx:javafx-media:win:17.0.1" level="project" />
+    <orderEntry type="library" name="Maven: org.openjfx:javafx-media:win:17.0.1" level="project" />
     <orderEntry type="library" scope="RUNTIME" name="Maven: org.openjfx:javafx-base:linux:17.0.1" level="project" />
     <orderEntry type="library" name="Maven: org.openjfx:javafx-base:win:17.0.1" level="project" />
     <orderEntry type="library" scope="RUNTIME" name="Maven: org.openjfx:javafx-fxml:linux:17.0.1" level="project" />
@@ -58,5 +57,8 @@
     <orderEntry type="library" name="Maven: org.kordamp.ikonli:ikonli-core:12.3.0" level="project" />
     <orderEntry type="library" name="Maven: mysql:mysql-connector-java:8.0.28" level="project" />
     <orderEntry type="library" name="Maven: com.google.protobuf:protobuf-java:3.11.4" level="project" />
+    <orderEntry type="library" name="Maven: org.openjfx:javafx-web:18-ea+10" level="project" />
+    <orderEntry type="library" name="Maven: org.openjfx:javafx-web:win:18-ea+10" level="project" />
+    <orderEntry type="library" name="Maven: org.openjfx:javafx-media:18-ea+10" level="project" />
   </component>
 </module>

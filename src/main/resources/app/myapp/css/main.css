@@ -13,7 +13,7 @@
     -fx-border-width: 1px;
 }
 
-/*NavPane*/
+/*NavPane********************************************************/
 
 #navPane {
     -fx-background-color: -dark;
@@ -51,10 +51,24 @@
     -fx-border-radius: 2px;
 }
 
-/*ContentPane*/
+/*ContentPane********************************************************/
 
-#scrollPane {
-    -fx-background-color: -dark;
+#cListSpotTitle {
+    -fx-text-fill: -light;
+}
+#cListPostTitle{
+    -fx-text-fill: -light;
+}
+.cListPostFilters {
+    -fx-text-fill: -light;
+    -fx-cursor: HAND;
+}
+.cListPostFilters:hover {
+    -fx-text-fill: -sign;
+}
+
+.cMainPostTextColor{
+    -fx-text-fill: -light;
 }
 
 #cReplyBox{
@@ -64,6 +78,30 @@
     -fx-border-radius: 2px;
 }
 
+#cMainScrollPane{
+    -fx-background-color: -dark;
+}
+
+#cMainPostAddCommentBtn{
+    -fx-text-fill: -sign;
+    -fx-cursor: HAND;
+}
+#cMainPostAddCommentBtn:hover{
+    -fx-text-fill: -darker;
+    -fx-background-color: -sign;
+}
+.cMainPostVoteBtn {
+    -fx-fill: -light;
+    -fx-cursor: HAND;
+}
+.cMainPostVoteBtn:hover {
+    -fx-fill: -sign;
+}
+
+.cardColor {
+    -fx-fill: -light;
+    -fx-text-fill: -light;
+}
 
 /*Spot Card for Lists*/
 
@@ -77,22 +115,30 @@
     -fx-border-color: -semidark;
     -fx-border-radius: 4px;
 }
-
 #spotCardLink:hover{
     -fx-text-fill: -sign;
+    -fx-background-color: -darker;
 }
 .spotCardJoinButton {
-    -fx-text-fill: -light;
     -fx-background-color: -dark;
-    -fx-cursor: HAND;
-    -fx-border-width: 0;
 }
-
 .spotCardJoinButton:hover{
+    -fx-text-fill: -sign;
     -fx-background-color: -darker;
 }
 
-/*Spot Pane*/
+/*Comment*/
+.commentButton{
+    -fx-text-fill: -sign;
+    -fx-background-color: -dark;
+}
+
+.commentButton:hover{
+    -fx-text-fill: -darker;
+    -fx-background-color: -sign;
+}
+
+/*Spot Pane**********************************************************************************/
 
 #spotRules {
     -fx-background-color: -dark;
@@ -103,11 +149,11 @@
 }
 
 .spotInfoButton {
-    -fx-text-fill: -light;
-    -fx-background-color: -dark;
     -fx-cursor: HAND;
-    -fx-border-width: 1px;
-    -fx-border-color: -light;
+    -fx-text-fill: -light;
+    -fx-background-color: -darker;
+    -fx-border-width: 2px;
+    -fx-border-color: -semidark;
     -fx-border-radius: 2px;
 }
 
@@ -122,9 +168,9 @@
 
 .tile {
     -fx-text-fill: -light;
-    -fx-background-color: -dark;
-    -fx-border-width: 1px;
-    -fx-border-color: -light;
+    -fx-background-color: -darker;
+    -fx-border-width: 2px;
+    -fx-border-color: -semidark;
     -fx-border-radius: 2px;
 }
 
