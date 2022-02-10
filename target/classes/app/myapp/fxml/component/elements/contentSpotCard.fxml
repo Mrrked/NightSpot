@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.String?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import org.kordamp.ikonli.javafx.FontIcon?>
+
+<fx:root id="spotCardBox" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="80.0" prefWidth="900.0" style="-fx-background-color: -dark;" stylesheets="@../../../css/main.css" type="HBox" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Label fx:id="cardSpotJoinBtn" alignment="CENTER" contentDisplay="TOP" prefHeight="136.0" prefWidth="76.0" text="Joined">
+         <font>
+            <Font name="System Bold" size="15.0" />
+         </font>
+         <graphic>
+            <FontIcon fx:id="cardSpotJoinIcon" iconColor="#e0d3de" iconLiteral="mdi2r-record-circle" iconSize="40" />
+         </graphic>
+         <styleClass>
+            <String fx:value="cardColor" />
+            <String fx:value="spotCardJoinButton" />
+         </styleClass>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </Label>
+      <Separator orientation="VERTICAL" prefHeight="200.0" />
+      <Label id="spotCardLink" fx:id="cardSpotTitle" alignment="CENTER" prefHeight="105.0" prefWidth="302.0" styleClass="cardColor" text="26snXvnl5O0kcK2i89TviH0K9Qo153q4dipBsfI5fXOlx5sDdV43u6y" textAlignment="CENTER" wrapText="true">
+         <font>
+            <Font name="System Bold" size="16.0" />
+         </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+         <padding>
+            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+         </padding>
+      </Label>
+      <Separator orientation="VERTICAL" prefHeight="200.0" />
+      <VBox alignment="CENTER" prefHeight="76.0" prefWidth="131.0" spacing="10.0">
+         <children>
+            <Label fx:id="cardSpotMembers" alignment="CENTER" prefHeight="21.0" styleClass="cardColor" text="100 Members">
+               <font>
+                  <Font size="13.0" />
+               </font>
+            </Label>
+            <Label fx:id="cardSpotPosts" alignment="CENTER" prefHeight="21.0" styleClass="cardColor" text="50 Posts">
+               <font>
+                  <Font size="13.0" />
+               </font>
+            </Label>
+         </children>
+      </VBox>
+      <Separator orientation="VERTICAL" prefHeight="200.0" prefWidth="5.0" />
+      <VBox prefHeight="76.0" prefWidth="381.0">
+         <children>
+            <Label alignment="CENTER" prefHeight="21.0" styleClass="cardColor" text="Description">
+               <font>
+                  <Font size="10.0" />
+               </font>
+            </Label>
+            <Label fx:id="cardSpotDescription" alignment="TOP_LEFT" prefHeight="48.0" prefWidth="368.0" styleClass="cardColor" text="RAQVUexLtMvpvOdJ3k6O4ExZf4ShdFW7PxhuAkoFPa4unTyF6bLZbZzRlUTnGfjIrNpaejbkk40iUF00S4YDfp9PEVDjtr8M6GUg" wrapText="true">
+               <font>
+                  <Font size="13.0" />
+               </font>
+            </Label>
+         </children>
+         <padding>
+            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+         </padding>
+      </VBox>
+   </children>
+</fx:root>

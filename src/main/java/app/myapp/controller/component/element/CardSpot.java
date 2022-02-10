@@ -10,23 +10,31 @@ import org.kordamp.ikonli.javafx.FontIcon;
 import java.io.IOException;
 
 public class CardSpot extends HBox {
+
+    public String spotID;
+
     @FXML
     private Label cardSpotDescription;
     @FXML
-    private Label cardSpotJoinBtn;
+    public Label cardSpotJoinBtn;
     @FXML
     private Label cardSpotMembers;
     @FXML
     private Label cardSpotPosts;
     @FXML
-    private Label cardSpotTitle;
+    public Label cardSpotTitle;
     @FXML
     private FontIcon cardSpotJoinIcon;
 
-    public CardSpot() throws IOException {
+    public CardSpot(String id, String title, String desc, String member, String post) throws IOException {
         FXMLLoader loader = new FXMLLoader(Main.class.getResource("fxml/component/elements/contentSpotCard.fxml"));
         loader.setController(this);
         loader.setRoot(this);
         loader.load();
+        this.spotID = id;
+        cardSpotTitle.setText(title);
+        cardSpotDescription.setText(desc);
+        cardSpotMembers.setText(member + " members");
+        cardSpotPosts.setText(post + " posts");
     }
 }

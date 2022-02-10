@@ -10,8 +10,11 @@ import org.kordamp.ikonli.javafx.FontIcon;
 import java.io.IOException;
 
 public class CardPost extends HBox {
+
+    public String postID, spotID, authorID;
+
     @FXML
-    private Label cPostCardAuthor;
+    public Label cPostCardAuthor;
     @FXML
     private Label cPostCardComments;
     @FXML
@@ -19,17 +22,38 @@ public class CardPost extends HBox {
     @FXML
     private Label cPostCardTitle;
     @FXML
+    private Label cPostCardVotes;
+    @FXML
     private FontIcon cPostCardUpBtn;
     @FXML
-    private Label cPostCardVotes;
+    private FontIcon cPostCardDownBtn;
 
-
-    public CardPost() throws IOException {
+    public CardPost(
+            String spotID,
+            String postID,
+            String authorID,
+            String title,
+            String authorName,
+            String votes,
+            String comments,
+            String date
+    ) throws IOException {
         FXMLLoader loader = new FXMLLoader(Main.class.getResource("fxml/component/elements/contentPostCard.fxml"));
         loader.setController(this);
         loader.setRoot(this);
         loader.load();
+
+        this.spotID = spotID;
+        this.authorID = authorID;
+        this.postID = postID;
+        this.cPostCardTitle.setText(title);
+        this.cPostCardVotes.setText(votes);
+        this.cPostCardComments.setText(comments + " comments");
+        this.cPostCardDate.setText(date);
+        this.cPostCardAuthor.setText(authorName);
     }
+
+
 
 
 }

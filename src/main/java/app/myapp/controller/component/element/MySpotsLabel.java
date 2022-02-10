@@ -10,15 +10,18 @@ import java.io.IOException;
 
 public class MySpotsLabel extends HBox {
 
-    @FXML
-    private Text mySpotText;
+    public String spotID;
 
-    public MySpotsLabel(String text) throws IOException {
+    @FXML
+    public Text mySpotText;
+
+    public MySpotsLabel(String id, String name) throws IOException {
         FXMLLoader loader = new FXMLLoader(Main.class.getResource("fxml/component/elements/MySpotsLabel.fxml"));
         loader.setController(this);
         loader.setRoot(this);
         loader.load();
-        mySpotText.setText(text);
+        mySpotText.setText(name);
+        this.spotID = id;
     }
 
 }

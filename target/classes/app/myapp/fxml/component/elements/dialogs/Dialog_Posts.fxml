@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.ButtonType?>
+<?import javafx.scene.control.DialogPane?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.web.HTMLEditor?>
+
+<fx:root maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="637.0" prefWidth="727.0" stylesheets="@../../../../css/dialog.css" type="DialogPane" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
+   <buttonTypes>
+      <ButtonType fx:constant="OK" />
+      <ButtonType fx:constant="CLOSE" />
+   </buttonTypes>
+   <content>
+      <VBox alignment="CENTER" prefHeight="342.0" prefWidth="416.0" spacing="10.0">
+         <children>
+            <HBox alignment="TOP_CENTER" prefHeight="56.0" prefWidth="399.0" spacing="20.0">
+               <children>
+                  <Label fx:id="dPostTitle" alignment="CENTER" prefHeight="68.0" prefWidth="300.0" text="Create a Post!">
+                     <font>
+                        <Font name="System Bold" size="22.0" />
+                     </font>
+                  </Label>
+               </children>
+            </HBox>
+            <HBox alignment="CENTER_LEFT" prefHeight="44.0" prefWidth="300.0" spacing="20.0">
+               <children>
+                  <TextField fx:id="txtName" prefHeight="44.0" prefWidth="420.0" promptText="Title">
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                  </TextField>
+               </children>
+            </HBox>
+            <HBox alignment="CENTER_LEFT" prefWidth="300.0" spacing="20.0" />
+            <HTMLEditor fx:id="postEditor" focusTraversable="false" htmlText="&lt;html&gt;&lt;head&gt;&lt;meta charset=&quot;utf-8&quot;/&gt;&lt;style&gt;body {background-color: #0a0e1c;color: #E0D3DE;}&lt;/style&gt;&lt;/head&gt;&lt;body contentEditable=&quot;true&quot;&gt;&lt;/body&gt;&lt;/html&gt;&lt;html&gt;&lt;head&gt;&lt;meta charset=&quot;utf-8&quot;/&gt;&lt;style&gt;body {background-color: #0a0e1c;color: #E0D3DE;}&lt;/style&gt;&lt;/head&gt;&lt;body contentEditable=&quot;true&quot;&gt;&lt;/body&gt;&lt;/html&gt;" prefHeight="392.0" prefWidth="667.0" style="-fx-background-color: -darker;" />
+         </children></VBox>
+   </content>
+   <padding>
+      <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+   </padding>
+</fx:root>

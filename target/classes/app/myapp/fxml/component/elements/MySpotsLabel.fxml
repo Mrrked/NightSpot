@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+<?import org.kordamp.ikonli.javafx.FontIcon?>
+
+<fx:root alignment="CENTER_LEFT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="245.0" spacing="5.0" style="-fx-background-color: -dark;" stylesheets="@../../../css/main.css" type="HBox" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <FontIcon iconColor="WHITE" iconLiteral="mdi2s-subdirectory-arrow-right" iconSize="25" wrappingWidth="25.0" />
+      <Text id="mySpotsText" fx:id="mySpotText" strokeType="OUTSIDE" strokeWidth="0.0" text="Sample Spot" wrappingWidth="210.13671875">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </Text>
+   </children>
+   <padding>
+      <Insets left="5.0" />
+   </padding>
+   <cursor>
+      <Cursor fx:constant="HAND" />
+   </cursor>
+</fx:root>

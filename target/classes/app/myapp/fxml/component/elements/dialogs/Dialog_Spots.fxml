@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.ButtonType?>
+<?import javafx.scene.control.DialogPane?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<fx:root maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="554.0" prefWidth="360.0" stylesheets="@../../../../css/dialog.css" type="DialogPane" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
+   <buttonTypes>
+      <ButtonType fx:constant="OK" />
+      <ButtonType fx:constant="CLOSE" />
+   </buttonTypes>
+   <content>
+      <VBox alignment="CENTER" prefHeight="342.0" prefWidth="416.0" spacing="10.0">
+         <children>
+            <HBox alignment="CENTER" prefHeight="56.0" prefWidth="399.0" spacing="20.0">
+               <children>
+                  <Label fx:id="dSpotsTitle" alignment="CENTER" prefHeight="68.0" prefWidth="300.0" text="Build your own spot!">
+                     <font>
+                        <Font name="System Bold" size="22.0" />
+                     </font>
+                  </Label>
+               </children>
+            </HBox>
+            <HBox alignment="CENTER_LEFT" prefHeight="44.0" prefWidth="300.0" spacing="20.0">
+               <children>
+                  <TextField fx:id="txtName" prefHeight="63.0" prefWidth="300.0" promptText="Spot Name">
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                  </TextField>
+               </children>
+            </HBox>
+            <HBox alignment="CENTER_LEFT" prefWidth="300.0" spacing="20.0">
+               <children>
+                  <TextArea fx:id="txtDesc" prefHeight="70.0" prefWidth="300.0" promptText="Spot Description" wrapText="true">
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                  </TextArea>
+               </children>
+            </HBox>
+            <HBox alignment="CENTER_LEFT" spacing="20.0">
+               <children>
+                  <TextArea fx:id="txtRules" prefHeight="226.0" prefWidth="334.0" promptText="Spot Rules" wrapText="true">
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                  </TextArea>
+               </children>
+            </HBox>
+         </children></VBox>
+   </content>
+   <padding>
+      <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+   </padding>
+</fx:root>

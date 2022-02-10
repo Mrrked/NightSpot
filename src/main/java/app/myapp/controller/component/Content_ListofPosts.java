@@ -12,13 +12,13 @@ import java.io.IOException;
 public class Content_ListofPosts extends VBox {
 
     @FXML
-    private Label cLatestBtn;
+    public Label cLatestBtn;
     @FXML
-    private Label cListPostTitle;
+    public Label cListPostTitle;
     @FXML
-    private Pagination cPagePosts;
+    public Pagination cPagePosts;
     @FXML
-    private Label cPopularBtn;
+    public Label cPopularBtn;
 
     public Content_ListofPosts() throws IOException {
         FXMLLoader loader = new FXMLLoader(Main.class.getResource("fxml/component/contentListofPosts.fxml"));

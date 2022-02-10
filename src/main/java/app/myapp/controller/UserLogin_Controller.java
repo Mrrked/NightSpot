@@ -3,10 +3,10 @@ package app.myapp.controller;
 import app.myapp.Main;
 import app.myapp.controller.component.SignInForm;
 import app.myapp.controller.component.SignUpForm;
-import app.myapp.model.user.method.Method;
+import app.myapp.model.user.data.User;
+import app.myapp.model.user.data.UserData;
 import app.myapp.model.user.method.UserAuth;
 import app.myapp.model.user.method.UserCreate;
-import javafx.animation.FadeTransition;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -16,7 +16,6 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
-import javafx.util.Duration;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -44,7 +43,6 @@ public class UserLogin_Controller {
         dynamic_pane.getChildren().add(signInForm);
 
         signInForm.btnSignIn.setOnAction(e -> {
-            System.out.println("SignIn Button is Clicked");
             try {
                 signIn(e);
             } catch (IOException | SQLException ex) {
@@ -53,7 +51,6 @@ public class UserLogin_Controller {
         });
 
         signUpForm.btnSignUp.setOnAction(e -> {
-            System.out.println("SignUp Button is Clicked");
             try {
                 signUp(e);
             } catch (IOException | SQLException ex) {
@@ -95,16 +92,15 @@ public class UserLogin_Controller {
         if(username.isEmpty() || password.isEmpty()){
             signInForm.showNotificationPane("Please fill up all fields!");
         }else{
-            Method userAuth = new UserAuth(username, password);
+            UserAuth userAuth = new UserAuth(username, password);
             if(userAuth.isExist()){
                 signInForm.showNotificationPane("Success");
-                onSuccess();
+                onSuccess(userAuth.getUserID());
                 switchToMainApp();
             }else{
                 signInForm.showNotificationPane("Incorrect username or password!");
             }
         }
-
     }
 
     void signUp(ActionEvent event) throws IOException, SQLException {
@@ -130,13 +126,18 @@ public class UserLogin_Controller {
                 switchForm();
                 signInForm.txtPassword.requestFocus();
 
-//                user.insertUser();
+                user.insertUser();
             }
         }
 
     }
 
-    private void onSuccess(){
+    private void onSuccess(String userID) throws SQLException {
+        User user = new User(userID);
+        user.updateData();
+
+        UserData userData = UserData.getInstance();
+        userData.setUser(user);
 
     }
 

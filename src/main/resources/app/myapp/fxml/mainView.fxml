@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
 <?import javafx.scene.control.MenuButton?>
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.TextField?>
@@ -17,7 +18,7 @@
    <children>
       <HBox id="navPane" alignment="CENTER_LEFT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="80.0" prefWidth="1325.0" style="-fx-background-color: -dark;">
          <children>
-            <HBox alignment="CENTER_LEFT" prefHeight="60.0" prefWidth="464.0">
+            <HBox alignment="CENTER_LEFT" onMouseClicked="#onHome" prefHeight="60.0" prefWidth="249.0">
                <children>
                   <ImageView fitHeight="60.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -38,10 +39,13 @@
                      </font>
                   </Text>
                </children>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
             </HBox>
-            <HBox prefHeight="41.0" prefWidth="450.0" spacing="15.0">
+            <HBox alignment="CENTER" prefHeight="41.0" prefWidth="818.0" spacing="15.0">
                <children>
-                  <TextField id="searchEngine" fx:id="txtSearch" focusTraversable="false" prefHeight="41.0" prefWidth="376.0" promptText="Search">
+                  <TextField id="searchEngine" fx:id="txtSearch" focusTraversable="false" prefHeight="41.0" prefWidth="454.0" promptText="Search">
                      <font>
                         <Font size="18.0" />
                      </font>
@@ -49,21 +53,21 @@
                         <Insets />
                      </HBox.margin>
                   </TextField>
-                  <StackedFontIcon fx:id="btnSearch">
+                  <StackedFontIcon fx:id="btnSearch" onMouseClicked="#search">
                      <children>
                         <FontIcon iconLiteral="mdi2m-magnify" iconSize="35" styleClass="iconbtn" />
                      </children>
                   </StackedFontIcon>
                </children>
             </HBox>
-            <HBox alignment="CENTER_RIGHT" prefHeight="45.0" prefWidth="346.0" spacing="20.0">
+            <HBox alignment="CENTER_RIGHT" prefHeight="42.0" prefWidth="239.0" spacing="20.0">
                <children>
                   <StackedFontIcon fx:id="btnAdd">
                      <children>
-                        <FontIcon iconLiteral="mdi2p-plus" iconSize="40" styleClass="iconbtn" wrappingWidth="40.0" />
+                        <FontIcon iconLiteral="mdi2p-plus" iconSize="40" onMouseClicked="#addSpot" styleClass="iconbtn" wrappingWidth="40.0" />
                      </children>
                   </StackedFontIcon>
-                  <MenuButton id="userDropdown" fx:id="menuUser" focusTraversable="false" graphicTextGap="10.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="160.0" text="MrYious" textFill="#e0d3de">
+                  <MenuButton id="userDropdown" fx:id="menuUser" focusTraversable="false" graphicTextGap="10.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="160.0" text="User" textFill="#e0d3de">
                     <items>
                       <MenuItem mnemonicParsing="false" text="Action 1" />
                       <MenuItem mnemonicParsing="false" text="Action 2" />

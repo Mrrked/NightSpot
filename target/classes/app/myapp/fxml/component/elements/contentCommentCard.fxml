@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.String?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import org.kordamp.ikonli.javafx.FontIcon?>
+
+<fx:root spacing="5.0" style="-fx-background-color: -dark;" stylesheets="@../../../css/main.css" type="VBox" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <HBox id="cReplyBox" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="140.0" prefWidth="900.0" style="-fx-background-color: -dark;">
+         <children>
+            <VBox alignment="CENTER" prefHeight="136.0" prefWidth="132.0" spacing="5.0">
+               <children>
+                  <Label fx:id="cComAuthor" alignment="CENTER" prefHeight="21.0" prefWidth="174.0" styleClass="cardColor" text="MrYious">
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                  </Label>
+                  <Separator prefWidth="200.0" />
+                  <HBox alignment="CENTER" spacing="25.0">
+                     <children>
+                        <FontIcon fx:id="cComUpBtn" iconColor="#e0d3de" iconLiteral="mdi2a-arrow-up-bold" iconSize="35" styleClass="cMainPostVoteBtn" wrappingWidth="35.0" />
+                        <FontIcon fx:id="cComDownBtn" iconColor="#e0d3de" iconLiteral="mdi2a-arrow-down-bold" iconSize="35" styleClass="cMainPostVoteBtn" wrappingWidth="35.0" />
+                     </children>
+                     <VBox.margin>
+                        <Insets />
+                     </VBox.margin>
+                  </HBox>
+                  <Label fx:id="cComVotes" alignment="CENTER" prefHeight="21.0" prefWidth="107.0" styleClass="cardColor" text="100">
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                  </Label>
+                  <Separator prefWidth="200.0" />
+                  <Label fx:id="cComDate" alignment="CENTER" prefHeight="21.0" prefWidth="152.0" styleClass="cardColor" text="January 24, 2021">
+                     <font>
+                        <Font size="13.0" />
+                     </font>
+                  </Label>
+               </children>
+               <cursor>
+                  <Cursor fx:constant="DEFAULT" />
+               </cursor>
+            </VBox>
+            <Separator orientation="VERTICAL" prefHeight="200.0">
+               <HBox.margin>
+                  <Insets />
+               </HBox.margin>
+            </Separator>
+            <VBox prefHeight="136.0" prefWidth="762.0">
+               <children>
+                  <Label fx:id="cComMessage" alignment="TOP_LEFT" prefHeight="116.0" prefWidth="762.0" styleClass="cardColor" text="79pI9vc1IHEjj8qB3Sph1Rifrz7DlqkFywVzyzNy8ETS7ngR0rXT4CMQT68neOv1LzOJJUR4uJ0SlfFlviHoUBizy2SUa1oXpumFDom7FkbgNoEPfqT327kAi4FEg6Vvk2qVtcyQuz4x6uemLOiC4B47DpRVbr5eJ31qRn4F22WrccSDuUniJyyGFVuJMBhBu2utWTsfttfd6QqjD0UqwAh4swGdJohNAXjbOLs11g78eFtlvTzwQCbiXPR7TlJTtPaNFE0rYh2YRH3RK1qzFwon11mUs645OWRGjSV0qkFlkoLI74P0wyZ7dfeYcQTHDgk5huT94rkbpmjUZz01Yqt1e5bwWkuX0X1jJxS6ByqOHHExb3Xrg5cjTlCIdUOnMwBFACbOT4qOKQeVkZvgZKAedmpOMJlrsEJcyRAZsitvphBiVNmVPmGMasCB6VSSCPzqMi6os4RjaVnhVHxt0BxxhHrsasGADrgGQ4uaA6h1MV9KXzj0CLVzO7MQyKfAaMmVDaDUVYwZfPIzWDDk9APCQTqjON5Q5l7guk" wrapText="true">
+                     <padding>
+                        <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
+                     </padding>
+                  </Label>
+                  <Separator prefWidth="200.0" />
+                  <HBox prefHeight="42.0" prefWidth="762.0">
+                     <children>
+                        <Label fx:id="cComShowBtn" alignment="CENTER" prefHeight="30.0" prefWidth="112.0" text="SHOW">
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                           <styleClass>
+                              <String fx:value="cardColor" />
+                              <String fx:value="commentButton" />
+                           </styleClass>
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font></Label>
+                        <Separator orientation="VERTICAL" prefHeight="200.0" />
+                        <Label fx:id="cComRepliesCount" prefHeight="30.0" prefWidth="518.0" styleClass="cardColor" text="20 REPLIES">
+                           <HBox.margin>
+                              <Insets />
+                           </HBox.margin>
+                           <padding>
+                              <Insets left="20.0" />
+                           </padding>
+                        </Label>
+                        <Separator orientation="VERTICAL" prefHeight="200.0" />
+                        <Label fx:id="cComReplyBtn" alignment="CENTER" prefHeight="30.0" prefWidth="129.0" text="REPLY">
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                           <styleClass>
+                              <String fx:value="cardColor" />
+                              <String fx:value="commentButton" />
+                           </styleClass>
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font></Label>
+                     </children>
+                  </HBox>
+               </children>
+            </VBox>
+         </children>
+      </HBox>
+      <HBox alignment="CENTER_RIGHT" prefWidth="900.0" style="-fx-background-color: -dark;">
+         <children>
+            <VBox fx:id="replyPane" prefWidth="765.0" spacing="5.0" />
+         </children>
+      </HBox>
+   </children>
+</fx:root>

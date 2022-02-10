@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.text.Font?>
+
+<fx:root alignment="TOP_LEFT" prefWidth="253.0" style="-fx-background-color: -dark; -fx-text-fill: -light;" stylesheets="@../../../css/theme.css" text="mYhsCEiSdWWtqIZwJsmMqIMtaTPOMOmYhsCEiSdWWtqIZwJsmMqIMtaTPOMO" type="Label" wrapText="true" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
+   <font>
+      <Font size="14.0" />
+   </font>
+</fx:root>

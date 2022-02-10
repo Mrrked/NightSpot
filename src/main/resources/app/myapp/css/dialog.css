@@ -1,0 +1,70 @@
+@import "theme.css";
+
+.dialog-pane {
+    -fx-background-color: -dark;
+}
+
+.button-bar .button{
+    -fx-background-color: -darker;
+    -fx-text-fill: -light;
+    -fx-border-radius: 0;
+    -fx-border-width: 1;
+    -fx-border-color: -semidark;
+    -fx-font-size: 14;
+    -fx-cursor: HAND;
+}
+.button-bar .button:hover{
+    -fx-text-fill: -sign;
+    -fx-border-color: -sign;
+}
+
+.label {
+    -fx-text-fill: -light;
+}
+
+.text-field{
+    -fx-text-fill: -light;
+    -fx-background-color: -darker;
+    -fx-border-width: 1;
+    -fx-border-color: -semidark;
+}
+
+.text-area{
+    -fx-background-color: -darker;
+    -fx-text-fill: -light;
+    -fx-border-width: 1;
+    -fx-border-color: -semidark;
+}
+.text-area .content{
+    -fx-background-color: -darker;
+}
+.text-area .scroll-bar:vertical{
+    -fx-background-color: -darker;
+    -fx-pref-width: 10;
+    -fx-opacity: 10;
+}
+
+#postEditor{
+    -fx-border-width: 1;
+    -fx-border-color: -semidark;
+}
+
+#postEditor .scroll-bar:vertical{
+    -fx-background-color: -darker;
+    -fx-pref-width: 10;
+    -fx-opacity: 10;
+}
+.tool-bar{
+    -fx-background-color: -darker;
+    -fx-border-width: 1;
+    -fx-border-color: -semidark;
+}
+.top-toolbar, .bottom-toolbar{
+    -fx-alignment: center;
+}
+
+/**/
+
+#dSpotsTitle{
+    -fx-text-fill: -sign;
+}
