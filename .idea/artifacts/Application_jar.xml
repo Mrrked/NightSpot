@@ -113,6 +113,13 @@
       <element id="file-copy" path="C:/Program Files/Java/javafx-sdk-17.0.1/bin/ucrtbase.dll" />
       <element id="file-copy" path="C:/Program Files/Java/javafx-sdk-17.0.1/bin/vcruntime140.dll" />
       <element id="file-copy" path="C:/Program Files/Java/javafx-sdk-17.0.1/bin/vcruntime140_1.dll" />
+      <element id="library" level="application" name="controlsfx" />
+      <element id="library" level="application" name="io.github.palexdev.materialfx" />
+      <element id="library" level="application" name="kordamp.ikonli.javafx" />
+      <element id="library" level="application" name="kordamp.ikonli.material2.pack" />
+      <element id="library" level="application" name="kordamp.ikonli.materialdesign2.pack" />
+      <element id="library" level="application" name="mysql.connector.java" />
+      <element id="library" level="application" name="openjfx.javafx.web" />
     </root>
   </artifact>
 </component>

@@ -13,7 +13,7 @@
 <fx:root maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="554.0" prefWidth="360.0" stylesheets="@../../../../css/dialog.css" type="DialogPane" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
    <buttonTypes>
       <ButtonType fx:constant="OK" />
-      <ButtonType fx:constant="CLOSE" />
+      <ButtonType fx:constant="CANCEL" />
    </buttonTypes>
    <content>
       <VBox alignment="CENTER" prefHeight="342.0" prefWidth="416.0" spacing="10.0">

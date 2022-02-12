@@ -2,6 +2,7 @@
 
 <?import io.github.palexdev.materialfx.controls.MFXScrollPane?>
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Separator?>
 <?import javafx.scene.layout.HBox?>
@@ -29,9 +30,9 @@
                </padding>
             </HBox>
             <Separator orientation="VERTICAL" prefHeight="200.0" />
-            <HBox alignment="CENTER_LEFT" prefHeight="36.0" prefWidth="522.0">
+            <HBox alignment="CENTER_LEFT" prefHeight="70.0" prefWidth="480.0">
                <children>
-                  <Label fx:id="cMainPostTitle" prefHeight="77.0" prefWidth="492.0" styleClass="cMainPostTextColor" text="KqJ57ue3xEC7C1S91POtTK2xanCEnCUuBCpqHLIbe8udTMFgyM" wrapText="true">
+                  <Label fx:id="cMainPostTitle" prefHeight="50.0" prefWidth="487.0" styleClass="cMainPostTextColor" text="KqJ57ue3xEC7C1S91POtTK2xanCEnCUuBCpqHLIbe8udTMFgyM" wrapText="true">
                      <font>
                         <Font name="System Bold" size="16.0" />
                      </font>
@@ -42,7 +43,7 @@
                </padding>
             </HBox>
             <Separator orientation="VERTICAL" prefHeight="200.0" />
-            <VBox alignment="CENTER_LEFT" prefHeight="105.0" prefWidth="232.0">
+            <VBox alignment="CENTER_LEFT" prefHeight="70.0" prefWidth="192.0">
                <children>
                   <Label id="spotCardJoinBtn" fx:id="cMainPostAuthor" prefHeight="0.0" prefWidth="202.0" styleClass="cMainPostTextColor" text="Author" wrapText="true">
                      <font>
@@ -51,8 +52,7 @@
                   </Label>
                   <HBox alignment="CENTER_LEFT" prefHeight="2.0" prefWidth="202.0">
                      <children>
-                        <Label id="spotCardJoinBtn" fx:id="cMainPostDate" prefHeight="21.0" prefWidth="110.0" styleClass="cMainPostTextColor" text="January 24, 2022" />
-                        <Label id="spotCardJoinBtn" fx:id="cMainPostTime" prefHeight="21.0" prefWidth="110.0" styleClass="cMainPostTextColor" text="11:30 am" />
+                        <Label id="spotCardJoinBtn" fx:id="cMainPostDate" prefHeight="17.0" prefWidth="161.0" styleClass="cMainPostTextColor" text="January 24, 2022" />
                      </children>
                   </HBox>
                </children>
@@ -60,6 +60,16 @@
                   <Insets bottom="10.0" left="20.0" right="10.0" top="5.0" />
                </padding>
             </VBox>
+            <Separator orientation="VERTICAL" prefHeight="200.0" />
+            <HBox alignment="CENTER" prefHeight="70.0" prefWidth="39.0">
+               <children>
+                  <FontIcon fx:id="cPostReturn" iconLiteral="mdi2w-window-close" iconSize="50" textAlignment="CENTER" wrappingWidth="75.0">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </FontIcon>
+               </children>
+            </HBox>
          </children>
       </HBox>
       <Separator prefWidth="200.0">
@@ -71,7 +81,7 @@
          <content>
             <VBox alignment="TOP_CENTER" prefWidth="929.0" style="-fx-background-color: -dark;">
                <children>
-                  <WebView fx:id="cMainPostWebView" prefHeight="131.0" prefWidth="929.0" />
+                  <WebView fx:id="cMainPostWebView" minHeight="200.0" prefHeight="-1.0" prefWidth="-1.0" />
                   <Separator prefWidth="200.0" />
                   <HBox prefHeight="38.0" prefWidth="929.0">
                      <children>
@@ -80,7 +90,7 @@
                               <Font name="System Bold" size="16.0" />
                            </font>
                         </Label>
-                        <Label fx:id="cMainPostAddCommentBtn" alignment="CENTER" prefHeight="38.0" prefWidth="210.0" styleClass="cMainPostTextColor" text="Add Comment" wrapText="true">
+                        <Label fx:id="cMainPostAddCommentBtn" alignment="CENTER" prefHeight="38.0" prefWidth="210.0" styleClass="cMainPostTextColor" text="ADD COMMENT" wrapText="true">
                            <font>
                               <Font name="System Bold" size="16.0" />
                            </font>
@@ -88,7 +98,10 @@
                      </children>
                   </HBox>
                   <Separator prefWidth="200.0" />
-                  <HBox fx:id="commentPane" alignment="CENTER" prefWidth="929.0" />
+                  <VBox fx:id="commentPane" alignment="CENTER" prefWidth="929.0">
+                     <VBox.margin>
+                        <Insets top="10.0" />
+                     </VBox.margin></VBox>
                </children>
                <padding>
                   <Insets top="10.0" />

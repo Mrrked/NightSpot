@@ -1,22 +1,33 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Pagination?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
+<?import org.kordamp.ikonli.javafx.FontIcon?>
 
 <fx:root maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="580.0" prefWidth="945.0" style="-fx-background-color: -dark;" stylesheets="@../../css/main.css" type="VBox" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <HBox alignment="CENTER_LEFT" prefHeight="62.0" prefWidth="945.0">
          <children>
-            <Label fx:id="cListPostTitle" prefHeight="36.0" text="Browse posts">
+            <HBox alignment="CENTER_LEFT" prefHeight="62.0" prefWidth="96.0">
+               <children>
+                  <FontIcon fx:id="cPostReturn" iconLiteral="mdi2k-keyboard-backspace" iconSize="50" textAlignment="CENTER" wrappingWidth="76.0">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </FontIcon>
+               </children>
+            </HBox>
+            <Label fx:id="cListPostTitle" prefHeight="62.0" prefWidth="415.0" text="Browse posts">
                <font>
                   <Font size="25.0" />
                </font>
             </Label>
-            <HBox alignment="CENTER_RIGHT" prefHeight="42.0" prefWidth="751.0" spacing="20.0">
+            <HBox alignment="CENTER_RIGHT" prefHeight="62.0" prefWidth="409.0" spacing="20.0">
                <children>
                   <Label fx:id="cLatestBtn" alignment="CENTER" prefHeight="42.0" prefWidth="77.0" styleClass="cListPostFilters" text="Latest">
                      <font>
@@ -37,9 +48,6 @@
          <VBox.margin>
             <Insets />
          </VBox.margin>
-         <padding>
-            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-         </padding>
       </HBox>
       <Pagination fx:id="cPagePosts" focusTraversable="false" maxPageIndicatorCount="3" pageCount="5" prefHeight="519.0" prefWidth="945.0" />
    </children>

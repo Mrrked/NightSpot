@@ -9,13 +9,12 @@
    <children>
       <Label fx:id="cReplyAuthor" alignment="CENTER" prefHeight="37.0" prefWidth="112.0" styleClass="cardColor" text="MrYious" wrapText="true" />
       <Separator orientation="VERTICAL" />
-      <Label fx:id="cReplyMessage" prefHeight="25.0" prefWidth="518.0" styleClass="cardColor" text="YKrcnIb298977JDOqEUhPVVY2i3m51pUZG5IdiKEy6g08U9N7Bl360N59yNLiiYgDRxF3UM5Gvk" wrapText="true">
+      <Label fx:id="cReplyMessage" prefHeight="25.0" prefWidth="519.0" styleClass="cardColor" text="YKrcnIb298977JDOqEUhPVVY2i3m51pUZG5IdiKEy6g08U9N7Bl360N59yNLiiYgDRxF3UM5Gvk" wrapText="true">
          <padding>
             <Insets left="10.0" right="10.0" />
          </padding>
       </Label>
       <Separator orientation="VERTICAL" />
-      <Label fx:id="cReplyDate" alignment="CENTER" prefHeight="17.0" prefWidth="64.0" styleClass="cardColor" text="01/24/21" />
-      <Label fx:id="cReplyTime" alignment="CENTER" prefHeight="17.0" prefWidth="45.0" styleClass="cardColor" text="7:00 PM" />
+      <Label fx:id="cReplyDate" alignment="CENTER" prefHeight="25.0" prefWidth="121.0" styleClass="cardColor" text="01/24/21" />
    </children>
 </fx:root>

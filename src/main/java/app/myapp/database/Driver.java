@@ -27,7 +27,7 @@ public class Driver {
             String username = "root";
             String password = "qswdefrgthyjukil";
             connection = DriverManager.getConnection(jdbcURL, username, password);
-            System.out.println("Database Connection: ON");
+//            System.out.println("Database Connection: ON");
         } catch (SQLException e) {
             System.out.println("Database Connection: ERROR");
             e.printStackTrace();
@@ -35,6 +35,6 @@ public class Driver {
     }
     public void endConnection() throws SQLException {
         connection.close();
-        System.out.println("Database Connection: OFF");
+//        System.out.println("Database Connection: OFF");
     }
 }

@@ -18,6 +18,18 @@
     -fx-text-fill: -light;
 }
 
+#cPostLink:hover {
+    -fx-background-color: -darker;
+}
+
+
+#cPostReturn{
+    -fx-fill: -light;
+}
+#cPostReturn:hover{
+    -fx-fill: -sign;
+}
+
 .text-area .content{
     -fx-background-color: -dark;
     -fx-border-width: 1;

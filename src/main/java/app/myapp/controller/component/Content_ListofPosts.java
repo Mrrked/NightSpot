@@ -6,6 +6,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Label;
 import javafx.scene.control.Pagination;
 import javafx.scene.layout.VBox;
+import org.kordamp.ikonli.javafx.FontIcon;
 
 import java.io.IOException;
 
@@ -19,6 +20,8 @@ public class Content_ListofPosts extends VBox {
     public Pagination cPagePosts;
     @FXML
     public Label cPopularBtn;
+    @FXML
+    public FontIcon cPostReturn;
 
     public Content_ListofPosts() throws IOException {
         FXMLLoader loader = new FXMLLoader(Main.class.getResource("fxml/component/contentListofPosts.fxml"));

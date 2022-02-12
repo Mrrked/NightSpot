@@ -10,11 +10,11 @@
 <?import javafx.scene.text.Font?>
 <?import org.kordamp.ikonli.javafx.FontIcon?>
 
-<fx:root spacing="5.0" style="-fx-background-color: -dark;" stylesheets="@../../../css/main.css" type="VBox" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
+<fx:root alignment="CENTER" spacing="5.0" style="-fx-background-color: -dark;" stylesheets="@../../../css/main.css" type="VBox" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <HBox id="cReplyBox" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="140.0" prefWidth="900.0" style="-fx-background-color: -dark;">
          <children>
-            <VBox alignment="CENTER" prefHeight="136.0" prefWidth="132.0" spacing="5.0">
+            <VBox alignment="CENTER" maxHeight="136.0" maxWidth="132.0" prefHeight="136.0" prefWidth="132.0" spacing="5.0">
                <children>
                   <Label fx:id="cComAuthor" alignment="CENTER" prefHeight="21.0" prefWidth="174.0" styleClass="cardColor" text="MrYious">
                      <font>
@@ -37,7 +37,7 @@
                      </font>
                   </Label>
                   <Separator prefWidth="200.0" />
-                  <Label fx:id="cComDate" alignment="CENTER" prefHeight="21.0" prefWidth="152.0" styleClass="cardColor" text="January 24, 2021">
+                  <Label fx:id="cComDate" alignment="CENTER" prefHeight="21.0" prefWidth="132.0" styleClass="cardColor" text="January 24, 2021" wrapText="true">
                      <font>
                         <Font size="13.0" />
                      </font>
@@ -54,7 +54,7 @@
             </Separator>
             <VBox prefHeight="136.0" prefWidth="762.0">
                <children>
-                  <Label fx:id="cComMessage" alignment="TOP_LEFT" prefHeight="116.0" prefWidth="762.0" styleClass="cardColor" text="79pI9vc1IHEjj8qB3Sph1Rifrz7DlqkFywVzyzNy8ETS7ngR0rXT4CMQT68neOv1LzOJJUR4uJ0SlfFlviHoUBizy2SUa1oXpumFDom7FkbgNoEPfqT327kAi4FEg6Vvk2qVtcyQuz4x6uemLOiC4B47DpRVbr5eJ31qRn4F22WrccSDuUniJyyGFVuJMBhBu2utWTsfttfd6QqjD0UqwAh4swGdJohNAXjbOLs11g78eFtlvTzwQCbiXPR7TlJTtPaNFE0rYh2YRH3RK1qzFwon11mUs645OWRGjSV0qkFlkoLI74P0wyZ7dfeYcQTHDgk5huT94rkbpmjUZz01Yqt1e5bwWkuX0X1jJxS6ByqOHHExb3Xrg5cjTlCIdUOnMwBFACbOT4qOKQeVkZvgZKAedmpOMJlrsEJcyRAZsitvphBiVNmVPmGMasCB6VSSCPzqMi6os4RjaVnhVHxt0BxxhHrsasGADrgGQ4uaA6h1MV9KXzj0CLVzO7MQyKfAaMmVDaDUVYwZfPIzWDDk9APCQTqjON5Q5l7guk" wrapText="true">
+                  <Label fx:id="cComMessage" prefHeight="116.0" prefWidth="762.0" styleClass="cardColor" text="79pI9vc1IHEjj8qB3Sph1Rifrz7DlqkFywVzyzNy8ETS7ngR0rXT4CMQT68neOv1LzOJJUR4uJ0SlfFlviHoUBizy2SUa1oXpumFDom7FkbgNoEPfqT327kAi4FEg6Vvk2qVtcyQuz4x6uemLOiC4B47DpRVbr5eJ31qRn4F22WrccSDuUniJyyGFVuJMBhBu2utWTsfttfd6QqjD0UqwAh4swGdJohNAXjbOLs11g78eFtlvTzwQCbiXPR7TlJTtPaNFE0rYh2YRH3RK1qzFwon11mUs645OWRGjSV0qkFlkoLI74P0wyZ7dfeYcQTHDgk5huT94rkbpmjUZz01Yqt1e5bwWkuX0X1jJxS6ByqOHHExb3Xrg5cjTlCIdUOnMwBFACbOT4qOKQeVkZvgZKAedmpOMJlrsEJcyRAZsitvphBiVNmVPmGMasCB6VSSCPzqMi6os4RjaVnhVHxt0BxxhHrsasGADrgGQ4uaA6h1MV9KXzj0CLVzO7MQyKfAaMmVDaDUVYwZfPIzWDDk9APCQTqjON5Q5l7guk" wrapText="true">
                      <padding>
                         <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
                      </padding>

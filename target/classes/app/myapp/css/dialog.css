@@ -55,7 +55,7 @@
     -fx-opacity: 10;
 }
 .tool-bar{
-    -fx-background-color: -darker;
+    -fx-background-color: -dark;
     -fx-border-width: 1;
     -fx-border-color: -semidark;
 }

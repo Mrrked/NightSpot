@@ -1,20 +1,21 @@
 package app.myapp.database;
 
-import app.myapp.controller.component.element.CardPost;
-import app.myapp.controller.component.element.CardSpot;
-import app.myapp.controller.component.element.Spot_Info;
+import app.myapp.controller.component.Content_MainPost;
+import app.myapp.controller.component.element.*;
 import app.myapp.model.user.data.User;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
 public class Query {
 
+    //SPOTS
     public void createSpots(@NotNull User user, String name, String desc, String rules) throws SQLException {
         Driver db_con = new Driver();
         db_con.startConnection();
@@ -113,7 +114,7 @@ public class Query {
         return spot;
     }
 
-    public ArrayList<CardPost> getTopPosts(String spotID) throws SQLException, IOException {
+    public ArrayList<CardPost> getTopPosts(String spotID) throws SQLException, IOException, ParseException {
         Driver db_con = new Driver();
         db_con.startConnection();
 
@@ -122,7 +123,8 @@ public class Query {
         String sql = "SELECT * FROM `post_tbl` WHERE spotID = '" + spotID + "' ORDER BY `postCountVotes` DESC LIMIT 50";
         ResultSet rs = db_con.executeSQLRS(sql);
 
-        String postID, authorID, title, authorName = null, votes, comments, date;
+        String postID, authorID, title, votes, comments, date;
+        String authorName = null;
 
         while(rs.next()){
             postID = rs.getString("postID");
@@ -134,10 +136,10 @@ public class Query {
 
             String sql1 = "SELECT `username` FROM `user_tbl` WHERE userID = '" + authorID + "'";
             ResultSet rs1 = db_con.executeSQLRS(sql1);
-            while(rs.next()){
+
+            while(rs1.next()){
                 authorName = rs1.getString("username");
             }
-
             posts.add(new CardPost(spotID,postID,authorID,title, authorName, votes, comments, date));
         }
 
@@ -145,22 +147,193 @@ public class Query {
         return posts;
     }
 
-
-}
-/*
-    public void template() throws SQLException {
+    //POSTS
+    public void createPosts(@NotNull User user, String spotID, String title, String htmlText) throws SQLException {
         Driver db_con = new Driver();
         db_con.startConnection();
 
-        String sql = "SELECT `username`, `role` FROM `user_tbl` WHERE userID = '" + user.getUserID() + "'";
-        ResultSet rs = db_con.executeSQLRS(sql);
+        String sql;
+        int count = 0;
+        ResultSet rs;
 
+        //CREATE THE POST
+        sql = "INSERT INTO `post_tbl` (`spotID`, `postAuthorID`, `postTitle`, `postMessage`) " +
+                "VALUES ('"+ spotID +"', '"+ user.getUserID() +"', '"+ title +"', \""+ htmlText +"\")";
+        db_con.executeSQL(sql);
+
+        //GET THE SPOT's POST COUNT
+        sql = "SELECT `spotCountPost` FROM `spot_tbl` WHERE spotID = '" + spotID + "' ";
+        rs = db_con.executeSQLRS(sql);
         while(rs.next()){
-            this.username = rs.getString("username");
-            this.role = rs.getString("role");
+            count = Integer.parseInt(rs.getString("spotCountPost"));
         }
+
+        //INCREMENT THE COUNT OF POSTS IN THE SPOT
+        sql = "UPDATE `spot_tbl` " +
+                "SET `spotCountPost` = '" + (count + 1) + "' " +
+                "WHERE (`spotID` = '" + spotID + "')";
+        db_con.executeSQL(sql);
 
         db_con.endConnection();
     }
 
- */
+    public Content_MainPost getPostInfo(String spotID, String postID) throws SQLException, IOException, ParseException {
+        Driver db_con = new Driver();
+        db_con.startConnection();
+
+        Content_MainPost mainPost = null;
+
+        String sql = "SELECT * FROM `post_tbl` WHERE postID = '" + postID + "' ";
+        ResultSet rs = db_con.executeSQLRS(sql);
+
+        String authorID, authorName = null, title, text, date, votes, comments;
+
+        while(rs.next()){
+            authorID = rs.getString("postAuthorID");
+            title = rs.getString("postTitle");
+            text = rs.getString("postMessage");
+            date = rs.getString("postDateCreated");
+            votes = rs.getString("postCountVotes");
+            comments = rs.getString("postCountComment");
+
+            String sql1 = "SELECT `username` FROM `user_tbl` WHERE userID = '" + authorID + "'";
+            ResultSet rs1 = db_con.executeSQLRS(sql1);
+
+            while(rs1.next()){
+                authorName = rs1.getString("username");
+            }
+            mainPost = new Content_MainPost(postID, authorID, spotID, authorName,title, votes, comments,text,date);
+        }
+        
+
+        db_con.endConnection();
+        return mainPost;
+    }
+
+    //COMMENTS
+    public void createComments(@NotNull User user, String message, String postID, String spotID) throws SQLException {
+        Driver db_con = new Driver();
+        db_con.startConnection();
+
+        String sql;
+        int count = 0;
+        ResultSet rs;
+
+        //CREATE THE COMMENT
+        sql = "INSERT INTO `comment_tbl` (`spotID`, `postID`, `commentAuthorID`, `commentMessage`) " +
+                "VALUES ('"+ spotID +"', '"+ postID +"', '"+ user.getUserID() +"', \""+ message +"\")";
+        db_con.executeSQL(sql);
+
+        //GET THE POST's COMMENT COUNT
+        sql = "SELECT `postCountComment` FROM `post_tbl` WHERE postID = '" + postID + "' ";
+        rs = db_con.executeSQLRS(sql);
+        while(rs.next()){
+            count = Integer.parseInt(rs.getString("postCountComment"));
+        }
+
+        //INCREMENT THE COUNT OF COMMENT IN THE POST
+        sql = "UPDATE `post_tbl` " +
+                "SET `postCountComment` = '" + (count + 1) + "' " +
+                "WHERE (`postID` = '" + postID + "')";
+        db_con.executeSQL(sql);
+
+        db_con.endConnection();
+    }
+
+    public ArrayList<CardComment> getComments(String postID) throws SQLException, IOException, ParseException {
+        Driver db_con = new Driver();
+        db_con.startConnection();
+
+        ArrayList<CardComment> comments = new ArrayList<>();
+
+        String sql = "SELECT * FROM `comment_tbl` WHERE postID = '" + postID + "' ORDER BY `commentCountVotes` DESC LIMIT 20";
+        ResultSet rs = db_con.executeSQLRS(sql);
+
+        String commentID, spotID, authorID, vote, reply, message, date;
+        String authorName = null;
+
+        while(rs.next()){
+            commentID = rs.getString("commentID");
+            spotID = rs.getString("spotID");
+            authorID = rs.getString("commentAuthorID");
+            vote = rs.getString("commentCountVotes");
+            reply = rs.getString("commentCountReplies");
+            message = rs.getString("commentMessage");
+            date = rs.getString("commentDateCreated");
+
+            String sql1 = "SELECT `username` FROM `user_tbl` WHERE userID = '" + authorID + "'";
+            ResultSet rs1 = db_con.executeSQLRS(sql1);
+
+            while(rs1.next()){
+                authorName = rs1.getString("username");
+            }
+            comments.add(new CardComment(commentID,spotID,postID,authorID,vote, authorName, reply, message, date));
+        }
+
+        db_con.endConnection();
+        return comments;
+    }
+
+    //REPLIES
+    public void createReplies(@NotNull User user, String message, CardComment comment) throws SQLException {
+        Driver db_con = new Driver();
+        db_con.startConnection();
+
+        String sql;
+        int count = 0;
+        ResultSet rs;
+
+        //CREATE THE REPLY
+        sql = "INSERT INTO `reply_tbl` (`spotID`, `postID`,`commentID`, `replyAuthorID`, `replyMessage`) " +
+                "VALUES ('"+ comment.spotID +"', '"+ comment.postID +"', '"+ comment.commentID +"', '"+ user.getUserID() +"', \""+ message +"\")";
+        db_con.executeSQL(sql);
+
+        //GET THE COMMENT's POST COUNT
+        sql = "SELECT `commentCountReplies` FROM `comment_tbl` WHERE commentID = '" + comment.commentID + "' ";
+        rs = db_con.executeSQLRS(sql);
+        while(rs.next()){
+            count = Integer.parseInt(rs.getString("commentCountReplies"));
+        }
+
+        //INCREMENT THE COUNT OF REPLIES IN THE COMMENT
+        sql = "UPDATE `comment_tbl` " +
+                "SET `commentCountReplies` = '" + (count + 1) + "' " +
+                "WHERE (`commentID` = '" + comment.commentID + "')";
+        db_con.executeSQL(sql);
+
+        db_con.endConnection();
+    }
+
+    public ArrayList<CardReply> getReplies(String commentID) throws SQLException, IOException, ParseException {
+        Driver db_con = new Driver();
+        db_con.startConnection();
+
+        ArrayList<CardReply> replies = new ArrayList<>();
+
+        String sql = "SELECT * FROM `reply_tbl` WHERE commentID = '" + commentID + "' ORDER BY `replyDateCreated` DESC ";
+        ResultSet rs = db_con.executeSQLRS(sql);
+
+        String replyID, authorID, message, date;
+        String authorName = null;
+
+        while(rs.next()){
+            replyID = rs.getString("commentID");
+            authorID = rs.getString("replyAuthorID");
+            message = rs.getString("replyMessage");
+            date = rs.getString("replyDateCreated");
+
+            String sql1 = "SELECT `username` FROM `user_tbl` WHERE userID = '" + authorID + "'";
+            ResultSet rs1 = db_con.executeSQLRS(sql1);
+
+            while(rs1.next()){
+                authorName = rs1.getString("username");
+            }
+            replies.add(new CardReply(replyID,commentID,authorID,authorName,message, date));
+        }
+
+        db_con.endConnection();
+        return replies;
+    }
+
+
+}

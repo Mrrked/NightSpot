@@ -22,22 +22,25 @@
                <children>
                   <Label fx:id="dPostTitle" alignment="CENTER" prefHeight="68.0" prefWidth="300.0" text="Create a Post!">
                      <font>
-                        <Font name="System Bold" size="22.0" />
+                        <Font name="System Bold" size="37.0" />
                      </font>
                   </Label>
                </children>
             </HBox>
             <HBox alignment="CENTER_LEFT" prefHeight="44.0" prefWidth="300.0" spacing="20.0">
                <children>
-                  <TextField fx:id="txtName" prefHeight="44.0" prefWidth="420.0" promptText="Title">
+                  <TextField fx:id="txtName" prefHeight="44.0" prefWidth="451.0" promptText="Title">
                      <font>
                         <Font size="15.0" />
                      </font>
                   </TextField>
                </children>
+               <VBox.margin>
+                  <Insets top="10.0" />
+               </VBox.margin>
             </HBox>
             <HBox alignment="CENTER_LEFT" prefWidth="300.0" spacing="20.0" />
-            <HTMLEditor fx:id="postEditor" focusTraversable="false" htmlText="&lt;html&gt;&lt;head&gt;&lt;meta charset=&quot;utf-8&quot;/&gt;&lt;style&gt;body {background-color: #0a0e1c;color: #E0D3DE;}&lt;/style&gt;&lt;/head&gt;&lt;body contentEditable=&quot;true&quot;&gt;&lt;/body&gt;&lt;/html&gt;&lt;html&gt;&lt;head&gt;&lt;meta charset=&quot;utf-8&quot;/&gt;&lt;style&gt;body {background-color: #0a0e1c;color: #E0D3DE;}&lt;/style&gt;&lt;/head&gt;&lt;body contentEditable=&quot;true&quot;&gt;&lt;/body&gt;&lt;/html&gt;" prefHeight="392.0" prefWidth="667.0" style="-fx-background-color: -darker;" />
+            <HTMLEditor fx:id="postEditor" focusTraversable="false" htmlText="&lt;html&gt;&lt;head&gt;&lt;meta charset=&quot;utf-8&quot;/&gt;&lt;style&gt;body {background-color: #0E1428;color: #E0D3DE;}&lt;/style&gt;&lt;/head&gt;&lt;body contentEditable=&quot;false&quot;&gt;&lt;/body&gt;&lt;/html&gt;" prefHeight="392.0" prefWidth="667.0" style="-fx-background-color: -darker;" />
          </children></VBox>
    </content>
    <padding>

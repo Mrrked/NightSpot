@@ -5,9 +5,13 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import org.kordamp.ikonli.javafx.FontIcon;
 
 import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class CardPost extends HBox {
 
@@ -20,13 +24,15 @@ public class CardPost extends HBox {
     @FXML
     private Label cPostCardDate;
     @FXML
-    private Label cPostCardTitle;
+    public Label cPostCardTitle;
     @FXML
     private Label cPostCardVotes;
     @FXML
-    private FontIcon cPostCardUpBtn;
+    public FontIcon cPostCardUpBtn;
     @FXML
-    private FontIcon cPostCardDownBtn;
+    public FontIcon cPostCardDownBtn;
+    @FXML
+    public VBox cPostLink;
 
     public CardPost(
             String spotID,
@@ -37,7 +43,7 @@ public class CardPost extends HBox {
             String votes,
             String comments,
             String date
-    ) throws IOException {
+    ) throws IOException, ParseException {
         FXMLLoader loader = new FXMLLoader(Main.class.getResource("fxml/component/elements/contentPostCard.fxml"));
         loader.setController(this);
         loader.setRoot(this);
@@ -49,8 +55,14 @@ public class CardPost extends HBox {
         this.cPostCardTitle.setText(title);
         this.cPostCardVotes.setText(votes);
         this.cPostCardComments.setText(comments + " comments");
-        this.cPostCardDate.setText(date);
         this.cPostCardAuthor.setText(authorName);
+
+        SimpleDateFormat dt = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+        Date newDate = dt.parse(date);
+        SimpleDateFormat dt1 = new SimpleDateFormat("d MMM yyyy hh:mm a");
+
+        String strDate = dt1.format(newDate);
+        this.cPostCardDate.setText(strDate);
     }
 
 
