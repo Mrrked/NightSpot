@@ -1,40 +1,64 @@
 package app.myapp.controller.component.element;
 
 import app.myapp.Main;
+import app.myapp.model.user.data.User;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
+import javafx.scene.paint.Paint;
 import org.kordamp.ikonli.javafx.FontIcon;
 
 import java.io.IOException;
+import java.util.Objects;
 
 public class CardSpot extends HBox {
 
     public String spotID;
+    public int countMember;
 
-    @FXML
-    private Label cardSpotDescription;
+
     @FXML
     public Label cardSpotJoinBtn;
     @FXML
-    private Label cardSpotMembers;
+    public FontIcon cardSpotJoinIcon;
+    @FXML
+    public Label cardSpotTitle;
+
+    @FXML
+    public Label cardSpotMembers;
     @FXML
     private Label cardSpotPosts;
     @FXML
-    public Label cardSpotTitle;
-    @FXML
-    private FontIcon cardSpotJoinIcon;
+    private Label cardSpotDescription;
 
-    public CardSpot(String id, String title, String desc, String member, String post) throws IOException {
+    public CardSpot(User user, String id, String title, String desc, String member, String post) throws IOException {
         FXMLLoader loader = new FXMLLoader(Main.class.getResource("fxml/component/elements/contentSpotCard.fxml"));
         loader.setController(this);
         loader.setRoot(this);
         loader.load();
         this.spotID = id;
-        cardSpotTitle.setText(title);
-        cardSpotDescription.setText(desc);
-        cardSpotMembers.setText(member + " members");
-        cardSpotPosts.setText(post + " posts");
+        this.cardSpotTitle.setText(title);
+        this.cardSpotDescription.setText(desc);
+        this.countMember = Integer.parseInt(member);
+        this.cardSpotMembers.setText(member + " members");
+        this.cardSpotPosts.setText(post + " posts");
+
+        if(!user.getJoinedSpots().isEmpty() && user.getJoinedSpots().contains(spotID) ){
+            cardSpotJoinIcon.setIconColor(Paint.valueOf("#DC4731"));
+            cardSpotJoinBtn.setText("JOINED");
+        }
+    }
+
+    public void switchState(){
+        if (cardSpotJoinBtn.getText().equals("JOIN")){
+            cardSpotJoinIcon.setIconColor(Paint.valueOf("#DC4731"));
+            cardSpotJoinBtn.setText("JOINED");
+            this.cardSpotMembers.setText((++countMember ) + " members");
+        }else if(cardSpotJoinBtn.getText().equals("JOINED")){
+            cardSpotJoinIcon.setIconColor(Paint.valueOf("#E0D3DE"));
+            cardSpotJoinBtn.setText("JOIN");
+            this.cardSpotMembers.setText((--countMember ) + " members");
+        }
     }
 }

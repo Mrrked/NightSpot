@@ -17,8 +17,14 @@
          <children>
             <HBox alignment="CENTER_LEFT" prefHeight="49.0" prefWidth="187.0">
                <children>
-                  <FontIcon fx:id="cMainPostUpBtn" iconColor="#e0d3de" iconLiteral="mdi2a-arrow-up-bold" iconSize="40" styleClass="cMainPostVoteBtn" wrappingWidth="40.0" />
-                  <FontIcon fx:id="cMainPostDownBtn" iconColor="#e0d3de" iconLiteral="mdi2a-arrow-down-bold" iconSize="40" styleClass="cMainPostVoteBtn" wrappingWidth="40.0" />
+                  <FontIcon fx:id="cMainPostUpBtn" iconColor="#e0d3de" iconLiteral="mdi2a-arrow-up-bold" iconSize="40" styleClass="cMainPostVoteBtn" wrappingWidth="40.0">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor></FontIcon>
+                  <FontIcon fx:id="cMainPostDownBtn" iconColor="WHITE" iconLiteral="mdi2a-arrow-down-bold" iconSize="40" styleClass="cMainPostVoteBtn" wrappingWidth="40.0">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor></FontIcon>
                   <Label fx:id="cMainPostVotes" alignment="CENTER" prefHeight="25.0" prefWidth="127.0" styleClass="cMainPostTextColor" text="100, 000">
                      <font>
                         <Font size="16.0" />
@@ -98,7 +104,7 @@
                      </children>
                   </HBox>
                   <Separator prefWidth="200.0" />
-                  <VBox fx:id="commentPane" alignment="CENTER" prefWidth="929.0">
+                  <VBox fx:id="commentPane" alignment="CENTER" prefWidth="900.0">
                      <VBox.margin>
                         <Insets top="10.0" />
                      </VBox.margin></VBox>

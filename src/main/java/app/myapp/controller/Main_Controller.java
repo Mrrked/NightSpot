@@ -3,7 +3,7 @@ package app.myapp.controller;
 import app.myapp.Main;
 import app.myapp.controller.component.Content_ListofPosts;
 import app.myapp.controller.component.Content_ListofSpots;
-import app.myapp.controller.component.Content_MainPost;
+import app.myapp.controller.component.ContentMainPost;
 import app.myapp.controller.component.element.*;
 import app.myapp.controller.component.element.dialog.Comment;
 import app.myapp.controller.component.element.dialog.Post;
@@ -18,6 +18,7 @@ import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
+import javafx.scene.paint.Paint;
 import javafx.stage.Stage;
 import org.kordamp.ikonli.javafx.StackedFontIcon;
 
@@ -30,6 +31,7 @@ import java.util.Map;
 public class Main_Controller {
     // TODO
     // IMITATE SPOTIFY'S TREND FEED: Daily, Monthly, Yearly
+    // POST UP AND DOWN VOTE, COMMENT ALSO
 
     Image logo = new Image(String.valueOf(Main.class.getResource("objects\\logo_ph.png")));
 
@@ -55,7 +57,7 @@ public class Main_Controller {
     Content_ListofSpots contentListofSpots = new Content_ListofSpots();
     Content_ListofPosts contentListofPosts = contentListofPosts = new Content_ListofPosts();
     Spot_JoinedList spotJoinedList = new Spot_JoinedList();
-    Content_MainPost contentMainPost;
+    ContentMainPost contentMainPost;
 
     //METHODS
 
@@ -71,9 +73,6 @@ public class Main_Controller {
 
         //Default to Home
         sessionHome();
-
-        //TODO
-        //JOIN BUTTON ON HOME SPOT LIST AND SPOT INFO
     }
 
     /*******************
@@ -103,7 +102,7 @@ public class Main_Controller {
         //CONTENT PANE: Main Post
         Query sql = new Query();
 
-        contentMainPost = sql.getPostInfo(spotID, postID);
+        contentMainPost = sql.getPostInfo(user, spotID, postID);
 
         contentMainPost.cPostReturn.setOnMousePressed(e ->{
             try {
@@ -121,8 +120,25 @@ public class Main_Controller {
             }
         });
 
+        contentMainPost.cMainPostUpBtn.setOnMousePressed(e->{
+            try {
+                sql.changeVote(user, contentMainPost, "up");
+                user.updateData();
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
+        });
+        contentMainPost.cMainPostDownBtn.setOnMousePressed(e->{
+            try {
+                sql.changeVote(user, contentMainPost, "down");
+                user.updateData();
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
+        });
+
         if(!contentMainPost.cMainPostComments.getText().equals("0 COMMENTS")){
-            ArrayList<CardComment> comments = sql.getComments(postID);
+            ArrayList<CardComment> comments = sql.getComments(user,postID);
 
             for (CardComment comment: comments) {
                 comment.cComShowBtn.setOnMousePressed(e -> {
@@ -139,6 +155,23 @@ public class Main_Controller {
                         ex.printStackTrace();
                     }
                 });
+                comment.cComUpBtn.setOnMousePressed(e ->{
+                    try {
+                        sql.changeVote(user,comment,"up");
+                        user.updateData();
+                    } catch (SQLException ex) {
+                        ex.printStackTrace();
+                    }
+                });
+                comment.cComDownBtn.setOnMousePressed(e ->{
+                    try {
+                        sql.changeVote(user,comment,"down");
+                        user.updateData();
+                    } catch (SQLException ex) {
+                        ex.printStackTrace();
+                    }
+                });
+
             }
 
             contentMainPost.commentPane.getChildren().addAll(comments);
@@ -147,7 +180,6 @@ public class Main_Controller {
         contentPane.getChildren().clear();
         contentPane.getChildren().add(contentMainPost);
 
-
     }
 
     void viewContent_SpotList() throws IOException, SQLException {
@@ -155,12 +187,18 @@ public class Main_Controller {
 
         //GET CURRENT DATABASE DATA
         Query sql = new Query();
-        ArrayList<CardSpot> spotCards = sql.getTopSpots();
+        ArrayList<CardSpot> spotCards = sql.getTopSpots(user);
 
         for (CardSpot spot: spotCards) {
             spot.cardSpotJoinBtn.setOnMousePressed(e->{
-                System.out.println( "Join " + spot.cardSpotTitle.getText());
-                //HERE
+                spot.switchState();
+                try {
+                    joinSpot(spot.spotID);
+                    viewSpotJoinedList();
+                } catch (SQLException | IOException ex) {
+                    ex.printStackTrace();
+                }
+
             });
             spot.cardSpotTitle.setOnMousePressed(e->{
                 try {
@@ -168,6 +206,7 @@ public class Main_Controller {
                 } catch (IOException | SQLException | ParseException ex) {
                     ex.printStackTrace();
                 }
+
             });
         }
 
@@ -200,17 +239,217 @@ public class Main_Controller {
                 ex.printStackTrace();
             }
         });
+        contentListofPosts.cLatestBtn.setOnMousePressed(e->{
+            try {
+                getPosts(spotID,0);
+                contentListofPosts.cPopularBtn.setTextFill(Paint.valueOf("#E0D3DE"));
+                contentListofPosts.cLatestBtn.setTextFill(Paint.valueOf("#DC4731"));
+            } catch (SQLException | IOException | ParseException ex) {
+                ex.printStackTrace();
+            }
+        });
+        contentListofPosts.cPopularBtn.setOnMousePressed(e->{
+            try {
+                getPosts(spotID,1);
+                contentListofPosts.cPopularBtn.setTextFill(Paint.valueOf("#DC4731"));
+                contentListofPosts.cLatestBtn.setTextFill(Paint.valueOf("#E0D3DE"));
+            } catch (SQLException | IOException | ParseException ex) {
+                ex.printStackTrace();
+            }
+        });
+
+        getPosts(spotID, 0);
+        contentListofPosts.cPopularBtn.setTextFill(Paint.valueOf("#DC4731"));
+        contentListofPosts.cLatestBtn.setTextFill(Paint.valueOf("#E0D3DE"));
+
+        if(!contentPane.getChildren().contains(contentListofPosts)){
+            contentPane.getChildren().clear();
+            contentPane.getChildren().add(contentListofPosts);
+        }
+    }
+
+    void viewSpotJoinedList() throws IOException, SQLException {
+        //SPOT PANE: Spot Lists
+        spotJoinedList.paneList.getChildren().clear();
+
+        if(user.getCountJoinedSpots() != 0){
+            //GET CURRENT DATABASE DATA
+            Query sql = new Query();
+            Map<String,String> spots = sql.getJoinedSpots(user);
+
+            ArrayList<MySpotsLabel> jSpots = new ArrayList<>();
+
+            for (Map.Entry<String, String> pair : spots.entrySet()) {
+                MySpotsLabel jSpot = new MySpotsLabel(pair.getKey(),pair.getValue());
+                jSpot.mySpotText.setOnMousePressed(e->{
+                    try {
+                        sessionSelectedSpots(jSpot.spotID);
+                    } catch (IOException | SQLException | ParseException ex) {
+                        ex.printStackTrace();
+                    }
+                });
+                jSpots.add(jSpot);
+            }
+
+            spotJoinedList.paneList.getChildren().addAll(jSpots);
+        }
+
+        if(!spotPane.getChildren().contains(spotJoinedList)){
+            spotPane.getChildren().clear();
+            spotPane.getChildren().add(spotJoinedList);
+        }
+    }
+
+    void viewSpotInfo(String spotID) throws IOException, SQLException {
+        //SPOT PANE: Spot Information
 
         //GET CURRENT DATABASE DATA
         Query sql = new Query();
 
-        ArrayList<CardPost> postCards = sql.getTopPosts(spotID);
+        Spot_Info spotInfo = sql.getSpotInfo(user, spotID);
+
+        //ACTIONS
+        spotInfo.spotJoinBtn.setOnAction(e->{
+            spotInfo.switchState();
+            try {
+                joinSpot(spotInfo.spotID);
+                viewSpotInfo(spotInfo.spotID);
+            } catch (SQLException | IOException ex) {
+                ex.printStackTrace();
+            }
+        });
+        spotInfo.spotCPostBtn.setOnMousePressed(e->{
+            try {
+                addPost(spotID);
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
+        });
+
+        spotPane.getChildren().clear();
+        spotPane.getChildren().add(spotInfo);
+
+    }
+
+    /*******************
+     *  Button Events  *
+     *******************/
+
+    @FXML
+    void addSpot(MouseEvent event) throws IOException {
+        Spot addSpotDialog = new Spot();
+
+        Dialog<String> dialog = new Dialog<>();
+        dialog.setDialogPane(addSpotDialog);
+        dialog.setTitle("NightSpot");
+
+        Stage stage = (Stage) dialog.getDialogPane().getScene().getWindow();
+        stage.getIcons().add(logo);
+
+        final Button btOk = (Button) dialog.getDialogPane().lookupButton(ButtonType.OK);
+        btOk.addEventFilter(ActionEvent.ACTION, e -> {
+            String name = addSpotDialog.txtName.getText();
+            String desc = addSpotDialog.txtDesc.getText();
+            String rules = addSpotDialog.txtRules.getText();
+
+            if( name.length() > 50 || name.isEmpty()
+                    ||  desc.length() > 100 || desc.isEmpty()
+                    ||  rules.length() > 500 || rules.isEmpty()
+            ){
+                e.consume();
+            }else{
+                //METHOD
+                try {
+                    String spotID = sql.createSpots(user, name, desc, rules);
+                    System.out.println("CREATED SPOT: " + name);
+                    user.updateData();
+                    sessionSelectedSpots(spotID);
+                } catch (SQLException | IOException | ParseException ex) {
+                    ex.printStackTrace();
+                }
+            }
+        });
+
+        dialog.showAndWait();
+    }
+
+    @FXML
+    void onHome(MouseEvent event) throws IOException, SQLException {
+        sessionHome();
+    }
+
+    @FXML
+    void search(MouseEvent event) throws IOException {
+
+    }
+
+    /*************
+     *  Methods  *
+     *************/
+
+    void addPost(String spotID) throws IOException {
+        Post addPostDialog = new Post();
+
+        Dialog<String> dialog = new Dialog<>();
+        dialog.setDialogPane(addPostDialog);
+        dialog.setTitle("NightSpot");
+
+        Stage stage = (Stage) dialog.getDialogPane().getScene().getWindow();
+        stage.getIcons().add(logo);
+
+        final Button btOk = (Button) dialog.getDialogPane().lookupButton(ButtonType.OK);
+        btOk.addEventFilter(ActionEvent.ACTION, e -> {
+            String title = addPostDialog.txtName.getText();
+            String htmlText = addPostDialog.postEditor.getHtmlText();
+
+            if( title.length() > 60 || title.isEmpty() || addPostDialog.postEditor.getHtmlText().isEmpty() || addPostDialog.postEditor.getHtmlText().isBlank() ){
+                e.consume();
+            }else{
+                //METHOD
+                try {
+                    String postID = sql.createPosts(user, spotID, title, htmlText);
+                    System.out.println("CREATED POST: " + title);
+                    sessionSelectedPosts(spotID,postID);
+                } catch (SQLException | IOException | ParseException ex) {
+                    ex.printStackTrace();
+                }
+            }
+        });
+
+        dialog.showAndWait();
+    }
+
+    void joinSpot(String spotID) throws SQLException, IOException {
+        sql.joinSpot(user, spotID);
+        user.updateData();
+    }
+
+    void getPosts(String spotID, int z) throws SQLException, IOException, ParseException {
+        //GET CURRENT DATABASE DATA
+        ArrayList<CardPost> postCards = sql.getTopPosts(user, spotID,z);
 
         for (CardPost post: postCards) {
             post.cPostLink.setOnMousePressed(e -> {
                 try {
                     sessionSelectedPosts(post.spotID, post.postID);
                 } catch (IOException | SQLException | ParseException ex) {
+                    ex.printStackTrace();
+                }
+            });
+
+            post.cPostCardUpBtn.setOnMousePressed(e->{
+                try {
+                    sql.changeVote(user, post, "up");
+                    user.updateData();
+                } catch (SQLException ex) {
+                    ex.printStackTrace();
+                }
+            });
+            post.cPostCardDownBtn.setOnMousePressed(e->{
+                try {
+                    sql.changeVote(user, post, "down");
+                    user.updateData();
+                } catch (SQLException ex) {
                     ex.printStackTrace();
                 }
             });
@@ -257,164 +496,6 @@ public class Main_Controller {
                 return empty;
             });
         }
-
-        if(!contentPane.getChildren().contains(contentListofPosts)){
-            contentPane.getChildren().clear();
-            contentPane.getChildren().add(contentListofPosts);
-        }
-    }
-
-    void viewSpotJoinedList() throws IOException, SQLException {
-        //SPOT PANE: Spot Lists
-        spotJoinedList.paneList.getChildren().clear();
-
-        if(user.getCountJoinedSpots() != 0){
-            //GET CURRENT DATABASE DATA
-            Query sql = new Query();
-            Map<String,String> spots = sql.getJoinedSpots(user);
-
-            ArrayList<MySpotsLabel> jSpots = new ArrayList<>();
-
-            for (Map.Entry<String, String> pair : spots.entrySet()) {
-                MySpotsLabel jSpot = new MySpotsLabel(pair.getKey(),pair.getValue());
-                jSpot.mySpotText.setOnMousePressed(e->{
-                    System.out.println(jSpot.mySpotText.getText());
-                    try {
-                        sessionSelectedSpots(jSpot.spotID);
-                    } catch (IOException | SQLException | ParseException ex) {
-                        ex.printStackTrace();
-                    }
-                });
-                jSpots.add(jSpot);
-            }
-
-            spotJoinedList.paneList.getChildren().addAll(jSpots);
-        }
-
-        if(!spotPane.getChildren().contains(spotJoinedList)){
-            spotPane.getChildren().clear();
-            spotPane.getChildren().add(spotJoinedList);
-        }
-    }
-
-    void viewSpotInfo(String spotID) throws IOException, SQLException {
-        //SPOT PANE: Spot Information
-
-        //GET CURRENT DATABASE DATA
-        Query sql = new Query();
-
-        Spot_Info spotInfo = sql.getSpotInfo(spotID);
-
-        spotInfo.spotJoinBtn.setOnAction(e->{
-            System.out.println( "Join " + spotInfo.spotName.getText());
-            joinSpot(spotInfo.spotID);
-            //HERE
-        });
-        spotInfo.spotCPostBtn.setOnMousePressed(e->{
-            System.out.println( "Create Posts ");
-            try {
-                addPost(spotID);
-            } catch (IOException ex) {
-                ex.printStackTrace();
-            }
-        });
-
-        if(!spotPane.getChildren().contains(spotInfo)){
-            spotPane.getChildren().clear();
-            spotPane.getChildren().add(spotInfo);
-        }
-    }
-
-    /*******************
-     *  Button Events  *
-     *******************/
-
-    @FXML
-    void addSpot(MouseEvent event) throws IOException {
-        Spot addSpotDialog = new Spot();
-
-        Dialog<String> dialog = new Dialog<>();
-        dialog.setDialogPane(addSpotDialog);
-        dialog.setTitle("NightSpot");
-
-        Stage stage = (Stage) dialog.getDialogPane().getScene().getWindow();
-        stage.getIcons().add(logo);
-
-        final Button btOk = (Button) dialog.getDialogPane().lookupButton(ButtonType.OK);
-        btOk.addEventFilter(ActionEvent.ACTION, e -> {
-            String name = addSpotDialog.txtName.getText();
-            String desc = addSpotDialog.txtDesc.getText();
-            String rules = addSpotDialog.txtRules.getText();
-
-            if( name.length() > 50 || name.isEmpty()
-                    ||  desc.length() > 100 || desc.isEmpty()
-                    ||  rules.length() > 500 || rules.isEmpty()
-            ){
-                e.consume();
-            }else{
-                //METHOD
-                try {
-                    sql.createSpots(user, name, desc, rules);
-                    System.out.println("CREATED SPOT: " + name);
-                    user.updateData();
-                    viewSpotJoinedList();
-                } catch (SQLException | IOException ex) {
-                    ex.printStackTrace();
-                }
-            }
-        });
-
-        dialog.showAndWait();
-    }
-
-    @FXML
-    void onHome(MouseEvent event) throws IOException, SQLException {
-        sessionHome();
-    }
-
-    @FXML
-    void search(MouseEvent event) throws IOException {
-
-    }
-
-    /*************
-     *  Methods  *
-     *************/
-
-    void addPost(String spotID) throws IOException {
-        Post addPostDialog = new Post();
-
-        Dialog<String> dialog = new Dialog<>();
-        dialog.setDialogPane(addPostDialog);
-        dialog.setTitle("NightSpot");
-
-        Stage stage = (Stage) dialog.getDialogPane().getScene().getWindow();
-        stage.getIcons().add(logo);
-
-        final Button btOk = (Button) dialog.getDialogPane().lookupButton(ButtonType.OK);
-        btOk.addEventFilter(ActionEvent.ACTION, e -> {
-            String title = addPostDialog.txtName.getText();
-            String htmlText = addPostDialog.postEditor.getHtmlText();
-
-            if( title.length() > 60 || title.isEmpty() || addPostDialog.postEditor.getHtmlText().isEmpty() || addPostDialog.postEditor.getHtmlText().isBlank() ){
-                e.consume();
-            }else{
-                //METHOD
-                try {
-                    sql.createPosts(user, spotID, title, htmlText);
-                    System.out.println("CREATED POST: " + title);
-                    sessionSelectedSpots(spotID);
-                } catch (SQLException | IOException | ParseException ex) {
-                    ex.printStackTrace();
-                }
-            }
-        });
-
-        dialog.showAndWait();
-    }
-
-    void joinSpot(String spotID){
-
     }
     void showReply(CardComment comment) throws SQLException, IOException, ParseException {
         if(!comment.cComRepliesCount.getText().equals("0 replies")){
@@ -502,7 +583,7 @@ public class Main_Controller {
                     count++;
                     contentMainPost.cMainPostComments.setText(count + " COMMENTS");
 
-                    ArrayList<CardComment> comments = sql.getComments(contentMainPost.postID);
+                    ArrayList<CardComment> comments = sql.getComments(user,contentMainPost.postID);
 
                     contentMainPost.commentPane.getChildren().clear();
 
@@ -518,6 +599,22 @@ public class Main_Controller {
                             try {
                                 addReply(comment);
                             } catch (IOException ex) {
+                                ex.printStackTrace();
+                            }
+                        });
+                        comment.cComUpBtn.setOnMousePressed(event ->{
+                            try {
+                                sql.changeVote(user,comment,"up");
+                                user.updateData();
+                            } catch (SQLException ex) {
+                                ex.printStackTrace();
+                            }
+                        });
+                        comment.cComDownBtn.setOnMousePressed(event ->{
+                            try {
+                                sql.changeVote(user,comment,"down");
+                                user.updateData();
+                            } catch (SQLException ex) {
                                 ex.printStackTrace();
                             }
                         });

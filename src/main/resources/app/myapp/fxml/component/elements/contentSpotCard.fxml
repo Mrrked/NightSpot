@@ -12,12 +12,12 @@
 
 <fx:root id="spotCardBox" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="80.0" prefWidth="900.0" style="-fx-background-color: -dark;" stylesheets="@../../../css/main.css" type="HBox" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <Label fx:id="cardSpotJoinBtn" alignment="CENTER" contentDisplay="TOP" prefHeight="136.0" prefWidth="76.0" text="Joined">
+      <Label fx:id="cardSpotJoinBtn" alignment="CENTER" contentDisplay="GRAPHIC_ONLY" prefHeight="136.0" prefWidth="76.0" text="JOIN">
          <font>
             <Font name="System Bold" size="15.0" />
          </font>
          <graphic>
-            <FontIcon fx:id="cardSpotJoinIcon" iconColor="#e0d3de" iconLiteral="mdi2r-record-circle" iconSize="40" />
+            <FontIcon fx:id="cardSpotJoinIcon" iconColor="#e0d3de" iconLiteral="mdi2r-record-circle" iconSize="45" />
          </graphic>
          <styleClass>
             <String fx:value="cardColor" />

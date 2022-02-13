@@ -15,8 +15,14 @@
          <children>
             <HBox alignment="CENTER">
                <children>
-                  <FontIcon fx:id="cPostCardUpBtn" iconColor="#e0d3de" iconLiteral="mdi2a-arrow-up-bold" iconSize="35" styleClass="cMainPostVoteBtn" wrappingWidth="35.0" />
-                  <FontIcon fx:id="cPostCardDownBtn" iconColor="#e0d3de" iconLiteral="mdi2a-arrow-down-bold" iconSize="35" styleClass="cMainPostVoteBtn" wrappingWidth="35.0" />
+                  <FontIcon fx:id="cPostCardUpBtn" iconColor="#f8f8f8" iconLiteral="mdi2a-arrow-up-bold" iconSize="35" styleClass="cMainPostVoteBtn" wrappingWidth="35.0">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor></FontIcon>
+                  <FontIcon fx:id="cPostCardDownBtn" iconColor="#e0d3de" iconLiteral="mdi2a-arrow-down-bold" iconSize="35" styleClass="cMainPostVoteBtn" wrappingWidth="35.0">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor></FontIcon>
                </children>
                <VBox.margin>
                   <Insets />

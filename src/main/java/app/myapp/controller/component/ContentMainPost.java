@@ -1,4 +1,4 @@
-package app.myapp.controller.component.element;
+package app.myapp.controller.component;
 
 import app.myapp.Main;
 import app.myapp.database.Driver;
@@ -6,9 +6,9 @@ import app.myapp.model.user.data.User;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Label;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Paint;
+import javafx.scene.web.WebView;
 import org.kordamp.ikonli.javafx.FontIcon;
 
 import java.io.IOException;
@@ -18,73 +18,75 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
-public class CardPost extends HBox {
+public class ContentMainPost extends VBox {
 
-    public String postID, spotID, authorID;
+    public String ownerID, spotID, postID;
     public int countVotes;
     public int v = 0;
 
     @FXML
-    public Label cPostCardAuthor;
+    public Label cMainPostAddCommentBtn;
     @FXML
-    private Label cPostCardComments;
+    private Label cMainPostAuthor;
     @FXML
-    private Label cPostCardDate;
+    public Label cMainPostComments;
     @FXML
-    public Label cPostCardTitle;
+    private Label cMainPostDate;
     @FXML
-    private Label cPostCardVotes;
+    private Label cMainPostTitle;
     @FXML
-    public FontIcon cPostCardUpBtn;
+    private Label cMainPostVotes;
     @FXML
-    public FontIcon cPostCardDownBtn;
+    private WebView cMainPostWebView;
     @FXML
-    public VBox cPostLink;
+    public VBox commentPane;
+    @FXML
+    public FontIcon cPostReturn;
 
-    public CardPost(
-            User user,
-            String spotID,
-            String postID,
-            String authorID,
-            String title,
-            String authorName,
-            String votes,
-            String comments,
-            String date
-    ) throws IOException, ParseException {
-        FXMLLoader loader = new FXMLLoader(Main.class.getResource("fxml/component/elements/contentPostCard.fxml"));
+    @FXML
+    public FontIcon cMainPostDownBtn;
+    @FXML
+    public FontIcon cMainPostUpBtn;
+
+    public ContentMainPost(User user, String id, String authorID, String spotID, String authorName, String title, String vote, String comment, String message, String date) throws IOException, ParseException, SQLException {
+        FXMLLoader loader = new FXMLLoader(Main.class.getResource("fxml/component/contentMainPost.fxml"));
         loader.setController(this);
         loader.setRoot(this);
         loader.load();
-
+        this.postID = id;
+        this.ownerID = authorID;
         this.spotID = spotID;
-        this.authorID = authorID;
-        this.postID = postID;
-        this.cPostCardTitle.setText(title);
-        this.cPostCardVotes.setText(votes);
-        this.cPostCardComments.setText(comments + " comments");
-        this.cPostCardAuthor.setText(authorName);
-        this.countVotes = Integer.parseInt(votes);
+        this.cMainPostAuthor.setText(authorName);
+        this.cMainPostTitle.setText(title);
+        this.cMainPostVotes.setText(vote);
+        this.cMainPostComments.setText(comment + " COMMENTS");
+        this.countVotes = Integer.parseInt(vote);
 
+        //WEBVIEW
+        if(message.contains("contenteditable=\"true\"")){
+            message=message.replace("contenteditable=\"true\"", "contenteditable=\"false\"");
+        }
+        this.cMainPostWebView.getEngine().loadContent(message);
+
+        //DATE
         SimpleDateFormat dt = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
         Date newDate = dt.parse(date);
-        SimpleDateFormat dt1 = new SimpleDateFormat("d MMM yyyy hh:mm a");
-
+        SimpleDateFormat dt1 = new SimpleDateFormat("MMMM dd, yyyy hh:mm a");
         String strDate = dt1.format(newDate);
-        this.cPostCardDate.setText(strDate);
+        this.cMainPostDate.setText(strDate);
 
         if(user.getUpPost().size() != 0 && user.getUpPost().contains(postID)){
-            switchColor(cPostCardUpBtn,true);
-            switchColor(cPostCardDownBtn,false);
+            switchColor(cMainPostUpBtn,true);
+            switchColor(cMainPostDownBtn,false);
             v = 1;
         }else if(user.getDownPost().size() != 0 && user.getDownPost().contains(postID)){
-            switchColor(cPostCardUpBtn,false);
-            switchColor(cPostCardDownBtn,true);
+            switchColor(cMainPostUpBtn,false);
+            switchColor(cMainPostDownBtn,true);
             v = -1;
         }
 
-    }
 
+    }
     public void switchVotes(User user, int u, String postID) throws SQLException {
         Driver db_con = new Driver();
         db_con.startConnection();
@@ -118,8 +120,8 @@ public class CardPost extends HBox {
                     db_con.executeSQL(sql2);
 
                     countVotes += 2;
-                    switchColor(cPostCardUpBtn,true);
-                    switchColor(cPostCardDownBtn,false);
+                    switchColor(cMainPostUpBtn,true);
+                    switchColor(cMainPostDownBtn,false);
                     v = 1;
                 }else if(u == -1){ //DOWN
                     //REMOVAL
@@ -133,8 +135,8 @@ public class CardPost extends HBox {
                     db_con.executeSQL(sql2);
 
                     countVotes += 1;
-                    switchColor(cPostCardUpBtn,false);
-                    switchColor(cPostCardDownBtn,false);
+                    switchColor(cMainPostUpBtn,false);
+                    switchColor(cMainPostDownBtn,false);
                     v = 0;
                 }
                 break;
@@ -153,8 +155,8 @@ public class CardPost extends HBox {
                     db_con.executeSQL(sql1);
 
                     countVotes += 1;
-                    switchColor(cPostCardUpBtn,true);
-                    switchColor(cPostCardDownBtn,false);
+                    switchColor(cMainPostUpBtn,true);
+                    switchColor(cMainPostDownBtn,false);
                     v = 1;
                 }else if(u == -1){
                     //INSERTION
@@ -169,8 +171,8 @@ public class CardPost extends HBox {
                     db_con.executeSQL(sql1);
 
                     countVotes -= 1;
-                    switchColor(cPostCardUpBtn,false);
-                    switchColor(cPostCardDownBtn,true);
+                    switchColor(cMainPostUpBtn,false);
+                    switchColor(cMainPostDownBtn,true);
                     v = -1;
                 }
                 break;
@@ -188,8 +190,8 @@ public class CardPost extends HBox {
                     db_con.executeSQL(sql1);
 
                     countVotes -= 1;
-                    switchColor(cPostCardUpBtn,false);
-                    switchColor(cPostCardDownBtn,false);
+                    switchColor(cMainPostUpBtn,false);
+                    switchColor(cMainPostDownBtn,false);
                     v = 0;
                 }else if(u == -1){
                     //INSERTION
@@ -212,13 +214,13 @@ public class CardPost extends HBox {
                     db_con.executeSQL(sql2);
 
                     countVotes -= 2;
-                    switchColor(cPostCardUpBtn,false);
-                    switchColor(cPostCardDownBtn,true);
+                    switchColor(cMainPostUpBtn,false);
+                    switchColor(cMainPostDownBtn,true);
                     v = -1;
                 }
                 break;
         }
-        this.cPostCardVotes.setText(String.valueOf(countVotes));
+        this.cMainPostVotes.setText(String.valueOf(countVotes));
 
     }
 
@@ -229,7 +231,6 @@ public class CardPost extends HBox {
             icon.setIconColor(Paint.valueOf("#E0D3DE"));//LIGHT
         }
     }
-
 
 
 }

@@ -1,6 +1,7 @@
 package app.myapp.database;
 
-import app.myapp.controller.component.Content_MainPost;
+
+import app.myapp.controller.component.ContentMainPost;
 import app.myapp.controller.component.element.*;
 import app.myapp.model.user.data.User;
 import org.jetbrains.annotations.NotNull;
@@ -15,42 +16,12 @@ import java.util.Map;
 
 public class Query {
 
-    //SPOTS
-    public void createSpots(@NotNull User user, String name, String desc, String rules) throws SQLException {
-        Driver db_con = new Driver();
-        db_con.startConnection();
-
-        String newSpotList = null, sql;
-        ResultSet rs;
-
-        //CREATE THE SPOT
-        sql = "INSERT INTO `spot_tbl` (`spotOwnerID`, `spotRules`, `spotName`, `spotDescription` ) " +
-                "VALUES ('"+ user.getUserID() +"', '"+ rules +"', '"+ name +"', '"+ desc +"')";
-        db_con.executeSQL(sql);
-        
-        //GET THE SPOT's ID and CONCAT IT TO THE OWNERS JOINED SPOT LISTS
-        sql = "SELECT `spotID` FROM `spot_tbl` WHERE spotOwnerID = '" + user.getUserID() + "' && spotName = '"+ name +"' ";
-        rs = db_con.executeSQLRS(sql);
-        while(rs.next()) {
-            newSpotList = user.getJoinedSpots() + rs.getString("spotID") + ",";
-        }
-
-        //UPDATE THE OWNERS JOINED SPOT LIST AND INCREMENT THE COUNT
-        sql = "UPDATE `user_tbl` " +
-                "SET `countJoinedSpots` = '" + (user.getCountJoinedSpots() + 1) + "', " +
-                "`joinedSpots` = '" + newSpotList + "' " +
-                "WHERE (`userID` = '" + user.getUserID() + "')";
-        db_con.executeSQL(sql);
-
-        db_con.endConnection();
-    }
-
     public Map<String,String> getJoinedSpots(User user) throws SQLException {
         Driver db_con = new Driver();
         db_con.startConnection();
 
         Map<String,String> spots = new HashMap<>();
-        String[] spotsID = user.getJoinedSpots().split(",");
+        ArrayList<String> spotsID = user.getJoinedSpots();
 
         for (String id :spotsID) {
             String sql = "SELECT `spotName` FROM `spot_tbl` WHERE spotID = '" + id + "'";
@@ -65,31 +36,47 @@ public class Query {
 
     }
 
-    public ArrayList<CardSpot> getTopSpots() throws SQLException, IOException {
+    //SPOTS
+    public String createSpots(@NotNull User user, String name, String desc, String rules) throws SQLException {
         Driver db_con = new Driver();
         db_con.startConnection();
 
-        ArrayList<CardSpot> topSpots = new ArrayList<>();
+        String newSpotList = null, spotID = null, sql;
+        ResultSet rs;
 
-        String sql = "SELECT * FROM `spot_tbl` ORDER BY `spotCountMember` DESC LIMIT 5;";
-        ResultSet rs = db_con.executeSQLRS(sql);
+        //CREATE THE SPOT
+        sql = "INSERT INTO `spot_tbl` (`spotOwnerID`, `spotRules`, `spotName`, `spotDescription` ) " +
+                "VALUES ('"+ user.getUserID() +"', '"+ rules +"', '"+ name +"', '"+ desc +"')";
+        db_con.executeSQL(sql);
+        
+        //GET THE SPOT's ID and CONCAT IT TO THE OWNERS JOINED SPOT LISTS
+        sql = "SELECT `spotID` FROM `spot_tbl` WHERE spotOwnerID = '" + user.getUserID() + "' && spotName = '"+ name +"' ";
+        rs = db_con.executeSQLRS(sql);
 
-        String spotId, name, desc, member, posts;
-
-        while(rs.next()){
-            spotId = rs.getString("spotID");
-            name = rs.getString("spotName");
-            desc = rs.getString("spotDescription");
-            member = rs.getString("spotCountMember");
-            posts = rs.getString("spotCountPost");
-            topSpots.add(new CardSpot(spotId,name, desc, member, posts));
+        while(rs.next()) {
+            spotID = rs.getString("spotID");
+            if(user.getCountJoinedSpots() != 0){
+                user.getJoinedSpots().add(spotID);
+                newSpotList = String.join(",", user.getJoinedSpots());
+            }else{
+                newSpotList = spotID;
+            }
         }
 
+        System.out.println(newSpotList);
+
+        //UPDATE THE OWNERS JOINED SPOT LIST AND INCREMENT THE COUNT
+        sql = "UPDATE `user_tbl` " +
+                "SET `countJoinedSpots` = '" + (user.getCountJoinedSpots() + 1) + "', " +
+                "`joinedSpots` = '" + newSpotList + "' " +
+                "WHERE (`userID` = '" + user.getUserID() + "')";
+        db_con.executeSQL(sql);
+
         db_con.endConnection();
-        return topSpots;
+        return spotID;
     }
 
-    public Spot_Info getSpotInfo(String spotID) throws SQLException, IOException{
+    public Spot_Info getSpotInfo(User user, String spotID) throws SQLException, IOException{
         Driver db_con = new Driver();
         db_con.startConnection();
 
@@ -107,20 +94,118 @@ public class Query {
             member = rs.getString("spotCountMember");
             posts = rs.getString("spotCountPost");
             rules = rs.getString("spotRules");
-            spot = new Spot_Info(spotID, ownerID, name, member, posts, desc, rules);
+            spot = new Spot_Info(user, spotID, ownerID, name, member, posts, desc, rules);
         }
 
         db_con.endConnection();
         return spot;
     }
 
-    public ArrayList<CardPost> getTopPosts(String spotID) throws SQLException, IOException, ParseException {
+    public void joinSpot(User user, String spotID) throws SQLException {
+        Driver db_con = new Driver();
+        db_con.startConnection();
+
+        String sql;
+        ResultSet rs;
+        if(!user.getJoinedSpots().isEmpty() && user.getJoinedSpots().contains(spotID) ){
+            user.getJoinedSpots().remove(spotID);
+            String newSpotList = String.join(",", user.getJoinedSpots());
+            sql = "UPDATE `user_tbl` " +
+                    "SET `countJoinedSpots` = '" + (user.getCountJoinedSpots() - 1) + "', " +
+                    "`joinedSpots` = '" + newSpotList + "' " +
+                    "WHERE (`userID` = '" + user.getUserID() + "')";
+//            System.out.println("Unjoin : " + newSpotList);
+            db_con.executeSQL(sql);
+
+            int count = 0;
+            //GET THE SPOT's MEMBER COUNT
+            sql = "SELECT `spotCountMember` FROM `spot_tbl` WHERE spotID = '" + spotID + "' ";
+            rs = db_con.executeSQLRS(sql);
+            while(rs.next()){
+                count = Integer.parseInt(rs.getString("spotCountMember"));
+            }
+
+            //INCREMENT THE COUNT OF COMMENT IN THE POST
+            sql = "UPDATE `spot_tbl` " +
+                    "SET `spotCountMember` = '" + (count - 1) + "' " +
+                    "WHERE (`spotID` = '" + spotID + "')";
+            db_con.executeSQL(sql);
+
+
+        }else{
+            String newSpotList;
+
+            if(user.getCountJoinedSpots() != 0){
+                user.getJoinedSpots().add(spotID);
+                newSpotList = String.join(",", user.getJoinedSpots());
+            }else{
+                newSpotList = spotID;
+            }
+
+            sql = "UPDATE `user_tbl` " +
+                    "SET `countJoinedSpots` = '" + (user.getCountJoinedSpots() + 1) + "', " +
+                    "`joinedSpots` = '" + newSpotList + "' " +
+                    "WHERE (`userID` = '" + user.getUserID() + "')";
+//            System.out.println("Join : " + newSpotList);
+            db_con.executeSQL(sql);
+
+            int count = 0;
+            //GET THE SPOT's MEMBER COUNT
+            sql = "SELECT `spotCountMember` FROM `spot_tbl` WHERE spotID = '" + spotID + "' ";
+            rs = db_con.executeSQLRS(sql);
+            while(rs.next()){
+                count = Integer.parseInt(rs.getString("spotCountMember"));
+            }
+
+            //INCREMENT THE COUNT OF COMMENT IN THE POST
+            sql = "UPDATE `spot_tbl` " +
+                    "SET `spotCountMember` = '" + (count + 1) + "' " +
+                    "WHERE (`spotID` = '" + spotID + "')";
+            db_con.executeSQL(sql);
+        }
+
+        db_con.endConnection();
+    }
+
+    //CARDS
+    public ArrayList<CardSpot> getTopSpots(User user) throws SQLException, IOException {
+        Driver db_con = new Driver();
+        db_con.startConnection();
+
+        ArrayList<CardSpot> topSpots = new ArrayList<>();
+
+        String sql = "SELECT * FROM `spot_tbl` ORDER BY `spotCountMember` DESC LIMIT 5;";
+        ResultSet rs = db_con.executeSQLRS(sql);
+
+        String spotId, name, desc, member, posts;
+
+        while(rs.next()){
+            spotId = rs.getString("spotID");
+            name = rs.getString("spotName");
+            desc = rs.getString("spotDescription");
+            member = rs.getString("spotCountMember");
+            posts = rs.getString("spotCountPost");
+            topSpots.add(new CardSpot(user, spotId,name, desc, member, posts));
+        }
+
+        db_con.endConnection();
+        return topSpots;
+    }
+
+    public ArrayList<CardPost> getTopPosts(User user, String spotID, int z) throws SQLException, IOException, ParseException {
         Driver db_con = new Driver();
         db_con.startConnection();
 
         ArrayList<CardPost> posts = new ArrayList<>();
+        String sql = null;
+        
+        if(z == 1){
+            sql = "SELECT * FROM `post_tbl` WHERE spotID = '" + spotID + "' ORDER BY `postCountVotes` DESC LIMIT 50";
+        }else if(z == 0){
+            sql = "SELECT * FROM `post_tbl` WHERE spotID = '" + spotID + "' ORDER BY `postDateCreated` DESC LIMIT 50";
+        }
+        
 
-        String sql = "SELECT * FROM `post_tbl` WHERE spotID = '" + spotID + "' ORDER BY `postCountVotes` DESC LIMIT 50";
         ResultSet rs = db_con.executeSQLRS(sql);
 
         String postID, authorID, title, votes, comments, date;
@@ -140,7 +225,7 @@ public class Query {
             while(rs1.next()){
                 authorName = rs1.getString("username");
             }
-            posts.add(new CardPost(spotID,postID,authorID,title, authorName, votes, comments, date));
+            posts.add(new CardPost(user,spotID,postID,authorID,title, authorName, votes, comments, date));
         }
 
         db_con.endConnection();
@@ -148,17 +233,17 @@ public class Query {
     }
 
     //POSTS
-    public void createPosts(@NotNull User user, String spotID, String title, String htmlText) throws SQLException {
+    public String createPosts(@NotNull User user, String spotID, String title, String htmlText) throws SQLException {
         Driver db_con = new Driver();
         db_con.startConnection();
 
-        String sql;
+        String sql, postID = null;
         int count = 0;
         ResultSet rs;
 
         //CREATE THE POST
         sql = "INSERT INTO `post_tbl` (`spotID`, `postAuthorID`, `postTitle`, `postMessage`) " +
-                "VALUES ('"+ spotID +"', '"+ user.getUserID() +"', '"+ title +"', \""+ htmlText +"\")";
+                "VALUES ('"+ spotID +"', '"+ user.getUserID() +"', '"+ title +"', '"+ htmlText +"')";
         db_con.executeSQL(sql);
 
         //GET THE SPOT's POST COUNT
@@ -174,14 +259,22 @@ public class Query {
                 "WHERE (`spotID` = '" + spotID + "')";
         db_con.executeSQL(sql);
 
+        //GET POST ID
+        sql = "SELECT `postID` FROM `post_tbl` WHERE (spotID = '" + spotID + "' && postAuthorID = '" + user.getUserID() + "' && postTitle = '" + title + "'  )";
+        rs = db_con.executeSQLRS(sql);
+        while(rs.next()){
+            postID = rs.getString("postID");
+        }
+
         db_con.endConnection();
+        return postID;
     }
 
-    public Content_MainPost getPostInfo(String spotID, String postID) throws SQLException, IOException, ParseException {
+    public ContentMainPost getPostInfo(User user, String spotID, String postID) throws SQLException, IOException, ParseException {
         Driver db_con = new Driver();
         db_con.startConnection();
 
-        Content_MainPost mainPost = null;
+        ContentMainPost mainPost = null;
 
         String sql = "SELECT * FROM `post_tbl` WHERE postID = '" + postID + "' ";
         ResultSet rs = db_con.executeSQLRS(sql);
@@ -202,12 +295,75 @@ public class Query {
             while(rs1.next()){
                 authorName = rs1.getString("username");
             }
-            mainPost = new Content_MainPost(postID, authorID, spotID, authorName,title, votes, comments,text,date);
+            mainPost = new ContentMainPost(user,postID, authorID, spotID, authorName,title, votes, comments,text,date);
         }
         
 
         db_con.endConnection();
         return mainPost;
+    }
+
+    public void changeVote(User user, ContentMainPost contentMainPost, String button) throws SQLException {
+        Driver db_con = new Driver();
+        db_con.startConnection();
+
+        if(button.equals("up")){
+            contentMainPost.switchVotes(user,1, contentMainPost.postID);
+        }else if(button.equals("down")){
+            contentMainPost.switchVotes(user,-1, contentMainPost.postID);
+        }
+
+        int count = contentMainPost.countVotes;
+
+        //UPDATE THE POSTS' VOTE COUNT
+        String sql = "UPDATE `post_tbl` " +
+                "SET `postCountVotes` = '" + (count) + "' " +
+                "WHERE (`postID` = '" + contentMainPost.postID + "')";
+        db_con.executeSQL(sql);
+
+        db_con.endConnection();
+    }
+
+    public void changeVote(User user, CardPost post, String button) throws SQLException {
+        Driver db_con = new Driver();
+        db_con.startConnection();
+
+        if(button.equals("up")){
+            post.switchVotes(user,1, post.postID);
+        }else if(button.equals("down")){
+            post.switchVotes(user,-1, post.postID);
+        }
+
+        int count = post.countVotes;
+
+        //UPDATE THE POSTS' VOTE COUNT
+        String sql = "UPDATE `post_tbl` " +
+                "SET `postCountVotes` = '" + (count) + "' " +
+                "WHERE (`postID` = '" + post.postID + "')";
+        db_con.executeSQL(sql);
+
+        db_con.endConnection();
+    }
+
+    public void changeVote(User user, CardComment comment, String button) throws SQLException {
+        Driver db_con = new Driver();
+        db_con.startConnection();
+
+        if(button.equals("up")){
+            comment.switchVotes(user,1, comment.commentID);
+        }else if(button.equals("down")){
+            comment.switchVotes(user,-1, comment.commentID);
+        }
+
+        int count = comment.countVotes;
+
+        //UPDATE THE COMMENT'S VOTE COUNT
+        String sql = "UPDATE `comment_tbl` " +
+                "SET `commentCountVotes` = '" + (count) + "' " +
+                "WHERE (`commentID` = '" + comment.commentID + "')";
+        db_con.executeSQL(sql);
+
+        db_con.endConnection();
     }
 
     //COMMENTS
@@ -240,7 +396,7 @@ public class Query {
         db_con.endConnection();
     }
 
-    public ArrayList<CardComment> getComments(String postID) throws SQLException, IOException, ParseException {
+    public ArrayList<CardComment> getComments(User user, String postID) throws SQLException, IOException, ParseException {
         Driver db_con = new Driver();
         db_con.startConnection();
 
@@ -267,7 +423,7 @@ public class Query {
             while(rs1.next()){
                 authorName = rs1.getString("username");
             }
-            comments.add(new CardComment(commentID,spotID,postID,authorID,vote, authorName, reply, message, date));
+            comments.add(new CardComment(user, commentID,spotID,postID,authorID,vote, authorName, reply, message, date));
         }
 
         db_con.endConnection();
@@ -335,5 +491,5 @@ public class Query {
         return replies;
     }
 
-
 }
+

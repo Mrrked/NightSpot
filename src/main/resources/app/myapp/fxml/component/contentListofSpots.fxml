@@ -1,21 +1,58 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Pagination?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
+<?import org.kordamp.ikonli.javafx.FontIcon?>
 
 <fx:root maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="580.0" prefWidth="945.0" style="-fx-background-color: -dark;" stylesheets="@../../css/main.css" type="VBox" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <HBox alignment="CENTER_LEFT" prefHeight="62.0" prefWidth="945.0">
+      <HBox alignment="CENTER_LEFT" prefHeight="62.0" prefWidth="945.0" spacing="10.0">
          <children>
-            <Label id="cListSpotTitle" fx:id="cListSpotTitle" text="Check out the most popular spots!">
-               <font>
-                  <Font size="25.0" />
-               </font>
-            </Label>
+            <HBox alignment="CENTER_LEFT" prefHeight="42.0" prefWidth="716.0" spacing="15.0">
+               <children>
+                  <Label fx:id="cListSpotTitle" contentDisplay="RIGHT" focusTraversable="false" graphicTextGap="8.0" prefHeight="42.0" text="Recommended for you">
+                     <font>
+                        <Font size="25.0" />
+                     </font>
+                     <graphic>
+                        <FontIcon accessibleText="mdi2a-arrow-right-bold-circle" iconColor="WHITE" iconLiteral="mdi2c-cards-heart" iconSize="40" />
+                     </graphic>
+                     <cursor>
+                        <Cursor fx:constant="DEFAULT" />
+                     </cursor>
+                  </Label>
+                  <Label fx:id="searchText" prefHeight="42.0" style="-fx-text-fill: -light;">
+                     <font>
+                        <Font size="25.0" />
+                     </font>
+                  </Label>
+               </children>
+            </HBox>
+            <HBox alignment="CENTER_RIGHT" prefHeight="42.0" prefWidth="199.0">
+               <children>
+                  <Label fx:id="SpotBtn" alignment="CENTER" prefHeight="42.0" prefWidth="96.0" text="Spots">
+                     <font>
+                        <Font size="25.0" />
+                     </font>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </Label>
+                  <Label fx:id="PostBtn" alignment="CENTER" prefHeight="42.0" prefWidth="96.0" text="Posts">
+                     <font>
+                        <Font size="25.0" />
+                     </font>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </Label>
+               </children>
+            </HBox>
          </children>
          <VBox.margin>
             <Insets />

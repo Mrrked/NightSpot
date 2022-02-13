@@ -41,8 +41,8 @@ public class UserCreate extends Method{
         Driver db_con = new Driver();
         db_con.startConnection();
 
-        String sql = "INSERT INTO `user_tbl` (`username`, `password`) " +
-                "VALUES ('" + getUsername() + "', '" + getEncryptedPassword() + "')";
+        String sql = "INSERT INTO `user_tbl` (`username`, `password`, `joinedSpots`, `upPost`, `upComment`, `downPost`, `downComment`) " +
+                "VALUES ('" + getUsername() + "', '" + getEncryptedPassword() + "', '', '', '', '', '')";
         db_con.executeSQL(sql);
 
         System.out.println("CREATE USER: SUCCESS");

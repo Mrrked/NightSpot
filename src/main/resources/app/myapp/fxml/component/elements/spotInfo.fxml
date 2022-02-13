@@ -42,6 +42,19 @@
       </Separator>
       <HBox alignment="CENTER" prefHeight="43.0" prefWidth="174.0" spacing="5.0">
          <children>
+            <VBox alignment="CENTER" prefHeight="87.0" prefWidth="137.0" spacing="10.0">
+               <children>
+                  <FontIcon id="spotInfoIcon" fx:id="spotInfoIcon" iconColor="#e0d3de" iconLiteral="mdi2r-record-circle" iconSize="40" />
+                  <Button fx:id="spotJoinBtn" contentDisplay="TOP" mnemonicParsing="false" prefHeight="33.0" prefWidth="85.0" styleClass="spotInfoButton" text="JOIN">
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                     <padding>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </padding>
+                  </Button>
+               </children>
+            </VBox>
             <VBox alignment="CENTER" prefHeight="87.0" prefWidth="137.0" spacing="15.0">
                <children>
                   <Label fx:id="spotCountMembers" alignment="CENTER" prefHeight="21.0" prefWidth="133.0" style="-fx-text-fill: -light;" text="X members" wrapText="true">
@@ -54,19 +67,6 @@
                         <Font size="15.0" />
                      </font>
                   </Label>
-               </children>
-            </VBox>
-            <VBox alignment="CENTER" prefHeight="87.0" prefWidth="137.0" spacing="10.0">
-               <children>
-                  <FontIcon id="spotInfoIcon" fx:id="spotInfoIcon" iconLiteral="mdi2r-record-circle" iconSize="40" />
-                  <Button fx:id="spotJoinBtn" contentDisplay="TOP" mnemonicParsing="false" prefHeight="33.0" prefWidth="85.0" styleClass="spotInfoButton" text="JOIN">
-                     <font>
-                        <Font size="15.0" />
-                     </font>
-                     <padding>
-                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                     </padding>
-                  </Button>
                </children>
             </VBox>
          </children>

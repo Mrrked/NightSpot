@@ -82,13 +82,6 @@
 #cListPostTitle{
     -fx-text-fill: -light;
 }
-.cListPostFilters {
-    -fx-text-fill: -light;
-    -fx-cursor: HAND;
-}
-.cListPostFilters:hover {
-    -fx-text-fill: -sign;
-}
 
 .cMainPostTextColor{
     -fx-text-fill: -light;
@@ -113,13 +106,7 @@
     -fx-text-fill: -darker;
     -fx-background-color: -sign;
 }
-.cMainPostVoteBtn {
-    -fx-fill: -light;
-    -fx-cursor: HAND;
-}
-.cMainPostVoteBtn:hover {
-    -fx-fill: -sign;
-}
+
 
 .cardColor {
     -fx-fill: -light;
@@ -165,10 +152,6 @@
 
 #spotRules {
     -fx-background-color: -dark;
-}
-
-#spotInfoIcon {
-    -fx-fill: -light;
 }
 
 .spotInfoButton {

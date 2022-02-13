@@ -40,7 +40,7 @@
                </VBox.margin>
             </HBox>
             <HBox alignment="CENTER_LEFT" prefWidth="300.0" spacing="20.0" />
-            <HTMLEditor fx:id="postEditor" focusTraversable="false" htmlText="&lt;html&gt;&lt;head&gt;&lt;meta charset=&quot;utf-8&quot;/&gt;&lt;style&gt;body {background-color: #0E1428;color: #E0D3DE;}&lt;/style&gt;&lt;/head&gt;&lt;body contentEditable=&quot;false&quot;&gt;&lt;/body&gt;&lt;/html&gt;" prefHeight="392.0" prefWidth="667.0" style="-fx-background-color: -darker;" />
+            <HTMLEditor fx:id="postEditor" focusTraversable="false" htmlText="&lt;html&gt;&lt;head&gt;&lt;style&gt;body {background-color: #0E1428;color: #E0D3DE;}&lt;/style&gt;&lt;/head&gt;&lt;body &gt;&lt;/body&gt;&lt;/html&gt;" prefHeight="392.0" prefWidth="667.0" style="-fx-background-color: -darker;" />
          </children></VBox>
    </content>
    <padding>
