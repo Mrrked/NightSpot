@@ -18,6 +18,8 @@ public class Content_ListofSpots extends VBox {
     @FXML
     public Label cListSpotTitle;
     @FXML
+    public FontIcon sIcon;
+    @FXML
     public Pagination cPageSpots;
     @FXML
     public Label searchText;

@@ -33,11 +33,17 @@
                      <font>
                         <Font size="20.0" />
                      </font>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
                   </Label>
                   <Label fx:id="cPopularBtn" alignment="CENTER" prefHeight="42.0" prefWidth="147.0" styleClass="cListPostFilters" text="Most Popular">
                      <font>
                         <Font size="20.0" />
                      </font>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
                   </Label>
                </children>
                <HBox.margin>

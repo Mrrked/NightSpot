@@ -174,7 +174,7 @@ public class Query {
 
         ArrayList<CardSpot> topSpots = new ArrayList<>();
 
-        String sql = "SELECT * FROM `spot_tbl` ORDER BY `spotCountMember` DESC LIMIT 5;";
+        String sql = "SELECT * FROM `spot_tbl` ORDER BY `spotInteractions` DESC LIMIT 50;";
         ResultSet rs = db_con.executeSQLRS(sql);
 
         String spotId, name, desc, member, posts;
@@ -192,24 +192,134 @@ public class Query {
         return topSpots;
     }
 
-    public ArrayList<CardPost> getTopPosts(User user, String spotID, int z) throws SQLException, IOException, ParseException {
+    public ArrayList<CardPost> getTopPosts(User user) throws SQLException, IOException, ParseException {
         Driver db_con = new Driver();
         db_con.startConnection();
 
         ArrayList<CardPost> posts = new ArrayList<>();
         String sql = null;
-        
-        if(z == 1){
-            sql = "SELECT * FROM `post_tbl` WHERE spotID = '" + spotID + "' ORDER BY `postCountVotes` DESC LIMIT 50";
-        }else if(z == 0){
-            sql = "SELECT * FROM `post_tbl` WHERE spotID = '" + spotID + "' ORDER BY `postDateCreated` DESC LIMIT 50";
+
+        sql = "SELECT * FROM `post_tbl` ORDER BY `postInteractions` DESC LIMIT 50";
+
+        ResultSet rs = db_con.executeSQLRS(sql);
+
+        String spotID, postID, authorID, title, votes, comments, date;
+        String authorName = null;
+
+
+        while(rs.next()){
+            spotID = rs.getString("spotID");
+            postID = rs.getString("postID");
+            authorID = rs.getString("postAuthorID");
+            title = rs.getString("postTitle");
+            votes = rs.getString("postCountVotes");
+            comments = rs.getString("postCountComment");
+            date = rs.getString("postDateCreated");
+
+            String sql1 = "SELECT `username` FROM `user_tbl` WHERE userID = '" + authorID + "'";
+            ResultSet rs1 = db_con.executeSQLRS(sql1);
+
+            while(rs1.next()){
+                authorName = rs1.getString("username");
+            }
+            posts.add(new CardPost(user,spotID,postID,authorID,title, authorName, votes, comments, date));
         }
-        
+
+        db_con.endConnection();
+        return posts;
+    }
+
+    public ArrayList<CardSpot> getMatchedSpots(User user, String text) throws SQLException, IOException {
+        Driver db_con = new Driver();
+        db_con.startConnection();
+
+        ArrayList<CardSpot> topSpots = new ArrayList<>();
+
+        String sql = "SELECT * FROM spot_tbl WHERE ( `spotName` LIKE '%" + text + "%' OR `spotDescription` LIKE '%" + text + "%') ORDER BY `spotCountPost` DESC LIMIT 50;";
+        ResultSet rs = db_con.executeSQLRS(sql);
+
+        String spotId, name, desc, member, posts;
+        int countInteractions;
+
+        while(rs.next()){
+            spotId = rs.getString("spotID");
+            name = rs.getString("spotName");
+            desc = rs.getString("spotDescription");
+            member = rs.getString("spotCountMember");
+            posts = rs.getString("spotCountPost");
+            countInteractions = Integer.parseInt(rs.getString("spotInteractions"));
+            topSpots.add(new CardSpot(user, spotId,name, desc, member, posts));
+
+            sql = "UPDATE `spot_tbl` " +
+                    "SET `spotInteractions` = '" + (countInteractions + 1) + "' " +
+                    "WHERE (`spotID` = '" + spotId + "')";
+            db_con.executeSQL(sql);
+        }
+
+        db_con.endConnection();
+        return topSpots;
+    }
+
+    public ArrayList<CardPost> getMatchedPosts(User user, String text) throws SQLException, IOException, ParseException {
+        Driver db_con = new Driver();
+        db_con.startConnection();
+
+        ArrayList<CardPost> posts = new ArrayList<>();
+
+        String sql = "SELECT * FROM post_tbl WHERE ( `postTitle` LIKE '%" + text + "%' OR `postMessage` LIKE '%" + text + "%') ORDER BY `postCountVotes` DESC LIMIT 50;";
+
+        ResultSet rs = db_con.executeSQLRS(sql);
+
+        String spotID, postID, authorID, title, votes, comments, date;
+        String authorName = null;
+        int countInteractions;
+
+        while(rs.next()){
+            spotID = rs.getString("spotID");
+            postID = rs.getString("postID");
+            authorID = rs.getString("postAuthorID");
+            title = rs.getString("postTitle");
+            votes = rs.getString("postCountVotes");
+            comments = rs.getString("postCountComment");
+            date = rs.getString("postDateCreated");
+            countInteractions = Integer.parseInt(rs.getString("postInteractions"));
+
+            String sql1 = "SELECT `username` FROM `user_tbl` WHERE userID = '" + authorID + "'";
+            ResultSet rs1 = db_con.executeSQLRS(sql1);
+
+            while(rs1.next()){
+                authorName = rs1.getString("username");
+            }
+            posts.add(new CardPost(user,spotID,postID,authorID,title, authorName, votes, comments, date));
+
+            sql = "UPDATE `post_tbl` " +
+                    "SET `postInteractions` = '" + (countInteractions + 1) + "' " +
+                    "WHERE (`postID` = '" + postID + "')";
+            db_con.executeSQL(sql);
+        }
+
+        db_con.endConnection();
+        return posts;
+    }
+
+    public ArrayList<CardPost> getPosts(User user, String spotID, int z) throws SQLException, IOException, ParseException {
+        Driver db_con = new Driver();
+        db_con.startConnection();
+
+        ArrayList<CardPost> posts = new ArrayList<>();
+        String sql = null;
+
+        if(z == 1){
+            sql = "SELECT * FROM `post_tbl` WHERE spotID = '" + spotID + "' ORDER BY `postDateCreated` DESC LIMIT 50";
+        }else if(z == 0){
+            sql = "SELECT * FROM `post_tbl` WHERE spotID = '" + spotID + "' ORDER BY `postCountVotes` DESC LIMIT 50";
+        }
 
         ResultSet rs = db_con.executeSQLRS(sql);
 
         String postID, authorID, title, votes, comments, date;
         String authorName = null;
+
 
         while(rs.next()){
             postID = rs.getString("postID");
@@ -227,6 +337,18 @@ public class Query {
             }
             posts.add(new CardPost(user,spotID,postID,authorID,title, authorName, votes, comments, date));
         }
+
+        sql = "SELECT `spotInteractions` FROM `spot_tbl` WHERE spotID = '" + spotID + "'";
+        rs = db_con.executeSQLRS(sql);
+
+        while (rs.next()){
+            int countInteractions = Integer.parseInt(rs.getString("spotInteractions"));
+            sql = "UPDATE `spot_tbl` " +
+                    "SET `spotInteractions` = '" + (countInteractions + 1) + "' " +
+                    "WHERE (`spotID` = '" + spotID + "')";
+            db_con.executeSQL(sql);
+        }
+
 
         db_con.endConnection();
         return posts;
@@ -280,6 +402,7 @@ public class Query {
         ResultSet rs = db_con.executeSQLRS(sql);
 
         String authorID, authorName = null, title, text, date, votes, comments;
+        int countInteractions;
 
         while(rs.next()){
             authorID = rs.getString("postAuthorID");
@@ -288,6 +411,7 @@ public class Query {
             date = rs.getString("postDateCreated");
             votes = rs.getString("postCountVotes");
             comments = rs.getString("postCountComment");
+            countInteractions = Integer.parseInt(rs.getString("postInteractions"));
 
             String sql1 = "SELECT `username` FROM `user_tbl` WHERE userID = '" + authorID + "'";
             ResultSet rs1 = db_con.executeSQLRS(sql1);
@@ -296,8 +420,13 @@ public class Query {
                 authorName = rs1.getString("username");
             }
             mainPost = new ContentMainPost(user,postID, authorID, spotID, authorName,title, votes, comments,text,date);
+
+            sql = "UPDATE `post_tbl` " +
+                    "SET `postInteractions` = '" + (countInteractions + 1) + "' " +
+                    "WHERE (`postID` = '" + postID + "')";
+            db_con.executeSQL(sql);
+
         }
-        
 
         db_con.endConnection();
         return mainPost;

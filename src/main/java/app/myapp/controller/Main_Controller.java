@@ -14,6 +14,8 @@ import app.myapp.model.user.data.User;
 import app.myapp.model.user.data.UserData;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
@@ -30,8 +32,7 @@ import java.util.Map;
 
 public class Main_Controller {
     // TODO
-    // IMITATE SPOTIFY'S TREND FEED: Daily, Monthly, Yearly
-    // POST UP AND DOWN VOTE, COMMENT ALSO
+    // DATABASE: Reset per week and sample data
 
     Image logo = new Image(String.valueOf(Main.class.getResource("objects\\logo_ph.png")));
 
@@ -54,20 +55,20 @@ public class Main_Controller {
     Query sql = new Query();
 
     //OBJECTS
-    Content_ListofSpots contentListofSpots = new Content_ListofSpots();
-    Content_ListofPosts contentListofPosts = contentListofPosts = new Content_ListofPosts();
+    Content_ListofSpots contentDynamic = new Content_ListofSpots();
+
+    Content_ListofPosts contentListofPosts = new Content_ListofPosts();
     Spot_JoinedList spotJoinedList = new Spot_JoinedList();
     ContentMainPost contentMainPost;
 
     //METHODS
-
     public Main_Controller() throws IOException {
         UserData userData = UserData.getInstance();
         this.user = userData.getUser();
     }
 
     @FXML
-    void initialize() throws IOException, SQLException {
+    void initialize() throws IOException, SQLException, ParseException {
         //Set Username to the MenuBar
         menuUser.setText(user.getUsername());
 
@@ -79,17 +80,20 @@ public class Main_Controller {
      * CURRENT SESSION *
      *******************/
 
-    void sessionHome() throws IOException, SQLException {
-        viewContent_SpotList();
+    void sessionHome() throws IOException, SQLException, ParseException {
+        txtSearch.clear();
+        viewContent_Top();
         viewSpotJoinedList();
     }
 
     void sessionSelectedSpots(String spotID) throws IOException, SQLException, ParseException {
+        txtSearch.clear();
         viewContent_PostList(spotID);
         viewSpotInfo(spotID);
     }
 
     void sessionSelectedPosts(String spotID, String postID) throws IOException, SQLException, ParseException {
+        txtSearch.clear();
         viewContent_MainPost(spotID, postID);
         viewSpotInfo(spotID);
     }
@@ -99,6 +103,7 @@ public class Main_Controller {
      ******************/
 
     void viewContent_MainPost(String spotID, String postID) throws IOException, SQLException, ParseException {
+        txtSearch.clear();
         //CONTENT PANE: Main Post
         Query sql = new Query();
 
@@ -182,51 +187,77 @@ public class Main_Controller {
 
     }
 
-    void viewContent_SpotList() throws IOException, SQLException {
-        //CONTENT PANE: User's List of Spots
+    void viewContent_Top() throws IOException, SQLException, ParseException {
+        //CONTENT PANE: Top spots and posts
+        contentPane.getChildren().clear();
+        contentPane.getChildren().add(contentDynamic);
 
-        //GET CURRENT DATABASE DATA
-        Query sql = new Query();
-        ArrayList<CardSpot> spotCards = sql.getTopSpots(user);
+        //Initial
+        contentDynamic.cListSpotTitle.setText("Recommended for you");
+        contentDynamic.sIcon.setIconLiteral("mdi2c-cards-heart");
+        contentDynamic.searchText.setText("");
 
-        for (CardSpot spot: spotCards) {
-            spot.cardSpotJoinBtn.setOnMousePressed(e->{
-                spot.switchState();
-                try {
-                    joinSpot(spot.spotID);
-                    viewSpotJoinedList();
-                } catch (SQLException | IOException ex) {
-                    ex.printStackTrace();
-                }
+        contentDynamic.PostBtn.setTextFill(Paint.valueOf("#E0D3DE"));
+        contentDynamic.SpotBtn.setTextFill(Paint.valueOf("#DC4731"));
+        getTopSpots();
 
-            });
-            spot.cardSpotTitle.setOnMousePressed(e->{
-                try {
-                    sessionSelectedSpots(spot.spotID);
-                } catch (IOException | SQLException | ParseException ex) {
-                    ex.printStackTrace();
-                }
-
-            });
-        }
-
-        //SETUP THE PAGINATION
-        contentListofSpots.cPageSpots.setMaxPageIndicatorCount(1);
-        contentListofSpots.cPageSpots.setPageCount(1);
-
-        //PAGINATION VBOX LAYER
-        PageContainer pageContainer = new PageContainer();
-        pageContainer.getChildren().addAll(spotCards);
-
-        //SET CHILDREN OF THE PAGINATION
-        contentListofSpots.cPageSpots.setPageFactory((pageIndex) -> {
-            return pageContainer;
+        contentDynamic.PostBtn.setOnMousePressed(e->{
+            contentDynamic.PostBtn.setTextFill(Paint.valueOf("#DC4731"));
+            contentDynamic.SpotBtn.setTextFill(Paint.valueOf("#E0D3DE"));
+            try {
+                getTopPosts();
+            } catch (SQLException | IOException | ParseException ex) {
+                ex.printStackTrace();
+            }
+        });
+        contentDynamic.SpotBtn.setOnMousePressed(e->{
+            contentDynamic.PostBtn.setTextFill(Paint.valueOf("#E0D3DE"));
+            contentDynamic.SpotBtn.setTextFill(Paint.valueOf("#DC4731"));
+            try {
+                getTopSpots();
+            } catch (SQLException | IOException ex) {
+                ex.printStackTrace();
+            }
         });
 
-        if(!contentPane.getChildren().contains(contentListofSpots)){
-            contentPane.getChildren().clear();
-            contentPane.getChildren().add(contentListofSpots);
-        }
+    }
+
+    void viewContent_Search() throws IOException, SQLException, ParseException {
+        //CONTENT PANE: Searched spots and posts
+        contentPane.getChildren().clear();
+        contentPane.getChildren().add(contentDynamic);
+
+
+        //Initial
+        String text = txtSearch.getText();
+        contentDynamic.cListSpotTitle.setText("Search results");
+        contentDynamic.sIcon.setIconLiteral("mdi2a-arrow-right-bold-circle");
+        contentDynamic.searchText.setText(text);
+
+        contentDynamic.PostBtn.setTextFill(Paint.valueOf("#E0D3DE"));
+        contentDynamic.SpotBtn.setTextFill(Paint.valueOf("#DC4731"));
+        getSearchSpots(text);
+
+        contentDynamic.PostBtn.setOnMousePressed(e->{
+            contentDynamic.PostBtn.setTextFill(Paint.valueOf("#DC4731"));
+            contentDynamic.SpotBtn.setTextFill(Paint.valueOf("#E0D3DE"));
+            try {
+                getSearchPosts(text);
+            } catch (SQLException | IOException | ParseException ex) {
+                ex.printStackTrace();
+            }
+        });
+
+        contentDynamic.SpotBtn.setOnMousePressed(e->{
+            contentDynamic.PostBtn.setTextFill(Paint.valueOf("#E0D3DE"));
+            contentDynamic.SpotBtn.setTextFill(Paint.valueOf("#DC4731"));
+            try {
+                getSearchSpots(text);
+            } catch (SQLException | IOException ex) {
+                ex.printStackTrace();
+            }
+        });
+
     }
 
     void viewContent_PostList(String spotID) throws SQLException, IOException, ParseException {
@@ -235,13 +266,14 @@ public class Main_Controller {
         contentListofPosts.cPostReturn.setOnMousePressed(e ->{
             try {
                 sessionHome();
-            } catch (IOException | SQLException ex) {
+            } catch (IOException | SQLException | ParseException ex) {
                 ex.printStackTrace();
             }
         });
+
         contentListofPosts.cLatestBtn.setOnMousePressed(e->{
             try {
-                getPosts(spotID,0);
+                getPosts(spotID,1);
                 contentListofPosts.cPopularBtn.setTextFill(Paint.valueOf("#E0D3DE"));
                 contentListofPosts.cLatestBtn.setTextFill(Paint.valueOf("#DC4731"));
             } catch (SQLException | IOException | ParseException ex) {
@@ -250,7 +282,7 @@ public class Main_Controller {
         });
         contentListofPosts.cPopularBtn.setOnMousePressed(e->{
             try {
-                getPosts(spotID,1);
+                getPosts(spotID,0);
                 contentListofPosts.cPopularBtn.setTextFill(Paint.valueOf("#DC4731"));
                 contentListofPosts.cLatestBtn.setTextFill(Paint.valueOf("#E0D3DE"));
             } catch (SQLException | IOException | ParseException ex) {
@@ -374,13 +406,39 @@ public class Main_Controller {
     }
 
     @FXML
-    void onHome(MouseEvent event) throws IOException, SQLException {
+    void onHome(MouseEvent event) throws IOException, SQLException, ParseException {
         sessionHome();
     }
 
     @FXML
-    void search(MouseEvent event) throws IOException {
+    void search(MouseEvent event) throws IOException, SQLException, ParseException {
+        if(!txtSearch.getText().isEmpty()){
+            viewContent_Search();
+            contentPane.requestFocus();
+        }
+    }
 
+    @FXML
+    void signout(ActionEvent event) {
+        Stage mainStage = (Stage) this.btnAdd.getScene().getWindow();
+
+        Stage loginStage = new Stage();
+        FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("fxml/userLoginView.fxml"));
+        Scene scene = null;
+        try {
+            scene = new Scene(fxmlLoader.load());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        loginStage.getIcons().add(new Image(String.valueOf(Main.class.getResource("objects\\logo_ph.png"))));
+        loginStage.setScene(scene);
+        loginStage.setTitle("NightSpot");
+        loginStage.setResizable(false);
+        loginStage.resizableProperty().setValue(Boolean.FALSE);
+
+        mainStage.close();
+        loginStage.show();
     }
 
     /*************
@@ -426,7 +484,7 @@ public class Main_Controller {
 
     void getPosts(String spotID, int z) throws SQLException, IOException, ParseException {
         //GET CURRENT DATABASE DATA
-        ArrayList<CardPost> postCards = sql.getTopPosts(user, spotID,z);
+        ArrayList<CardPost> postCards = sql.getPosts(user, spotID,z);
 
         for (CardPost post: postCards) {
             post.cPostLink.setOnMousePressed(e -> {
@@ -497,6 +555,7 @@ public class Main_Controller {
             });
         }
     }
+
     void showReply(CardComment comment) throws SQLException, IOException, ParseException {
         if(!comment.cComRepliesCount.getText().equals("0 replies")){
             if(comment.cComShowBtn.getText().equals("SHOW")){
@@ -631,6 +690,293 @@ public class Main_Controller {
     }
 
 
+
+    void getTopSpots() throws IOException, SQLException {
+        //GET CURRENT DATABASE DATA
+        ArrayList<CardSpot> spotCards = sql.getTopSpots(user);
+
+        for (CardSpot spot: spotCards) {
+            spot.cardSpotJoinBtn.setOnMousePressed(e->{
+                spot.switchState();
+                try {
+                    joinSpot(spot.spotID);
+                    viewSpotJoinedList();
+                } catch (SQLException | IOException ex) {
+                    ex.printStackTrace();
+                }
+            });
+
+            spot.cardSpotTitle.setOnMousePressed(e->{
+                try {
+                    sessionSelectedSpots(spot.spotID);
+                } catch (IOException | SQLException | ParseException ex) {
+                    ex.printStackTrace();
+                }
+            });
+        }
+
+        //SET UP THE PAGINATION
+        int countSpots = spotCards.size();
+        int noPage = Math.max(countSpots, 1);
+        noPage = (int) Math.ceil((double) noPage / 5);
+
+        contentDynamic.cPageSpots.setMaxPageIndicatorCount(3);
+        contentDynamic.cPageSpots.setPageCount(noPage);
+
+        System.out.println("POST COUNT: " + countSpots + " | PAGES: " + noPage);
+        ArrayList<PageContainer> containers = new ArrayList<>();
+
+        if(countSpots != 0){
+            //PAGINATION VBOX LAYER
+            int j = 0;
+
+            //LOOP PER PAGE
+            for (int i = 0; i < noPage; i++) {
+                PageContainer container = new PageContainer();
+
+                //LOOP THROUGH POSTS
+                for (int x = 0; j < countSpots; ) {
+                    container.getChildren().add(spotCards.get(j));
+                    x++;
+                    j++;
+                    if(x == 5 || j == countSpots ){
+                        containers.add(container);
+                        //RESET PER CONTAINER
+                        break;
+                    }
+                }
+            }
+
+            //SET CHILDREN OF THE PAGINATION
+            contentDynamic.cPageSpots.setPageFactory(containers::get);
+
+        }else {
+            PageContainer empty = new PageContainer();
+            contentDynamic.cPageSpots.setPageFactory((pageindex) -> {
+                return empty;
+            });
+        }
+    }
+
+    void getTopPosts() throws SQLException, IOException, ParseException {
+        //GET CURRENT DATABASE DATA
+        ArrayList<CardPost> postCards = sql.getTopPosts(user);
+
+        for (CardPost post: postCards) {
+            post.cPostLink.setOnMousePressed(e -> {
+                try {
+                    sessionSelectedPosts(post.spotID, post.postID);
+                } catch (IOException | SQLException | ParseException ex) {
+                    ex.printStackTrace();
+                }
+            });
+
+            post.cPostCardUpBtn.setOnMousePressed(e->{
+                try {
+                    sql.changeVote(user, post, "up");
+                    user.updateData();
+                } catch (SQLException ex) {
+                    ex.printStackTrace();
+                }
+            });
+            post.cPostCardDownBtn.setOnMousePressed(e->{
+                try {
+                    sql.changeVote(user, post, "down");
+                    user.updateData();
+                } catch (SQLException ex) {
+                    ex.printStackTrace();
+                }
+            });
+        }
+
+        //SET UP THE PAGINATION
+        int countPosts = postCards.size();
+        int noPage = Math.max(countPosts, 1);
+        noPage = (int) Math.ceil((double) noPage / 5);
+
+        contentDynamic.cPageSpots.setMaxPageIndicatorCount(3);
+        contentDynamic.cPageSpots.setPageCount(noPage);
+
+        System.out.println("POST COUNT: " + countPosts + " | PAGES: " + noPage);
+        ArrayList<PageContainer> containers = new ArrayList<>();
+
+        if(countPosts != 0){
+            //PAGINATION VBOX LAYER
+            int j = 0;
+
+            //LOOP PER PAGE
+            for (int i = 0; i < noPage; i++) {
+                PageContainer container = new PageContainer();
+
+                //LOOP THROUGH POSTS
+                for (int x = 0; j < countPosts; ) {
+                    container.getChildren().add(postCards.get(j));
+                    x++;
+                    j++;
+                    if(x == 5 || j == countPosts ){
+                        containers.add(container);
+                        //RESET PER CONTAINER
+                        break;
+                    }
+                }
+            }
+
+            //SET CHILDREN OF THE PAGINATION
+            contentDynamic.cPageSpots.setPageFactory(containers::get);
+
+        }else {
+            PageContainer empty = new PageContainer();
+            contentDynamic.cPageSpots.setPageFactory((pageindex) -> {
+                return empty;
+            });
+        }
+
+
+
+    }
+
+    void getSearchSpots(String text) throws IOException, SQLException {
+        //GET CURRENT DATABASE DATA
+        ArrayList<CardSpot> spotCards = sql.getMatchedSpots(user,text);
+
+        for (CardSpot spot: spotCards) {
+            spot.cardSpotJoinBtn.setOnMousePressed(e->{
+                spot.switchState();
+                try {
+                    joinSpot(spot.spotID);
+                    viewSpotJoinedList();
+                } catch (SQLException | IOException ex) {
+                    ex.printStackTrace();
+                }
+            });
+
+            spot.cardSpotTitle.setOnMousePressed(e->{
+                try {
+                    sessionSelectedSpots(spot.spotID);
+                } catch (IOException | SQLException | ParseException ex) {
+                    ex.printStackTrace();
+                }
+            });
+        }
+
+        //SET UP THE PAGINATION
+        int countSpots = spotCards.size();
+        int noPage = Math.max(countSpots, 1);
+        noPage = (int) Math.ceil((double) noPage / 5);
+
+        contentDynamic.cPageSpots.setMaxPageIndicatorCount(3);
+        contentDynamic.cPageSpots.setPageCount(noPage);
+
+        System.out.println("POST COUNT: " + countSpots + " | PAGES: " + noPage);
+        ArrayList<PageContainer> containers = new ArrayList<>();
+
+        if(countSpots != 0){
+            //PAGINATION VBOX LAYER
+            int j = 0;
+
+            //LOOP PER PAGE
+            for (int i = 0; i < noPage; i++) {
+                PageContainer container = new PageContainer();
+
+                //LOOP THROUGH POSTS
+                for (int x = 0; j < countSpots; ) {
+                    container.getChildren().add(spotCards.get(j));
+                    x++;
+                    j++;
+                    if(x == 5 || j == countSpots ){
+                        containers.add(container);
+                        //RESET PER CONTAINER
+                        break;
+                    }
+                }
+            }
+
+            //SET CHILDREN OF THE PAGINATION
+            contentDynamic.cPageSpots.setPageFactory(containers::get);
+
+        }else {
+            PageContainer empty = new PageContainer();
+            contentDynamic.cPageSpots.setPageFactory((pageindex) -> {
+                return empty;
+            });
+        }
+
+    }
+
+    void getSearchPosts(String text) throws SQLException, IOException, ParseException {
+        //GET CURRENT DATABASE DATA
+        ArrayList<CardPost> postCards = sql.getMatchedPosts(user,text);
+
+        for (CardPost post: postCards) {
+            post.cPostLink.setOnMousePressed(e -> {
+                try {
+                    sessionSelectedPosts(post.spotID, post.postID);
+                } catch (IOException | SQLException | ParseException ex) {
+                    ex.printStackTrace();
+                }
+            });
+
+            post.cPostCardUpBtn.setOnMousePressed(e->{
+                try {
+                    sql.changeVote(user, post, "up");
+                    user.updateData();
+                } catch (SQLException ex) {
+                    ex.printStackTrace();
+                }
+            });
+            post.cPostCardDownBtn.setOnMousePressed(e->{
+                try {
+                    sql.changeVote(user, post, "down");
+                    user.updateData();
+                } catch (SQLException ex) {
+                    ex.printStackTrace();
+                }
+            });
+        }
+
+        //SET UP THE PAGINATION
+        int countPosts = postCards.size();
+        int noPage = Math.max(countPosts, 1);
+        noPage = (int) Math.ceil((double) noPage / 5);
+
+        contentDynamic.cPageSpots.setMaxPageIndicatorCount(3);
+        contentDynamic.cPageSpots.setPageCount(noPage);
+
+        System.out.println("POST COUNT: " + countPosts + " | PAGES: " + noPage);
+        ArrayList<PageContainer> containers = new ArrayList<>();
+
+        if(countPosts != 0){
+            //PAGINATION VBOX LAYER
+            int j = 0;
+
+            //LOOP PER PAGE
+            for (int i = 0; i < noPage; i++) {
+                PageContainer container = new PageContainer();
+
+                //LOOP THROUGH POSTS
+                for (int x = 0; j < countPosts; ) {
+                    container.getChildren().add(postCards.get(j));
+                    x++;
+                    j++;
+                    if(x == 5 || j == countPosts ){
+                        containers.add(container);
+                        //RESET PER CONTAINER
+                        break;
+                    }
+                }
+            }
+
+            //SET CHILDREN OF THE PAGINATION
+            contentDynamic.cPageSpots.setPageFactory(containers::get);
+
+        }else {
+            PageContainer empty = new PageContainer();
+            contentDynamic.cPageSpots.setPageFactory((pageindex) -> {
+                return empty;
+            });
+        }
+
+    }
 }
 
 

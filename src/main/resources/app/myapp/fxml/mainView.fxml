@@ -55,7 +55,7 @@
                   </TextField>
                   <StackedFontIcon fx:id="btnSearch" onMouseClicked="#search">
                      <children>
-                        <FontIcon iconLiteral="mdi2m-magnify" iconSize="35" styleClass="iconbtn" />
+                        <FontIcon iconLiteral="mdi2m-magnify" iconSize="35" onMouseClicked="#search" styleClass="iconbtn" />
                      </children>
                   </StackedFontIcon>
                </children>
@@ -69,8 +69,7 @@
                   </StackedFontIcon>
                   <MenuButton id="userDropdown" fx:id="menuUser" focusTraversable="false" graphicTextGap="10.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="160.0" text="User" textFill="#e0d3de">
                     <items>
-                      <MenuItem mnemonicParsing="false" text="Action 1" />
-                      <MenuItem mnemonicParsing="false" text="Action 2" />
+                      <MenuItem id="signout" mnemonicParsing="false" onAction="#signout" text="Sign Out" />
                     </items>
                      <font>
                         <Font size="15.0" />
@@ -81,6 +80,9 @@
                      <graphic>
                         <FontIcon fill="WHITE" iconColor="#dc4731" iconLiteral="mdi2a-account" iconSize="30" />
                      </graphic>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
                   </MenuButton>
                </children>
             </HBox>

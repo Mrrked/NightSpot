@@ -67,7 +67,6 @@ public class CardComment extends VBox {
         String strDate = dt1.format(newDate);
         this.cComDate.setText(strDate);
 
-
         if(user.getUpComment().size() != 0 && user.getUpComment().contains(commentID)){
             switchColor(cComUpBtn,true);
             switchColor(cComDownBtn,false);
@@ -94,7 +93,7 @@ public class CardComment extends VBox {
                 if(u == 1){ //TO UP
                     //INSERTION
                     if(!upComment.isEmpty()){
-                        downComment.add(commentID);
+                        upComment.add(commentID);
                         up = String.join(",", upComment);
                     }else{
                         up = commentID;

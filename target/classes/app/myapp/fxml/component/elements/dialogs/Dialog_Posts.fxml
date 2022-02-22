@@ -20,7 +20,7 @@
          <children>
             <HBox alignment="TOP_CENTER" prefHeight="56.0" prefWidth="399.0" spacing="20.0">
                <children>
-                  <Label fx:id="dPostTitle" alignment="CENTER" prefHeight="68.0" prefWidth="300.0" text="Create a Post!">
+                  <Label fx:id="dPostTitle" alignment="CENTER" prefHeight="68.0" prefWidth="300.0" styleClass="labels" text="Create a Post!">
                      <font>
                         <Font name="System Bold" size="37.0" />
                      </font>

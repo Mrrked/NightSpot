@@ -18,7 +18,7 @@
     -fx-border-color: -sign;
 }
 
-.label {
+.labels {
     -fx-text-fill: -light;
 }
 
@@ -31,7 +31,6 @@
 
 .text-area{
     -fx-background-color: -darker;
-    -fx-text-fill: -light;
     -fx-border-width: 1;
     -fx-border-color: -semidark;
 }

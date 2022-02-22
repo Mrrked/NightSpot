@@ -36,7 +36,33 @@
     -fx-border-color: -semidark;
 }
 
+.menu-item .label {
+    -fx-font-size: 15px;
+    -fx-text-fill: white;
+    -fx-cursor: HAND;
+}
+
+.menu-item:focused {
+    -fx-background-color: -dark;
+    -fx-cursor: HAND;
+}
+
+.menu-item:focused .label {
+    -fx-text-fill: -sign;
+}
+
+.context-menu {
+
+    -fx-background-color: -dark;
+    /*    -fx-padding: 0.666667em 0.083333em 0.666667em 0.083333em;  8 1 8 1 */
+    -fx-padding: .7em .7em .7em .7em; /* 4 1 8 1 */
+    -fx-min-width: 160px;
+    -fx-border-color: -semidark;
+    -fx-border-width: 1px;
+}
+
 /*NavPane********************************************************/
+
 
 #navPane {
     -fx-background-color: -dark;

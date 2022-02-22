@@ -28,5 +28,6 @@ public class Content_ListofPosts extends VBox {
         loader.setController(this);
         loader.setRoot(this);
         loader.load();
+
     }
 }

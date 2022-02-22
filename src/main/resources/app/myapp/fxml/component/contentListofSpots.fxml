@@ -15,12 +15,12 @@
          <children>
             <HBox alignment="CENTER_LEFT" prefHeight="42.0" prefWidth="716.0" spacing="15.0">
                <children>
-                  <Label fx:id="cListSpotTitle" contentDisplay="RIGHT" focusTraversable="false" graphicTextGap="8.0" prefHeight="42.0" text="Recommended for you">
+                  <Label fx:id="cListSpotTitle" contentDisplay="RIGHT" focusTraversable="false" graphicTextGap="10.0" prefHeight="42.0" text="Recommended for you">
                      <font>
                         <Font size="25.0" />
                      </font>
                      <graphic>
-                        <FontIcon accessibleText="mdi2a-arrow-right-bold-circle" iconColor="WHITE" iconLiteral="mdi2c-cards-heart" iconSize="40" />
+                        <FontIcon fx:id="sIcon" accessibleText="mdi2a-arrow-right-bold-circle" iconColor="WHITE" iconLiteral="mdi2c-cards-heart" iconSize="30" />
                      </graphic>
                      <cursor>
                         <Cursor fx:constant="DEFAULT" />
