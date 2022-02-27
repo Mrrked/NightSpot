@@ -41,7 +41,7 @@ public class CardSpot extends HBox {
         this.cardSpotTitle.setText(title);
         this.cardSpotDescription.setText(desc);
         this.countMember = Integer.parseInt(member);
-        this.cardSpotMembers.setText(member + " members");
+        this.cardSpotMembers.setText(addCommasToNumericString(member) + " members");
         this.cardSpotPosts.setText(post + " posts");
 
         if(!user.getJoinedSpots().isEmpty() && user.getJoinedSpots().contains(spotID) ){
@@ -54,11 +54,28 @@ public class CardSpot extends HBox {
         if (cardSpotJoinBtn.getText().equals("JOIN")){
             cardSpotJoinIcon.setIconColor(Paint.valueOf("#DC4731"));
             cardSpotJoinBtn.setText("JOINED");
-            this.cardSpotMembers.setText((++countMember ) + " members");
+            this.cardSpotMembers.setText(addCommasToNumericString(String.valueOf(++countMember)) + " members");
         }else if(cardSpotJoinBtn.getText().equals("JOINED")){
             cardSpotJoinIcon.setIconColor(Paint.valueOf("#E0D3DE"));
             cardSpotJoinBtn.setText("JOIN");
-            this.cardSpotMembers.setText((--countMember ) + " members");
+            this.cardSpotMembers.setText(addCommasToNumericString(String.valueOf(--countMember)) + " members");
         }
+    }
+    private String addCommasToNumericString (String digits)
+    {
+        String result = "";
+        int len = digits.length();
+        int nDigits = 0;
+
+        for (int i = len - 1; i >= 0; i--)
+        {
+            result = digits.charAt(i) + result;
+            nDigits++;
+            if (((nDigits % 3) == 0) && (i > 0))
+            {
+                result = "," + result;
+            }
+        }
+        return (result);
     }
 }

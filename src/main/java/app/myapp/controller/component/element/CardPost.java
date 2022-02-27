@@ -61,8 +61,8 @@ public class CardPost extends HBox {
         this.authorID = authorID;
         this.postID = postID;
         this.cPostCardTitle.setText(title);
-        this.cPostCardVotes.setText(votes);
-        this.cPostCardComments.setText(comments + " comments");
+        this.cPostCardVotes.setText(addCommasToNumericString(votes));
+        this.cPostCardComments.setText(addCommasToNumericString(comments) + " comments");
         this.cPostCardAuthor.setText(authorName);
         this.countVotes = Integer.parseInt(votes);
 
@@ -218,7 +218,7 @@ public class CardPost extends HBox {
                 }
                 break;
         }
-        this.cPostCardVotes.setText(String.valueOf(countVotes));
+        this.cPostCardVotes.setText(String.valueOf(addCommasToNumericString(String.valueOf(countVotes))));
 
     }
 
@@ -230,6 +230,22 @@ public class CardPost extends HBox {
         }
     }
 
+    private String addCommasToNumericString (String digits)
+    {
+        String result = "";
+        int len = digits.length();
+        int nDigits = 0;
 
+        for (int i = len - 1; i >= 0; i--)
+        {
+            result = digits.charAt(i) + result;
+            nDigits++;
+            if (((nDigits % 3) == 0) && (i > 0))
+            {
+                result = "," + result;
+            }
+        }
+        return (result);
+    }
 
 }

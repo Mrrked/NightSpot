@@ -54,7 +54,7 @@ public class CardComment extends VBox {
         this.spotID = spotID;
         this.postID = postID;
         this.authorID = authorID;
-        this.cComVotes.setText(vote);
+        this.cComVotes.setText(addCommasToNumericString(vote));
         this.cComAuthor.setText(authorName);
         this.cComRepliesCount.setText(reply + " replies");
         this.cComMessage.setText(message);
@@ -224,5 +224,22 @@ public class CardComment extends VBox {
         }
     }
 
+    private String addCommasToNumericString (String digits)
+    {
+        String result = "";
+        int len = digits.length();
+        int nDigits = 0;
+
+        for (int i = len - 1; i >= 0; i--)
+        {
+            result = digits.charAt(i) + result;
+            nDigits++;
+            if (((nDigits % 3) == 0) && (i > 0))
+            {
+                result = "," + result;
+            }
+        }
+        return (result);
+    }
 
 }

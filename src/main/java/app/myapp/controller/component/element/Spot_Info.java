@@ -43,7 +43,7 @@ public class Spot_Info extends VBox {
         this.spotID = id;
         this.ownerID = ownerID;
         this.spotName.setText(name);
-        this.spotCountMembers.setText(member + " members");
+        this.spotCountMembers.setText(addCommasToNumericString(member) + " members");
         this.countMember = Integer.parseInt(member);
         this.spotDescription.setText(desc);
         this.spotCountPosts.setText(post + " posts");
@@ -59,12 +59,29 @@ public class Spot_Info extends VBox {
         if (spotJoinBtn.getText().equals("JOIN")){
             spotInfoIcon.setIconColor(Paint.valueOf("#DC4731"));
             spotJoinBtn.setText("JOINED");
-            this.spotCountMembers.setText((++countMember ) + " members");
+            this.spotCountMembers.setText(addCommasToNumericString(String.valueOf((++countMember))) + " members");
         }else if(spotJoinBtn.getText().equals("JOINED")){
             spotInfoIcon.setIconColor(Paint.valueOf("#E0D3DE"));
             spotJoinBtn.setText("JOIN");
-            this.spotCountMembers.setText((--countMember ) + " members");
+            this.spotCountMembers.setText(addCommasToNumericString(String.valueOf((--countMember))) + " members");
         }
     }
 
+    private String addCommasToNumericString (String digits)
+    {
+        String result = "";
+        int len = digits.length();
+        int nDigits = 0;
+
+        for (int i = len - 1; i >= 0; i--)
+        {
+            result = digits.charAt(i) + result;
+            nDigits++;
+            if (((nDigits % 3) == 0) && (i > 0))
+            {
+                result = "," + result;
+            }
+        }
+        return (result);
+    }
 }

@@ -15,7 +15,7 @@
    <content>
       <VBox alignment="CENTER" prefHeight="328.0" prefWidth="687.0" spacing="10.0">
          <children>
-            <TextArea fx:id="txtMessage" focusTraversable="false" prefHeight="139.0" prefWidth="551.0" promptText="Enter your comment">
+            <TextArea fx:id="txtMessage" focusTraversable="false" prefHeight="139.0" prefWidth="551.0" promptText="Enter your comment" wrapText="true">
                <font>
                   <Font size="14.0" />
                </font>

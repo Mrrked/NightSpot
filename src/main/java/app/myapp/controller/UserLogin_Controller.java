@@ -112,11 +112,19 @@ public class UserLogin_Controller {
         signUpForm.txtConfirmPassword.clear();
         signUpForm.txtPassword.clear();
 
-        if(username.isEmpty() || password1.isEmpty() || password2.isEmpty()){
+        if(password2.isEmpty()){
             signUpForm.showNotificationPane("Please fill up all fields!");
         }else if(!password1.equals(password2)){
             signUpForm.showNotificationPane("Password does not match!");
-        }else {
+        }else if(username.length() > 14){
+            signUpForm.showNotificationPane("Username is too long!");
+        }else if(username.length() < 4){
+            signUpForm.showNotificationPane("Username is too short!");
+        }else if(password1.length() > 14){
+            signUpForm.showNotificationPane("Password is too long!");
+        }else if(password1.length() < 4){
+            signUpForm.showNotificationPane("Password is too short!");
+        }else  {
             UserCreate user = new UserCreate(username,password1);
             if(user.isExist()){
                 signUpForm.showNotificationPane("Username already exists!");

@@ -393,7 +393,6 @@ public class Main_Controller {
                 //METHOD
                 try {
                     String spotID = sql.createSpots(user, name, desc, rules);
-                    System.out.println("CREATED SPOT: " + name);
                     user.updateData();
                     sessionSelectedSpots(spotID);
                 } catch (SQLException | IOException | ParseException ex) {
@@ -466,7 +465,6 @@ public class Main_Controller {
                 //METHOD
                 try {
                     String postID = sql.createPosts(user, spotID, title, htmlText);
-                    System.out.println("CREATED POST: " + title);
                     sessionSelectedPosts(spotID,postID);
                 } catch (SQLException | IOException | ParseException ex) {
                     ex.printStackTrace();
@@ -521,7 +519,6 @@ public class Main_Controller {
         contentListofPosts.cPagePosts.setMaxPageIndicatorCount(3);
         contentListofPosts.cPagePosts.setPageCount(noPage);
 
-        System.out.println("POST COUNT: " + countPosts + " | PAGES: " + noPage);
         ArrayList<PageContainer> containers = new ArrayList<>();
 
         if(countPosts != 0){
@@ -591,7 +588,6 @@ public class Main_Controller {
                 //METHOD
                 try {
                     sql.createReplies(user, message, comment);
-                    System.out.println("CREATED REPLY: ");
 
                     String []lastcount = comment.cComRepliesCount.getText().split(" ");
                     int count = Integer.parseInt(lastcount[0]);
@@ -634,8 +630,6 @@ public class Main_Controller {
                 //METHOD
                 try {
                     sql.createComments(user, message, contentMainPost.postID, contentMainPost.spotID);
-                    System.out.println("CREATED COMMENT: ");
-                    //
 
                     String []lastcount = contentMainPost.cMainPostComments.getText().split(" ");
                     int count = Integer.parseInt(lastcount[0]);
@@ -690,7 +684,6 @@ public class Main_Controller {
     }
 
 
-
     void getTopSpots() throws IOException, SQLException {
         //GET CURRENT DATABASE DATA
         ArrayList<CardSpot> spotCards = sql.getTopSpots(user);
@@ -723,7 +716,6 @@ public class Main_Controller {
         contentDynamic.cPageSpots.setMaxPageIndicatorCount(3);
         contentDynamic.cPageSpots.setPageCount(noPage);
 
-        System.out.println("POST COUNT: " + countSpots + " | PAGES: " + noPage);
         ArrayList<PageContainer> containers = new ArrayList<>();
 
         if(countSpots != 0){
@@ -797,7 +789,6 @@ public class Main_Controller {
         contentDynamic.cPageSpots.setMaxPageIndicatorCount(3);
         contentDynamic.cPageSpots.setPageCount(noPage);
 
-        System.out.println("POST COUNT: " + countPosts + " | PAGES: " + noPage);
         ArrayList<PageContainer> containers = new ArrayList<>();
 
         if(countPosts != 0){
@@ -867,7 +858,6 @@ public class Main_Controller {
         contentDynamic.cPageSpots.setMaxPageIndicatorCount(3);
         contentDynamic.cPageSpots.setPageCount(noPage);
 
-        System.out.println("POST COUNT: " + countSpots + " | PAGES: " + noPage);
         ArrayList<PageContainer> containers = new ArrayList<>();
 
         if(countSpots != 0){
@@ -942,7 +932,6 @@ public class Main_Controller {
         contentDynamic.cPageSpots.setMaxPageIndicatorCount(3);
         contentDynamic.cPageSpots.setPageCount(noPage);
 
-        System.out.println("POST COUNT: " + countPosts + " | PAGES: " + noPage);
         ArrayList<PageContainer> containers = new ArrayList<>();
 
         if(countPosts != 0){

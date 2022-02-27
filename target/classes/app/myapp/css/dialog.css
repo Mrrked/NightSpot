@@ -33,6 +33,7 @@
     -fx-background-color: -darker;
     -fx-border-width: 1;
     -fx-border-color: -semidark;
+    -fx-text-fill: -light;
 }
 .text-area .content{
     -fx-background-color: -darker;

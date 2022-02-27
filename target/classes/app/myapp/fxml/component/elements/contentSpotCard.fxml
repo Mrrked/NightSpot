@@ -62,7 +62,7 @@
                   <Font size="10.0" />
                </font>
             </Label>
-            <Label fx:id="cardSpotDescription" alignment="TOP_LEFT" prefHeight="48.0" prefWidth="368.0" styleClass="cardColor" text="RAQVUexLtMvpvOdJ3k6O4ExZf4ShdFW7PxhuAkoFPa4unTyF6bLZbZzRlUTnGfjIrNpaejbkk40iUF00S4YDfp9PEVDjtr8M6GUg" wrapText="true">
+            <Label fx:id="cardSpotDescription" prefHeight="48.0" prefWidth="368.0" styleClass="cardColor" text="RAQVUexLtMvpvOdJ3k6O4ExZf4ShdFW7PxhuAkoFPa4unTyF6bLZbZzRlUTnGfjIrNpaejbkk40iUF00S4YDfp9PEVDjtr8M6GUg" wrapText="true">
                <font>
                   <Font size="13.0" />
                </font>

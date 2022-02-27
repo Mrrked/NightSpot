@@ -77,16 +77,16 @@ public class User {
             downComment.remove("");
         }
 
-        System.out.println("User Data: | "
-                + username + " | "
-                + role + " | "
-                + countJoinedSpots + " | "
-                + joinedSpots + " | "
-                + upPost + " | "
-                + downPost + " |||| "
-                + upComment + " | "
-                + downComment + " | "
-        );
+//        System.out.println("User Data: | "
+//                + username + " | "
+//                + role + " | "
+//                + countJoinedSpots + " | "
+//                + joinedSpots + " | "
+//                + upPost + " | "
+//                + downPost + " |||| "
+//                + upComment + " | "
+//                + downComment + " | "
+//        );
 
         db_con.endConnection();
     }
