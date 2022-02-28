@@ -31,8 +31,6 @@ import java.util.ArrayList;
 import java.util.Map;
 
 public class Main_Controller {
-    // TODO
-    // DATABASE: Reset per week and sample data
 
     Image logo = new Image(String.valueOf(Main.class.getResource("objects\\logo_ph.png")));
 
